@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { motion } from "motion/react";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
@@ -21,6 +21,16 @@ const BREAKPOINTS = {
   lg: 1024,
 };
 
+// Fisher-Yates shuffle algorithm
+const shuffleArray = (array: any[]) => {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+};
+
 export default function Tissues() {
   return (
     <main className="min-h-screen overflow-hidden bg-zinc-950">
@@ -32,16 +42,21 @@ export default function Tissues() {
   );
 }
 
-// TODO
 const CardCarousel = () => {
   const [ref, { width }] = useMeasure();
   const [offset, setOffset] = useState(0);
+  const [shuffledItems, setShuffledItems] = useState<any[]>([]);
+
+  // Randomize items on component mount
+  useEffect(() => {
+    setShuffledItems(shuffleArray(items));
+  }, []);
 
   const CARD_BUFFER = width > BREAKPOINTS.lg ? 3 : width > BREAKPOINTS.sm ? 2 : 1;
 
   const CAN_SHIFT_LEFT = offset < 0;
 
-  const CAN_SHIFT_RIGHT = Math.abs(offset) < CARD_SIZE * (items.length - CARD_BUFFER);
+  const CAN_SHIFT_RIGHT = Math.abs(offset) < CARD_SIZE * (shuffledItems.length - CARD_BUFFER);
 
   const shiftLeft = () => {
     if (!CAN_SHIFT_LEFT) {
@@ -68,8 +83,7 @@ const CardCarousel = () => {
             }}
             className="flex"
           >
-            {/* TODO */}
-            {items.map((item: any) => {
+            {shuffledItems.map((item: any) => {
               return <Card key={item.id} {...item} />;
             })}
           </motion.div>
@@ -103,7 +117,6 @@ const CardCarousel = () => {
   );
 };
 
-// TODO
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Card = ({ image, frontText, backText }: any) => {
   const [isFlipped, setIsFlipped] = useState(false);
@@ -157,38 +170,117 @@ const Card = ({ image, frontText, backText }: any) => {
 const items = [
   {
     id: 1,
-    image:
-      "https://images.unsplash.com/photo-1554475901-4538ddfbccc2?q=80&w=2072&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
-    frontText: "Just feels right",
+    image: "https://boej6iprvajfuxis.public.blob.vercel-storage.com/adipose-sWpqjqBSJz5shCtNbYH4LrYLOZyWW3.png",
+    backText: "Adipose",
   },
   {
     id: 2,
-    image: "/imgs/computer/keyboard.png",
-    frontText: "Type in style",
+    image: "https://boej6iprvajfuxis.public.blob.vercel-storage.com/areolar_ct-UdLeKfvE9ckSgN8iLRi17l11NYZiZe.png",
+    backText: "Areolar CT",
   },
   {
     id: 3,
-    image: "/imgs/computer/monitor.png",
-    frontText: "Looks like a win",
+    image: "https://boej6iprvajfuxis.public.blob.vercel-storage.com/blood-Weec6633Oz5jy9MZu4BvxOzHK2sBwo.png",
+    backText: "Blood",
   },
   {
     id: 4,
-    image: "/imgs/computer/chair.png",
-    frontText: "Back feels great",
+    image: "https://boej6iprvajfuxis.public.blob.vercel-storage.com/bone-1Ns6hCfcvK2dywIuY6Ju40RVNBWfo3.png",
+    backText: "Bone",
   },
   {
     id: 5,
-    image: "/imgs/computer/lights.png",
-    frontText: "It's lit",
+    image: "https://boej6iprvajfuxis.public.blob.vercel-storage.com/cardiac_muscle-9MYVX1XIsNDSv30OzZ15KMXByDeHB1.png",
+    backText: "Cardiac muscle",
   },
   {
     id: 6,
-    image: "/imgs/computer/desk.png",
-    frontText: "Stand up straight",
+    image: "https://boej6iprvajfuxis.public.blob.vercel-storage.com/dense_irregular_ct-ClJdWEvlj3rhTIRKYbMOCPCOqHdHAY.png",
+    backText: "Dense irregular CT",
   },
   {
     id: 7,
-    image: "/imgs/computer/headphones.png",
-    frontText: "Sounds good",
+    image: "https://boej6iprvajfuxis.public.blob.vercel-storage.com/dense_regular_ct-fcPwi9aytxEjsH98Mja1hv0cwfIrfd.png",
+    backText: "Dense regular CT",
+  },
+  {
+    id: 8,
+    image: "https://boej6iprvajfuxis.public.blob.vercel-storage.com/elastic_cartilage-qBmNS4R1zF40DNOECHqeCcbtppMnCx.png",
+    backText: "Elastic cartilage",
+  },
+  {
+    id: 9,
+    image: "https://boej6iprvajfuxis.public.blob.vercel-storage.com/elastic_ct-taZGMdpe1t0ixYudME1HrhOoitbUol.png",
+    backText: "Elastic CT",
+  },
+  {
+    id: 10,
+    image: "https://boej6iprvajfuxis.public.blob.vercel-storage.com/fibrocartilage-etjub63r9s9UZMxcCiQmASyK6MPDl1.png",
+    backText: "Fibrocartilage",
+  },
+  {
+    id: 11,
+    image: "https://boej6iprvajfuxis.public.blob.vercel-storage.com/hyaline_cartilage-2A23WadnojQWkK1EAEOqjynbGbSiw5.png",
+    backText: "Hyaline cartilage",
+  },
+  {
+    id: 12,
+    image: "https://boej6iprvajfuxis.public.blob.vercel-storage.com/neuron-VGHV6tLLCA0FCMarGblZ3pCSC85Twq.png",
+    backText: "Neuron",
+  },
+  {
+    id: 13,
+    image: "https://boej6iprvajfuxis.public.blob.vercel-storage.com/pseudostratified_epithelium-QdqbAC7WLRJYTZymzoK7FSKb7u8Vpo.png",
+    backText: "Pseudostratified epithelium",
+  },
+  {
+    id: 14,
+    image: "https://boej6iprvajfuxis.public.blob.vercel-storage.com/reticular_ct-pUhDxYdqhAjgSpd9p2Nsvfgxggqbaa.png",
+    backText: "Reticular CT",
+  },
+  {
+    id: 15,
+    image: "https://boej6iprvajfuxis.public.blob.vercel-storage.com/simple_columnar_epithelium-OkgL00udf2UzVpnsh82XDVtf5tSqzw.png",
+    backText: "Simple columnar epithelium",
+  },
+  {
+    id: 16,
+    image: "https://boej6iprvajfuxis.public.blob.vercel-storage.com/simple_cuboidal_epithelium-9sbPYTsOccJ4kCwGjtidMKbef25Sb4.png",
+    backText: "Simple cuboidal epithelium",
+  },
+  {
+    id: 17,
+    image: "https://boej6iprvajfuxis.public.blob.vercel-storage.com/simple_squamous_epithelium-fn010SKYE4hucEZVlKljoAusOokHeD.png",
+    backText: "Simple squamous epithelium",
+  },
+  {
+    id: 18,
+    image: "https://boej6iprvajfuxis.public.blob.vercel-storage.com/skeletal_muscle-um2f588mqGkk5dsq9lwldZtjRRevtF.png",
+    backText: "Skeletal muscle",
+  },
+  {
+    id: 19,
+    image: "https://boej6iprvajfuxis.public.blob.vercel-storage.com/smooth_muscle-ioa4QseWKI4FDgRhsNwskhdoCRziYQ.png",
+    backText: "Smooth muscle",
+  },
+  {
+    id: 20,
+    image: "https://boej6iprvajfuxis.public.blob.vercel-storage.com/stratified_columnar_epithelium-ADz3zMHQ89VkaqyKy27zg7BiwHY8Xv.png",
+    backText: "Stratified columnar epithelium",
+  },
+  {
+    id: 21,
+    image: "https://boej6iprvajfuxis.public.blob.vercel-storage.com/stratified_cuboidal_epithelium-fAnqzhM9fA1tgAcAQBbBF5ugol28tv.png",
+    backText: "Stratified cuboidal epithelium",
+  },
+  {
+    id: 22,
+    image: "https://boej6iprvajfuxis.public.blob.vercel-storage.com/stratified_squamous_epithelium-5JVQ1i0Owi4LltKUZ8Z1OsjAJae0mN.png",
+    backText: "Stratified squamous epithelium",
+  },
+  {
+    id: 23,
+    image: "https://boej6iprvajfuxis.public.blob.vercel-storage.com/transitional_epithelium-mNhKdSnhiZcWG1YEM5H0HTpi1mZXHN.png",
+    backText: "Transitional epithelium",
   },
 ];

@@ -157,8 +157,7 @@ const Card = ({ image, frontText, backText }: any) => {
 const items = [
   {
     id: 1,
-    image:
-      "https://images.unsplash.com/photo-1554475901-4538ddfbccc2?q=80&w=2072&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
+    image: "https://boej6iprvajfuxis.public.blob.vercel-storage.com/abduction_adduction-99xCjkZgz95ctJqfROtlsclKyhuzG7.png",
     frontText: "Just feels right",
   },
   {
