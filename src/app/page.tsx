@@ -29,9 +29,11 @@ const SpringCards = () => {
   return (
     <section className="relative z-20 mx-auto flex h-full max-w-6xl flex-col items-center justify-center px-4 py-24 md:px-8 md:py-36">
       <div className="mx-auto grid max-w-3xl grid-cols-1 gap-6 sm:grid-cols-2">
-        <Card title="Tissues" subtitle="Timed exams." link="/mock-tests" className="bg-red-300" />
-        <Card title="Axial bones" subtitle="Terms and definitions." link="/flash-cards" className="bg-emerald-300" />
-        <Card title="Appendicular bones" subtitle="Math and word problems, and drawings." link="/visual-problems" className="bg-indigo-300" />
+        <Card title="Tissues" subtitle="Types of tissues." link="/tissues" className="bg-red-300" />
+        <Card title="Axial bones" subtitle="Bones of the skull and trunk." link="/axial-bones" className="bg-emerald-300" />
+        {/* BUG */}
+        <Card title="Appendicular bones" subtitle="Bones of the arms and legs." link="/appendicular-bones" className="bg-indigo-300" />
+        <Card title="Under construction" subtitle="Let's study!" link="/#" className="bg-yellow-300" />
       </div>
     </section>
   );
