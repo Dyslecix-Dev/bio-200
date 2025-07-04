@@ -1,4 +1,4 @@
-import { ReactNode, MouseEventHandler } from "react";
+import { ReactNode, MouseEventHandler, RefObject } from "react";
 
 export interface BeamType {
   top: number;
@@ -17,6 +17,13 @@ export interface CardType {
   className: string;
 }
 
+export interface CountdownItemType {
+  unit: "Hour" | "Minute" | "Second";
+  text: string;
+  startTime: number;
+  totalDuration: number;
+}
+
 export interface FAQuestionType {
   title: string;
   children: ReactNode;
@@ -29,7 +36,18 @@ export interface NavLinkType {
   children: ReactNode;
 }
 
+export interface SquareImageType {
+  id: number;
+  src: string;
+}
+
+export interface TimerReturnType {
+  ref: RefObject<HTMLSpanElement>;
+  time: number;
+}
+
 export interface WindowSizeType {
   width: number | undefined;
   height: number | undefined;
 }
+

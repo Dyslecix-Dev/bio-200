@@ -7,11 +7,11 @@ import { motion } from "motion/react";
 import { FiChevronDown } from "react-icons/fi";
 import useMeasure from "react-use-measure";
 
-import Navbar from "@/app/_components/Navbar";
-import Beams from "@/app/_components/_background/Beams";
-import GradientGrid from "@/app/_components/_background/GradientGrid";
+import Navbar from "../_components/Navbar";
+import Beams from "../_components/_background/Beams";
+import GradientGrid from "../_components/_background/GradientGrid";
 
-import { FAQuestionType } from "../../../types/types"; // BUG
+import { FAQuestionType } from "../../types/types"; // BUG
 
 export default function FAQ() {
   return (
@@ -37,7 +37,7 @@ const BasicFAQ = () => {
         </Question> */}
         <Question title="Will you provide future features, like other subjects?">
           <p>
-            Currently, I don&apos;t have any plans to. If you have a suggestion, please email me at christiandeandemesa@gmail.com
+            Currently, I don&apos;t have any plans to. If you have a suggestion, please email me at dyslecixdev@gmail.com
             {/* let me know{" "}
             <Link href="/contact" className="text-[#7C3AED] underline">
               here
@@ -101,3 +101,4 @@ const Question = ({ title, children, defaultOpen = false }: FAQuestionType) => {
     </motion.div>
   );
 };
+

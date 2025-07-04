@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 import { motion } from "motion/react";
 
-import { BeamType, WindowSizeType } from "../../../../types/types"; // BUG
+import { BeamType, WindowSizeType } from "../../../types/types"; // BUG
 
 export default function Beams() {
   const { width } = useWindowSize();
@@ -122,3 +122,4 @@ const Beam = ({ top, left, transition = {} }: BeamType) => {
 
 const GRID_BOX_SIZE = 32;
 const BEAM_WIDTH_OFFSET = 1;
+

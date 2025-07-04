@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 
 import { motion } from "motion/react";
 
-import { NavLinkType } from "../../../types/types"; // BUG
+import { NavLinkType } from "../../types/types"; // BUG
 
 export default function Navbar() {
   return (
@@ -69,3 +69,4 @@ const NavLink = ({ link, onClick, children }: NavLinkType) => {
 //     </Link>
 //   );
 // };
+

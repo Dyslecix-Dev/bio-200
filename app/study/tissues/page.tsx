@@ -7,9 +7,9 @@ import { motion } from "motion/react";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import useMeasure from "react-use-measure";
 
-import Navbar from "@/app/_components/Navbar";
-import Beams from "@/app/_components/_background/Beams";
-import GradientGrid from "@/app/_components/_background/GradientGrid";
+import Navbar from "../../_components/Navbar";
+import Beams from "../../_components/_background/Beams";
+import GradientGrid from "../../_components/_background/GradientGrid";
 
 const CARD_WIDTH = 350;
 const CARD_HEIGHT = 350;
@@ -284,3 +284,4 @@ const items = [
     backText: "Transitional epithelium",
   },
 ];
+
