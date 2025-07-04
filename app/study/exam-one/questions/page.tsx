@@ -1,20 +1,42 @@
-// TODO fix TS
-
 "use client";
 
 import { useRouter } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
-
 import { FiArrowRight, FiHome } from "react-icons/fi";
 
 import Countdown from "../../../_components/Countdown";
 import Beams from "../../../_components/_background/Beams";
 import GradientGrid from "../../../_components/_background/GradientGrid";
 
+// TODO move types
+interface Option {
+  text: string;
+  correct: boolean;
+}
+
+interface Question {
+  question: string;
+  options: Option[];
+}
+
+interface Score {
+  correctAnswers: number;
+  totalQuestions: number;
+}
+
+interface ExamQuestionsProps {
+  isSubmitted: boolean;
+  setIsSubmitted: (submitted: boolean) => void;
+  router: ReturnType<typeof useRouter>;
+  score: Score | null;
+  setScore: (score: Score) => void;
+  calculateScoreRef: React.MutableRefObject<(() => Score) | null>;
+}
+
 export default function Questions() {
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [score, setScore] = useState(null);
-  const calculateScoreRef = useRef(null);
+  const [score, setScore] = useState<Score | null>(null);
+  const calculateScoreRef = useRef<(() => Score) | null>(null);
 
   const router = useRouter();
 
@@ -38,15 +60,15 @@ export default function Questions() {
   );
 }
 
-const getRandomElements = (array, count) => {
+const getRandomElements = <T,>(array: T[], count: number): T[] => {
   const shuffled = [...array].sort(() => 0.5 - Math.random());
   return shuffled.slice(0, count);
 };
 
-const ExamQuestions = ({ isSubmitted, setIsSubmitted, router, score, setScore, calculateScoreRef }) => {
-  const [selectedMultipleChoice, setSelectedMultipleChoice] = useState([]);
-  const [selectedTrueFalse, setSelectedTrueFalse] = useState([]);
-  const [answers, setAnswers] = useState({});
+const ExamQuestions: React.FC<ExamQuestionsProps> = ({ isSubmitted, setIsSubmitted, router, score, setScore, calculateScoreRef }) => {
+  const [selectedMultipleChoice, setSelectedMultipleChoice] = useState<Question[]>([]);
+  const [selectedTrueFalse, setSelectedTrueFalse] = useState<Question[]>([]);
+  const [answers, setAnswers] = useState<Record<string, number>>({});
 
   useEffect(() => {
     // Select 10 random multiple choice questions
@@ -58,7 +80,7 @@ const ExamQuestions = ({ isSubmitted, setIsSubmitted, router, score, setScore, c
     setSelectedTrueFalse(randomTF);
   }, []);
 
-  const handleAnswerChange = (questionIndex, optionIndex, questionType) => {
+  const handleAnswerChange = (questionIndex: number, optionIndex: number, questionType: string) => {
     // Prevent changing answers after submission
     if (isSubmitted) return;
 
@@ -69,14 +91,14 @@ const ExamQuestions = ({ isSubmitted, setIsSubmitted, router, score, setScore, c
   };
 
   // Check if all questions have been answered
-  const isTestComplete = () => {
+  const isTestComplete = (): boolean => {
     const totalQuestions = selectedMultipleChoice.length + selectedTrueFalse.length;
     const answeredQuestions = Object.keys(answers).length;
     return answeredQuestions === totalQuestions;
   };
 
   // Calculate score
-  const calculateScore = () => {
+  const calculateScore = (): Score => {
     let correctAnswers = 0;
     const totalQuestions = selectedMultipleChoice.length + selectedTrueFalse.length;
 
@@ -239,8 +261,8 @@ const ExamQuestions = ({ isSubmitted, setIsSubmitted, router, score, setScore, c
           {!isSubmitted ? (
             <button
               onClick={handleSubmit}
-              disabled={!isSubmitted}
-              className="font-semibold py-3 px-8 rounded-lg transition-colors duration-200 flex items-center gap-2 mx-auto bg-indigo-500 hover:bg-indigo-600 disabled:bg-gray-600 text-white cursor-pointer disabled:cursor-not-allowed "
+              disabled={!isTestComplete()}
+              className="font-semibold py-3 px-8 rounded-lg transition-colors duration-200 flex items-center gap-2 mx-auto bg-indigo-500 hover:bg-indigo-600 disabled:bg-gray-600 text-white cursor-pointer disabled:cursor-not-allowed"
             >
               Submit Test
               <FiArrowRight />
