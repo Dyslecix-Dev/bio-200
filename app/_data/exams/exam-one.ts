@@ -399,6 +399,681 @@ export const multipleChoiceQuestions = [
       { text: "Glial cells", correct: false },
     ],
   },
+  {
+    question: "Which of the following is not an appendage of the skin?",
+    options: [
+      {
+        text: "Skin",
+        correct: true,
+      },
+      {
+        text: "Sweat glands",
+        correct: false,
+      },
+      {
+        text: "Oil glands",
+        correct: false,
+      },
+      {
+        text: "Hair",
+        correct: false,
+      },
+      {
+        text: "Nails",
+        correct: false,
+      },
+    ],
+  },
+  {
+    question: "Which of the following is not a primary function of the skin?",
+    options: [
+      {
+        text: "Absorption",
+        correct: true,
+      },
+      {
+        text: "Protection",
+        correct: false,
+      },
+      {
+        text: "Excretion",
+        correct: false,
+      },
+      {
+        text: "Vitamin d production",
+        correct: false,
+      },
+      {
+        text: "Sensory reception",
+        correct: false,
+      },
+    ],
+  },
+  {
+    question: "Which of the following is not a cell type of the epidermis?",
+    options: [
+      {
+        text: "Axonic cells",
+        correct: true,
+      },
+      {
+        text: "Keratinocytes",
+        correct: false,
+      },
+      {
+        text: "Melanocytes",
+        correct: false,
+      },
+      {
+        text: "Tactile epithelial cells",
+        correct: false,
+      },
+      {
+        text: "Dendritic cells",
+        correct: false,
+      },
+    ],
+  },
+  {
+    question: "Which of the following is not a layer of the epidermis?",
+    options: [
+      {
+        text: "Stratum magnum",
+        correct: true,
+      },
+      {
+        text: "Stratum corneum",
+        correct: false,
+      },
+      {
+        text: "Stratum granulosum",
+        correct: false,
+      },
+      {
+        text: "Stratum spinosum",
+        correct: false,
+      },
+      {
+        text: "Stratum basale",
+        correct: false,
+      },
+    ],
+  },
+  {
+    question: "Which of the following has more layers of dead, squamous keratinocytes in thick skin?",
+    options: [
+      {
+        text: "Stratum corneum",
+        correct: true,
+      },
+      {
+        text: "Stratum lucidum",
+        correct: false,
+      },
+      {
+        text: "Stratum granulosum",
+        correct: false,
+      },
+      {
+        text: "Stratum spinosum",
+        correct: false,
+      },
+      {
+        text: "Stratum basale",
+        correct: false,
+      },
+    ],
+  },
+  {
+    question: "Which of the following is a region of the dermis?",
+    options: [
+      {
+        text: "Reticular dermis",
+        correct: true,
+      },
+      {
+        text: "Areolar dermis",
+        correct: false,
+      },
+      {
+        text: "Elastic dermis",
+        correct: false,
+      },
+      {
+        text: "Dense regular dermis",
+        correct: false,
+      },
+      {
+        text: "Dense irregular dermis",
+        correct: false,
+      },
+    ],
+  },
+  {
+    question: "What are peaks of areolar ct jutting up into epidermis called?",
+    options: [
+      {
+        text: "Dermal papillae",
+        correct: true,
+      },
+      {
+        text: "Dermal villi",
+        correct: false,
+      },
+      {
+        text: "Dermal processes",
+        correct: false,
+      },
+      {
+        text: "Dermal fascicles",
+        correct: false,
+      },
+      {
+        text: "Dermal lamellae",
+        correct: false,
+      },
+    ],
+  },
+  {
+    question: "Which tissue makes up most of the dermis?",
+    options: [
+      {
+        text: "Dense irregular ct",
+        correct: true,
+      },
+      {
+        text: "Reticular ct",
+        correct: false,
+      },
+      {
+        text: "Areolar ct",
+        correct: false,
+      },
+      {
+        text: "Elastic ct",
+        correct: false,
+      },
+      {
+        text: "Dense regular ct",
+        correct: false,
+      },
+    ],
+  },
+  {
+    question: "Which of the following is a function of subcutaneous tissue?",
+    options: [
+      {
+        text: "Stores fat for energy",
+        correct: true,
+      },
+      {
+        text: "Odor signaling",
+        correct: false,
+      },
+      {
+        text: "Produce skin oils",
+        correct: false,
+      },
+      {
+        text: "Waterproofing the skin",
+        correct: false,
+      },
+      {
+        text: "Uv radiation protection",
+        correct: false,
+      },
+    ],
+  },
+  {
+    question: "Which type of tissue is the perichondrium composed of?",
+    options: [
+      {
+        text: "Dense irregular ct",
+        correct: true,
+      },
+      {
+        text: "Dense regular ct",
+        correct: false,
+      },
+      {
+        text: "Elastic ct",
+        correct: false,
+      },
+      {
+        text: "Areolar ct",
+        correct: false,
+      },
+      {
+        text: "Reticular ct",
+        correct: false,
+      },
+    ],
+  },
+  {
+    question: "Which of the following is a location hyaline cartilage is not found in?",
+    options: [
+      {
+        text: "Meniscus",
+        correct: true,
+      },
+      {
+        text: "Costal cartilage",
+        correct: false,
+      },
+      {
+        text: "Nose",
+        correct: false,
+      },
+      {
+        text: "Articular cartilage",
+        correct: false,
+      },
+      {
+        text: "Trachea",
+        correct: false,
+      },
+    ],
+  },
+  {
+    question: "Which of the following is a location fibrocartilage can be found?",
+    options: [
+      {
+        text: "Between intervertebral discs",
+        correct: true,
+      },
+      {
+        text: "External ear",
+        correct: false,
+      },
+      {
+        text: "Epiglottis",
+        correct: false,
+      },
+      {
+        text: "Cricoid cartilage",
+        correct: false,
+      },
+      {
+        text: "Lung",
+        correct: false,
+      },
+    ],
+  },
+  {
+    question: "Which of the following bones is an example of a short bone?",
+    options: [
+      {
+        text: "Talus",
+        correct: true,
+      },
+      {
+        text: "Humerus",
+        correct: false,
+      },
+      {
+        text: "Sternum",
+        correct: false,
+      },
+      {
+        text: "Vertebra",
+        correct: false,
+      },
+      {
+        text: "Sphenoid",
+        correct: false,
+      },
+    ],
+  },
+  {
+    question: "In compact bone, which of the following wrap around the entire outer surface of the bone?",
+    options: [
+      {
+        text: "Circumferential lamellae",
+        correct: true,
+      },
+      {
+        text: "Lamella",
+        correct: false,
+      },
+      {
+        text: "Osteon",
+        correct: false,
+      },
+      {
+        text: "Osteocyte",
+        correct: false,
+      },
+      {
+        text: "Canaliculi",
+        correct: false,
+      },
+    ],
+  },
+  {
+    question: "Which of the following bone markings is a surface that forms joints?",
+    options: [
+      {
+        text: "Condyle",
+        correct: true,
+      },
+      {
+        text: "Tubercle",
+        correct: false,
+      },
+      {
+        text: "Epicondyle",
+        correct: false,
+      },
+      {
+        text: "Tuberosity",
+        correct: false,
+      },
+      {
+        text: "Trochanter",
+        correct: false,
+      },
+    ],
+  },
+  {
+    question: "Which of the following is not a zone in the epiphyseal plate?",
+    options: [
+      {
+        text: "Hypotrophic zone",
+        correct: true,
+      },
+      {
+        text: "Proliferation zone",
+        correct: false,
+      },
+      {
+        text: "Hypertrophic zone",
+        correct: false,
+      },
+      {
+        text: "Calcification zone",
+        correct: false,
+      },
+      {
+        text: "Ossification zone",
+        correct: false,
+      },
+    ],
+  },
+  {
+    question: "Which of the following is a functional classification of joints?",
+    options: [
+      {
+        text: "Synarthroses",
+        correct: true,
+      },
+      {
+        text: "Fibrous",
+        correct: false,
+      },
+      {
+        text: "Cartilaginous",
+        correct: false,
+      },
+      {
+        text: "Synovial",
+        correct: false,
+      },
+      {
+        text: "Fibrovial",
+        correct: false,
+      },
+    ],
+  },
+  {
+    question: "Which of the following is an example of a fibrous joint?",
+    options: [
+      {
+        text: "Ligament bindings",
+        correct: true,
+      },
+      {
+        text: "Epiphyseal plate",
+        correct: false,
+      },
+      {
+        text: "Rib-sternum cartilage",
+        correct: false,
+      },
+      {
+        text: "Intervertebral discs",
+        correct: false,
+      },
+      {
+        text: "Symphyses",
+        correct: false,
+      },
+    ],
+  },
+  {
+    question: "Which of the following is not a functional property of muscle tissue?",
+    options: [
+      {
+        text: "Rigidity",
+        correct: true,
+      },
+      {
+        text: "Contractility",
+        correct: false,
+      },
+      {
+        text: "Excitability",
+        correct: false,
+      },
+      {
+        text: "Extensibility",
+        correct: false,
+      },
+      {
+        text: "Elasticity",
+        correct: false,
+      },
+    ],
+  },
+  {
+    question: "Which of the following is not a function of muscle tissue?",
+    options: [
+      {
+        text: "Mineral storage",
+        correct: true,
+      },
+      {
+        text: "Production of movement",
+        correct: false,
+      },
+      {
+        text: "Open/close body passageways",
+        correct: false,
+      },
+      {
+        text: "Stabilize joints",
+        correct: false,
+      },
+      {
+        text: "Generate heat",
+        correct: false,
+      },
+    ],
+  },
+  {
+    question: "Which of the following is a location smooth muscle is not found in?",
+    options: [
+      {
+        text: "Facial muscles",
+        correct: true,
+      },
+      {
+        text: "Stomach",
+        correct: false,
+      },
+      {
+        text: "Urinary bladder",
+        correct: false,
+      },
+      {
+        text: "Blood vessels",
+        correct: false,
+      },
+      {
+        text: "Respiratory tubes",
+        correct: false,
+      },
+    ],
+  },
+  {
+    question: "Which of the following are specialized contractile organelles unique to muscle tissue?",
+    options: [
+      {
+        text: "Myofibrils",
+        correct: true,
+      },
+      {
+        text: "Myochondrias",
+        correct: false,
+      },
+      {
+        text: "Myofilaments",
+        correct: false,
+      },
+      {
+        text: "Myoblasts",
+        correct: false,
+      },
+      {
+        text: "Myocytes",
+        correct: false,
+      },
+    ],
+  },
+  {
+    question: "The sarcoplasmic reticulum stores large amount of what to stimulate contraction?",
+    options: [
+      {
+        text: "Calcium ions",
+        correct: true,
+      },
+      {
+        text: "Calcium isotopes",
+        correct: false,
+      },
+      {
+        text: "Phosphate ions",
+        correct: false,
+      },
+      {
+        text: "Phosphate isotopes",
+        correct: false,
+      },
+      {
+        text: "Amino acids",
+        correct: false,
+      },
+    ],
+  },
+  {
+    question: "In contraction, which type of filaments are pulled toward the center of the sarcomere?",
+    options: [
+      {
+        text: "Actin",
+        correct: true,
+      },
+      {
+        text: "Myosin",
+        correct: false,
+      },
+      {
+        text: "Fibrin",
+        correct: false,
+      },
+      {
+        text: "Intermediate",
+        correct: false,
+      },
+      {
+        text: "Micro",
+        correct: false,
+      },
+    ],
+  },
+  {
+    question: "Which of the following stimulations initiate muscle contractions?",
+    options: [
+      {
+        text: "Nervous",
+        correct: true,
+      },
+      {
+        text: "Epithelial",
+        correct: false,
+      },
+      {
+        text: "Connective",
+        correct: false,
+      },
+      {
+        text: "Muscle",
+        correct: false,
+      },
+      {
+        text: "Skeletal",
+        correct: false,
+      },
+    ],
+  },
+  {
+    question: 'What is the name of the nerve endings that "touch" muscle fibers at neuromuscular junctions?',
+    options: [
+      {
+        text: "Terminal boutons",
+        correct: true,
+      },
+      {
+        text: "Terminal synapses",
+        correct: false,
+      },
+      {
+        text: "Terminal axons",
+        correct: false,
+      },
+      {
+        text: "Terminal dendrites",
+        correct: false,
+      },
+      {
+        text: "Terminal ganglia",
+        correct: false,
+      },
+    ],
+  },
+  {
+    question: "Which of the following is a characteristic that skeletal muscle fibers are not categorized by?",
+    options: [
+      {
+        text: "Atp made through oxidative phosphorylation",
+        correct: true,
+      },
+      {
+        text: "Atp made aerobically",
+        correct: false,
+      },
+      {
+        text: "Atp made through glycolysis",
+        correct: false,
+      },
+      {
+        text: "How quickly they contract",
+        correct: false,
+      },
+      {
+        text: "How slowly they contract",
+        correct: false,
+      },
+    ],
+  },
 ];
 
 export const shortAnswerQuestions = [
