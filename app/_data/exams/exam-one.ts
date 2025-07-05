@@ -246,7 +246,7 @@ export const multipleChoiceQuestions = [
       { text: "Glycoprotein", correct: false },
       { text: "Glycocalyx", correct: true },
       { text: "Glycosome", correct: false },
-      { text: "Glycogen'", correct: false },
+      { text: "Glycogen", correct: false },
     ],
   },
   {

@@ -8,7 +8,7 @@ import Countdown from "../../../_components/Countdown";
 import Beams from "../../../_components/_background/Beams";
 import GradientGrid from "../../../_components/_background/GradientGrid";
 
-import { trueOrFalseQuestions, multipleChoiceQuestions } from "../../../_data/exams/exam-one"; // BUG
+import { trueOrFalseQuestions, multipleChoiceQuestions, shortAnswerQuestions } from "../../../_data/exams/exam-one"; // BUG
 
 // TODO move types
 interface Option {
@@ -19,6 +19,11 @@ interface Option {
 interface Question {
   question: string;
   options: Option[];
+}
+
+interface ShortAnswerQuestion {
+  question: string;
+  answer: string;
 }
 
 interface Score {
@@ -85,7 +90,9 @@ const shuffleOptions = (questions: Question[]): Question[] => {
 const ExamQuestions: React.FC<ExamQuestionsProps> = ({ isSubmitted, setIsSubmitted, router, score, setScore, calculateScoreRef }) => {
   const [selectedTrueFalse, setSelectedTrueFalse] = useState<Question[]>([]);
   const [selectedMultipleChoice, setSelectedMultipleChoice] = useState<Question[]>([]);
+  const [selectedShortAnswer, setSelectedShortAnswer] = useState<ShortAnswerQuestion[]>([]);
   const [answers, setAnswers] = useState<Record<string, number>>({});
+  const [shortAnswers, setShortAnswers] = useState<Record<string, string>>({});
 
   useEffect(() => {
     // Select 6 random true/false questions
@@ -96,6 +103,10 @@ const ExamQuestions: React.FC<ExamQuestionsProps> = ({ isSubmitted, setIsSubmitt
     const randomMC = getRandomElements(multipleChoiceQuestions, 14);
     const shuffledMC = shuffleOptions(randomMC);
     setSelectedMultipleChoice(shuffledMC);
+
+    // Select 2 random short answer questions
+    const randomSA = getRandomElements(shortAnswerQuestions, 2);
+    setSelectedShortAnswer(randomSA);
   }, []);
 
   const handleAnswerChange = (questionIndex: number, optionIndex: number, questionType: string) => {
@@ -108,14 +119,24 @@ const ExamQuestions: React.FC<ExamQuestionsProps> = ({ isSubmitted, setIsSubmitt
     }));
   };
 
+  const handleShortAnswerChange = (questionIndex: number, value: string) => {
+    // Prevent changing answers after submission
+    if (isSubmitted) return;
+
+    setShortAnswers((prev) => ({
+      ...prev,
+      [`sa-${questionIndex}`]: value,
+    }));
+  };
+
   // Check if all questions have been answered
   const isTestComplete = (): boolean => {
-    const totalQuestions = selectedTrueFalse.length + selectedMultipleChoice.length;
-    const answeredQuestions = Object.keys(answers).length;
+    const totalQuestions = selectedTrueFalse.length + selectedMultipleChoice.length + selectedShortAnswer.length;
+    const answeredQuestions = Object.keys(answers).length + Object.keys(shortAnswers).length;
     return answeredQuestions === totalQuestions;
   };
 
-  // Calculate score
+  // Calculate score (only for true/false and multiple choice)
   const calculateScore = (): Score => {
     let correctAnswers = 0;
     const totalQuestions = selectedTrueFalse.length + selectedMultipleChoice.length;
@@ -161,25 +182,6 @@ const ExamQuestions: React.FC<ExamQuestionsProps> = ({ isSubmitted, setIsSubmitt
   return (
     <section className="relative z-20 mx-auto flex h-full max-w-6xl flex-col items-center justify-center px-4 py-24 md:px-8 md:py-36">
       <div className="w-full max-w-4xl">
-        {/* Score Display */}
-        {isSubmitted && score && (
-          <div className="mb-8 bg-gradient-to-r from-blue-900 to-purple-900 rounded-lg p-6 border border-blue-700 text-center">
-            <h2 className="text-3xl font-bold text-white mb-4">Test Complete!</h2>
-            <div className="text-6xl font-bold text-white mb-2">
-              {score.correctAnswers}/{score.totalQuestions}
-            </div>
-            <p className="text-xl text-blue-200">You scored {Math.round((score.correctAnswers / score.totalQuestions) * 100)}%</p>
-            <div className="mt-4">
-              <div className="w-full bg-gray-700 rounded-full h-4">
-                <div
-                  className="bg-gradient-to-r from-green-400 to-blue-500 h-4 rounded-full transition-all duration-500"
-                  style={{ width: `${(score.correctAnswers / score.totalQuestions) * 100}%` }}
-                ></div>
-              </div>
-            </div>
-          </div>
-        )}
-
         {/* True or False Section */}
         <div className="mb-12">
           <h2 className="text-3xl font-bold text-white mb-8 text-center">True or False</h2>
@@ -273,6 +275,61 @@ const ExamQuestions: React.FC<ExamQuestionsProps> = ({ isSubmitted, setIsSubmitt
             ))}
           </div>
         </div>
+
+        {/* Short Answer Section */}
+        <div className="mb-12">
+          <h2 className="text-3xl font-bold text-white mb-2 text-center">Short Answer</h2>
+          <h3 className="text-xl font-bold text-gray-300 mb-8 text-center">This section is not graded</h3>
+          <div className="space-y-8">
+            {selectedShortAnswer.map((question, questionIndex) => (
+              <div key={questionIndex} className="bg-zinc-900 rounded-lg p-6 border border-zinc-800">
+                <h3 className="text-xl font-semibold text-white mb-4">
+                  {questionIndex + 1}. {question.question}
+                </h3>
+
+                {/* Show answer after submission */}
+                {isSubmitted && (
+                  <div className="mb-4 p-4 bg-green-800 rounded-lg border-2 border-green-600">
+                    <p className="text-blue-200 font-medium mb-2">Correct Answer:</p>
+                    <p className="text-white">{question.answer}</p>
+                  </div>
+                )}
+
+                <div className="space-y-3">
+                  <label className="block text-gray-300 font-medium">Your Answer:</label>
+                  <textarea
+                    value={shortAnswers[`sa-${questionIndex}`] || ""}
+                    onChange={(e) => handleShortAnswerChange(questionIndex, e.target.value)}
+                    className="w-full p-3 bg-zinc-800 border border-zinc-700 rounded-md text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none"
+                    rows={4}
+                    placeholder="Enter your answer here..."
+                    disabled={isSubmitted}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Score Display */}
+        {isSubmitted && score && (
+          <div className="mb-8 bg-gradient-to-r from-blue-900 to-purple-900 rounded-lg p-6 border border-blue-700 text-center">
+            <h2 className="text-3xl font-bold text-white mb-4">Test Complete!</h2>
+            <div className="text-6xl font-bold text-white mb-2">
+              {score.correctAnswers}/{score.totalQuestions}
+            </div>
+            <p className="text-xl text-blue-200">You scored {Math.round((score.correctAnswers / score.totalQuestions) * 100)}%</p>
+            <p className="text-sm text-blue-300 mt-2">*Short answer questions are not included in this score</p>
+            <div className="mt-4">
+              <div className="w-full bg-gray-700 rounded-full h-4">
+                <div
+                  className="bg-gradient-to-r from-green-400 to-blue-500 h-4 rounded-full transition-all duration-500"
+                  style={{ width: `${(score.correctAnswers / score.totalQuestions) * 100}%` }}
+                />
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Submit/Return Button */}
         <div className="text-center">
