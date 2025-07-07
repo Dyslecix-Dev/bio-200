@@ -125,9 +125,127 @@ export const trueOrFalseQuestions = [
       { text: "False", correct: true },
     ],
   },
+  {
+    question: "The liver is inferior to the mediastinum.",
+    options: [
+      { text: "True", correct: true },
+      { text: "False", correct: false },
+    ],
+  },
+  {
+    question: "The frontal plane divides the anterior and posterior planes of the body.",
+    options: [
+      { text: "True", correct: true },
+      { text: "False", correct: false },
+    ],
+  },
+  {
+    question: "Epithelium has two forms: covering and living epithelium, and glandular epithelium.",
+    options: [
+      { text: "True", correct: true },
+      { text: "False", correct: false },
+    ],
+  },
+  {
+    question: "Microvilli have an increased absorption rate because of their increased surface area.",
+    options: [
+      { text: "True", correct: true },
+      { text: "False", correct: false },
+    ],
+  },
+  {
+    question: "The stratum granulosoum is the only layer to have keratinocytes.",
+    options: [
+      { text: "True", correct: false },
+      { text: "False", correct: true },
+    ],
+  },
+  {
+    question: "The skeletal system is made up of the bones, cartilages, and joints that form the internal framework of the body.",
+    options: [
+      { text: "True", correct: true },
+      { text: "False", correct: false },
+    ],
+  },
+  {
+    question: "When myosin heads attach to thin sliding filaments, the head pivots inward, pulling on the sliding filament.",
+    options: [
+      { text: "True", correct: false },
+      { text: "False", correct: true },
+    ],
+  },
+  {
+    question: "Each muscle fiber is packed with long myofibrils composed of adjoining segments known as sarcomeres.",
+    options: [
+      { text: "True", correct: true },
+      { text: "False", correct: false },
+    ],
+  },
+  {
+    question: "A motor unit is a single neuron and all the individual muscle fibers it innervates.",
+    options: [
+      { text: "True", correct: true },
+      { text: "False", correct: false },
+    ],
+  },
+  {
+    question: "Tissues are groups of cells of similar structure that perform a common function.",
+    options: [
+      { text: "True", correct: true },
+      { text: "False", correct: false },
+    ],
+  },
+  {
+    question: "The dermis is avascularized.",
+    options: [
+      { text: "True", correct: false },
+      { text: "False", correct: true },
+    ],
+  },
+  {
+    question: "All bones have a diaphysis and epiphyses.",
+    options: [
+      { text: "True", correct: false },
+      { text: "False", correct: true },
+    ],
+  },
+  {
+    question: "Movement of the body is facilitated by both the contraction of skeletal muscle and the rotation of bones around joints.",
+    options: [
+      { text: "True", correct: true },
+      { text: "False", correct: false },
+    ],
+  },
+  {
+    question: "Skeletal and smooth muscle are stimulated via voluntary signaling.",
+    options: [
+      { text: "True", correct: false },
+      { text: "False", correct: true },
+    ],
+  },
+  {
+    question: "Nervous tissue is the main component of the brain, which is found in the ventral body cavity.",
+    options: [
+      { text: "True", correct: false },
+      { text: "False", correct: true },
+    ],
+  },
+  {
+    question: "Muscle tissue is a composite of muscle cells and surrounding connective tissue.",
+    options: [
+      { text: "True", correct: true },
+      { text: "False", correct: false },
+    ],
+  },
+  {
+    question: "Cell functions are primarily carried out by internal subunits called organelles.",
+    options: [
+      { text: "True", correct: true },
+      { text: "False", correct: false },
+    ],
+  },
 ];
 
-// TODO add more questions (start at topic 3)
 export const multipleChoiceQuestions = [
   {
     question: "Which branch of anatomy deals with structural changes in cells, tissues, and organs caused by disease?",
@@ -184,7 +302,7 @@ export const multipleChoiceQuestions = [
     options: [
       { text: "Bilateral symmetry", correct: false },
       { text: "Dorsal hollow nerve cord", correct: false },
-      { text: "Nodocord and vertebrae", correct: true },
+      { text: "Vocal cords", correct: true },
       { text: "Pharyngeal pouches", correct: false },
       { text: "Tube-within-a-tube body plan", correct: false },
     ],
@@ -440,7 +558,7 @@ export const multipleChoiceQuestions = [
         correct: false,
       },
       {
-        text: "Vitamin d production",
+        text: "Vitamin D production",
         correct: false,
       },
       {
@@ -525,7 +643,7 @@ export const multipleChoiceQuestions = [
     ],
   },
   {
-    question: "Which of the following is a region of the dermis?",
+    question: "Which dermis contains the majority of the skin appendages?",
     options: [
       {
         text: "Reticular dermis",
@@ -1074,6 +1192,256 @@ export const multipleChoiceQuestions = [
       },
     ],
   },
+  {
+    question: "Which of the following is not an organ in the peritoneum?",
+    options: [
+      {
+        text: "Esophagus",
+        correct: true,
+      },
+      {
+        text: "Liver",
+        correct: false,
+      },
+      {
+        text: "Stomach",
+        correct: false,
+      },
+      {
+        text: "Kidneys",
+        correct: false,
+      },
+      {
+        text: "Small intestine",
+        correct: false,
+      },
+    ],
+  },
+  {
+    question: "Which of the following is not a main component of a cell?",
+    options: [
+      {
+        text: "RNA",
+        correct: true,
+      },
+      {
+        text: "Nucleus",
+        correct: false,
+      },
+      {
+        text: "Plasma membrane",
+        correct: false,
+      },
+      {
+        text: "Cytoplasm",
+        correct: false,
+      },
+      {
+        text: "None of the above",
+        correct: false,
+      },
+    ],
+  },
+  {
+    question: "What is the main function of the smooth endoplasmic reticulum?",
+    options: [
+      {
+        text: "Metabolizing lipids",
+        correct: true,
+      },
+      {
+        text: "Metabolizing amino acids",
+        correct: false,
+      },
+      {
+        text: "Metabolizing RNA",
+        correct: false,
+      },
+      {
+        text: "Transporting ribosomes",
+        correct: false,
+      },
+      {
+        text: "Producing protein",
+        correct: false,
+      },
+    ],
+  },
+  {
+    question: "Which of the following is not a phase in mitosis?",
+    options: [
+      {
+        text: "Interphase",
+        correct: true,
+      },
+      {
+        text: "Anaphase",
+        correct: false,
+      },
+      {
+        text: "Telophase",
+        correct: false,
+      },
+      {
+        text: "Metaphase",
+        correct: false,
+      },
+      {
+        text: "Prophase",
+        correct: false,
+      },
+    ],
+  },
+  {
+    question: "Which of the following are specialized junctions of cardiac muscle tissue?",
+    options: [
+      {
+        text: "Intercalated discs",
+        correct: true,
+      },
+      {
+        text: "Intercalated junctions",
+        correct: false,
+      },
+      {
+        text: "Cardiac discs",
+        correct: false,
+      },
+      {
+        text: "Cardiac junctions",
+        correct: false,
+      },
+      {
+        text: "Myojunctions",
+        correct: false,
+      },
+    ],
+  },
+  {
+    question: "Subcutaneous tissue consists of what?",
+    options: [
+      {
+        text: "Areolar and adipose tissue",
+        correct: true,
+      },
+      {
+        text: "Subcutaneous tissue",
+        correct: false,
+      },
+      {
+        text: "Areolar tissue",
+        correct: false,
+      },
+      {
+        text: "Adipose tissue",
+        correct: false,
+      },
+      {
+        text: "Areolar and subcutaneous tissue",
+        correct: false,
+      },
+    ],
+  },
+  {
+    question: "In intramembranous ossification, skull bones and the clavicles develop in a layer of fibrous connective tissue with which type of cells directly converting into bone cells?",
+    options: [
+      {
+        text: "Mesenchyme",
+        correct: true,
+      },
+      {
+        text: "Osteoblast",
+        correct: false,
+      },
+      {
+        text: "Osteocyte",
+        correct: false,
+      },
+      {
+        text: "Epithelium",
+        correct: false,
+      },
+      {
+        text: "Cartilage",
+        correct: false,
+      },
+    ],
+  },
+  {
+    question: "In endochondral ossification, all other bones develop in a scaffold of which type of cartilage?",
+    options: [
+      {
+        text: "Hyaline",
+        correct: true,
+      },
+      {
+        text: "Mesenchyme",
+        correct: false,
+      },
+      {
+        text: "Fibro",
+        correct: false,
+      },
+      {
+        text: "Elastic",
+        correct: false,
+      },
+      {
+        text: "Synovial",
+        correct: false,
+      },
+    ],
+  },
+  {
+    question: "Which of the following is not a type of connective tissue that organizes muscles?",
+    options: [
+      {
+        text: "Diamysium",
+        correct: true,
+      },
+      {
+        text: "Perimysium",
+        correct: false,
+      },
+      {
+        text: "Epimysium",
+        correct: false,
+      },
+      {
+        text: "Endomysium",
+        correct: false,
+      },
+      {
+        text: "None of the above",
+        correct: false,
+      },
+    ],
+  },
+  {
+    question: "Which of the following is not a general type of muscle fiber?",
+    options: [
+      {
+        text: "Slow glycolytic fibers",
+        correct: true,
+      },
+      {
+        text: "Fast oxidative fibers",
+        correct: false,
+      },
+      {
+        text: "Slow oxidative fibers",
+        correct: false,
+      },
+      {
+        text: "Fast glycolytic fibers",
+        correct: false,
+      },
+      {
+        text: "None of the above",
+        correct: false,
+      },
+    ],
+  },
 ];
 
 export const shortAnswerQuestions = [
@@ -1100,5 +1468,14 @@ export const shortAnswerQuestions = [
   {
     question: "What are the three types of CT organize muscles in order from deep to superficial?",
     answer: "Endomysium, perimysium, and epimysium.",
+  },
+  {
+    question: "Provide an example using each of the following terms: medial and superior.",
+    answer: "The clavicle is medial to the shoulder, and the neck is superior to the femur.",
+  },
+  {
+    question: "Describe the basics of muscle contraction.",
+    answer:
+      "Electrical signal from neuron runs down sarcolemma into the t-tumbles and into the sarcoplasmic reticulum to release calcium ions. Myosin heads chemically attache to actin thin filaments using calcium ions and ATP. Once attached to actin filaments, the myosin heads pivot and pull on the actin fibers, thus bring the Z discs closer to the M line and shortening the sarcomere. This shortens and contracts the entire myofibril and thus contracts the muscle fiber.",
   },
 ];

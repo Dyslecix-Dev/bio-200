@@ -32,9 +32,11 @@ const BasicFAQ = () => {
         <Question title="What is the purpose of this website?" defaultOpen>
           <p>To help my fellow Citrus college students in BIO 200.</p>
         </Question>
+
         {/* <Question title="Why is there a leaderboard?">
           <p>It&apos;s a fun and easy way to see who is doing well in the class. That way students know who they can ask for help.</p>
         </Question> */}
+
         <Question title="Will you provide future features, like other subjects?">
           <p>
             Currently, I don&apos;t have any plans to. If you have a suggestion, please email me at dyslecixdev@gmail.com
@@ -45,8 +47,13 @@ const BasicFAQ = () => {
             !
           </p>
         </Question>
+
         <Question title="Damn, this is a sick website! Can you make one for me?">
           <p>You bet! I&apos;m a software developer with almost four years of experience. Send me an inquiry at dyslecixdev@gmail.com!</p>
+        </Question>
+
+        <Question title="Thank you to all these wonderful people!">
+          <p>Huge shoutout to Anderw Ngo and Nicole Lees for providing me with questions for the mock exams.</p>
         </Question>
       </div>
     </div>
