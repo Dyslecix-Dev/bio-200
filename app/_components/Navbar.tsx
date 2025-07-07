@@ -1,13 +1,32 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 import { motion } from "motion/react";
 
-import { NavLinkType } from "../../types/types"; // BUG
+import { NavLinkType } from "@/types/types";
+
+import { createClient } from "@/utils/supabase/client";
 
 export default function Navbar() {
+  const router = useRouter();
+
+  async function signOut() {
+    try {
+      const supabase = await createClient();
+      const { error } = await supabase.auth.signOut();
+
+      if (error) {
+        console.error("Error signing out:", error);
+      } else {
+        router.push("/auth/login");
+      }
+    } catch (error) {
+      console.error("Error signing out:", error);
+    }
+  }
+
   return (
     <nav className="relative z-30 left-[50%] top-8 flex w-fit -translate-x-[50%] items-center gap-6 rounded-lg border-[1px] border-neutral-700 bg-neutral-900 p-2 pr-4 text-sm text-neutral-500">
       <Logo />
@@ -17,7 +36,9 @@ export default function Navbar() {
       <NavLink link="/leaderboard">Leaderboard</NavLink> */}
       <NavLink link="/faq">FAQ</NavLink>
 
-      {/* <JoinButton /> */}
+      {/* <ProfileButton /> */}
+
+      <NavLink onClick={signOut}>Logout</NavLink>
     </nav>
   );
 }
@@ -44,7 +65,7 @@ const NavLink = ({ link, onClick, children }: NavLinkType) => {
   );
 };
 
-// const JoinButton = () => {
+// const ProfileButton = () => {
 //   const pathname = usePathname();
 
 //   return (
