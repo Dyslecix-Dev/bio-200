@@ -59,6 +59,8 @@ const Heading = () => (
           Login.
         </Link>
       </p>
+
+      <p className="text-zinc-400">After signing up, please check your email to verify your account.</p>
     </div>
   </div>
 );
@@ -120,8 +122,6 @@ const SignUpForm = ({ showNotification }: { showNotification: (message: string) 
       if (result?.errorMessage) {
         showNotification(result.errorMessage);
       }
-
-      showNotification("Please check your email.");
     } catch (error) {
       console.error(error);
       showNotification("An unexpected error occurred. Please try again.");
