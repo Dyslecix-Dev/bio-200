@@ -106,6 +106,8 @@ const LoginForm = ({ showNotification }: { showNotification: (message: string) =
       if (result?.errorMessage) {
         showNotification(result.errorMessage);
       }
+
+      // TODO Change user_profiles.online to TRUE
     } catch (error) {
       console.error(error);
       showNotification("An unexpected error occurred. Please try again.");

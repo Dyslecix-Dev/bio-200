@@ -20,6 +20,8 @@ export default function Navbar() {
       if (error) {
         console.error("Error signing out:", error);
       } else {
+        // TODO Change user_profiles.online to FALSE
+
         router.push("/auth/login");
       }
     } catch (error) {
@@ -93,7 +95,7 @@ const NavLink = ({ link, onClick, children }: NavLinkType) => {
 
 const LogoutButton = ({ onClick, children }: { onClick: () => void; children: React.ReactNode }) => {
   return (
-    <button onClick={onClick} className="block overflow-hidden">
+    <button onClick={onClick} className="block overflow-hidden cursor-pointer">
       <motion.div whileHover={{ y: -20 }} transition={{ ease: "backInOut", duration: 0.5 }} className="h-[20px]">
         <span className="flex h-[20px] items-center text-neutral-50">{children}</span>
         <span className="flex h-[20px] items-center text-neutral-50">{children}</span>

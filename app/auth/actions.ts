@@ -51,7 +51,6 @@ export async function signup(formData: FormData) {
     password: formData.get("password") as string,
   };
 
-  // TODO create public.user in Supabase to hold UserType
   const { error } = await supabase.auth.signUp(data);
 
   if (error) return { errorMessage: error.message };

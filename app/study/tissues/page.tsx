@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useState, useEffect } from "react";
@@ -7,9 +6,11 @@ import { motion } from "motion/react";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import useMeasure from "react-use-measure";
 
-import Navbar from "../../_components/Navbar";
-import Beams from "../../_components/_background/Beams";
-import GradientGrid from "../../_components/_background/GradientGrid";
+import Navbar from "@/app/_components/Navbar";
+import Beams from "@/app/_components/_background/Beams";
+import GradientGrid from "@/app/_components/_background/GradientGrid";
+
+import { TissueType, FlashCardType } from "@/types/types";
 
 const CARD_WIDTH = 350;
 const CARD_HEIGHT = 350;
@@ -22,7 +23,7 @@ const BREAKPOINTS = {
 };
 
 // Fisher-Yates shuffle algorithm
-const shuffleArray = (array: any[]) => {
+const shuffleArray = <T,>(array: T[]): T[] => {
   const shuffled = [...array];
   for (let i = shuffled.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -45,7 +46,7 @@ export default function Tissues() {
 const CardCarousel = () => {
   const [ref, { width }] = useMeasure();
   const [offset, setOffset] = useState(0);
-  const [shuffledItems, setShuffledItems] = useState<any[]>([]);
+  const [shuffledItems, setShuffledItems] = useState<TissueType[]>([]);
 
   // Randomize items on component mount
   useEffect(() => {
@@ -62,14 +63,14 @@ const CardCarousel = () => {
     if (!CAN_SHIFT_LEFT) {
       return;
     }
-    setOffset((pv) => (pv += CARD_SIZE));
+    setOffset((pv) => pv + CARD_SIZE);
   };
 
   const shiftRight = () => {
     if (!CAN_SHIFT_RIGHT) {
       return;
     }
-    setOffset((pv) => (pv -= CARD_SIZE));
+    setOffset((pv) => pv - CARD_SIZE);
   };
 
   return (
@@ -83,7 +84,7 @@ const CardCarousel = () => {
             }}
             className="flex"
           >
-            {shuffledItems.map((item: any) => {
+            {shuffledItems.map((item: TissueType) => {
               return <Card key={item.id} {...item} />;
             })}
           </motion.div>
@@ -117,8 +118,7 @@ const CardCarousel = () => {
   );
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const Card = ({ image, frontText, backText }: any) => {
+const Card = ({ image, frontText, backText }: FlashCardType) => {
   const [isFlipped, setIsFlipped] = useState(false);
 
   const handleClick = () => {
@@ -136,7 +136,7 @@ const Card = ({ image, frontText, backText }: any) => {
       onClick={handleClick}
     >
       <motion.div className="relative w-full h-full" style={{ transformStyle: "preserve-3d" }} animate={{ rotateY: isFlipped ? 180 : 0 }} transition={{ duration: 0.6, ease: "easeInOut" }}>
-        {/* Front of card - Text */}
+        {/* Front of card - Image */}
         <div
           className="absolute inset-0 w-full h-full rounded-2xl bg-white shadow-md"
           style={{
@@ -152,7 +152,7 @@ const Card = ({ image, frontText, backText }: any) => {
           </div>
         </div>
 
-        {/* Back of card - Image */}
+        {/* Back of card - Text */}
         <div
           className="absolute inset-0 w-full h-full rounded-2xl bg-gradient-to-br from-slate-800 to-slate-900 shadow-md flex items-center justify-center p-6"
           style={{
@@ -167,7 +167,7 @@ const Card = ({ image, frontText, backText }: any) => {
   );
 };
 
-const items = [
+const items: TissueType[] = [
   {
     id: 1,
     image: "https://boej6iprvajfuxis.public.blob.vercel-storage.com/adipose-sWpqjqBSJz5shCtNbYH4LrYLOZyWW3.png",

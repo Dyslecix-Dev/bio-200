@@ -8,11 +8,11 @@ import { twMerge } from "tailwind-merge";
 import { MotionConfig, motion } from "motion/react";
 import { FiArrowRight } from "react-icons/fi";
 
-import Navbar from "./_components/Navbar"; // BUG
-import Beams from "./_components/_background/Beams"; // BUG
-import GradientGrid from "./_components/_background/GradientGrid"; // BUG
+import Navbar from "@/app/_components/Navbar";
+import Beams from "@/app/_components/_background/Beams";
+import GradientGrid from "@/app/_components/_background/GradientGrid";
 
-import { CardType } from "../types/types"; // BUG
+import { CardType } from "@/types/types";
 
 export default function Home() {
   return (

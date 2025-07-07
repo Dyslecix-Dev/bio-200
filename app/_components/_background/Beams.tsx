@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 import { motion } from "motion/react";
 
-import { BeamType, WindowSizeType } from "../../../types/types"; // BUG
+import { BeamType, WindowSizeType } from "@/types/types";
 
 export default function Beams() {
   const { width } = useWindowSize();

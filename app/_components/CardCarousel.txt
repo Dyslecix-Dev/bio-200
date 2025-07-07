@@ -17,7 +17,7 @@ const BREAKPOINTS = {
   lg: 1024,
 };
 
-// TODO
+
 export default function CardCarousel({ items }: { items: any }) {
   const [ref, { width }] = useMeasure();
   const [offset, setOffset] = useState(0);
@@ -53,7 +53,7 @@ export default function CardCarousel({ items }: { items: any }) {
             }}
             className="flex"
           >
-            {/* TODO */}
+
             {items.map((item: any) => {
               return <Card key={item.id} {...item} />;
             })}
@@ -88,7 +88,7 @@ export default function CardCarousel({ items }: { items: any }) {
   );
 }
 
-// TODO
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Card = ({ image, frontText, backText }: any) => {
   const [isFlipped, setIsFlipped] = useState(false);

@@ -1,19 +1,17 @@
 import { useEffect, useRef, useState } from "react";
+
 import { useAnimate } from "motion/react";
-import { CountdownItemType, TimerReturnType } from "../../types/types";
+
+import { CountdownType, CountdownTimeType, TimerReturnType } from "@/types/types";
 
 const SECOND: number = 1000;
 const MINUTE: number = SECOND * 60;
 const HOUR: number = MINUTE * 60;
 
-interface CountdownProps {
-  onTimeUp?: () => void;
-}
-
-export default function Countdown({ onTimeUp }: CountdownProps) {
+export default function Countdown({ onTimeUp }: CountdownType) {
   const [startTime] = useState<number>(Date.now());
 
-  // Modify these values to change the countdown duration
+  //! Modify these values to change the countdown duration
   const hours = 0;
   const minutes = 15;
   const seconds = 0;
@@ -23,9 +21,6 @@ export default function Countdown({ onTimeUp }: CountdownProps) {
   const handleSubmitTest = () => {
     if (onTimeUp) {
       onTimeUp();
-    } else {
-      // TODO Replace with toast
-      alert("Time's up! Test submitted automatically.");
     }
   };
 
@@ -40,7 +35,7 @@ export default function Countdown({ onTimeUp }: CountdownProps) {
   );
 }
 
-const CountdownItem = ({ unit, text, startTime, totalDuration, onTimeUp }: CountdownItemType & { onTimeUp?: () => void }) => {
+const CountdownItem = ({ unit, text, startTime, totalDuration, onTimeUp }: CountdownTimeType & { onTimeUp?: () => void }) => {
   const { ref, time } = useTimer(unit, startTime, totalDuration, onTimeUp);
   return (
     <div className="flex w-fit items-center justify-center gap-1.5 py-2">

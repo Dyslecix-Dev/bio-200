@@ -4,51 +4,33 @@ import { useRouter } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
 import { FiArrowRight, FiHome } from "react-icons/fi";
 
-import Countdown from "../../../_components/Countdown";
-import Beams from "../../../_components/_background/Beams";
-import GradientGrid from "../../../_components/_background/GradientGrid";
+import Countdown from "@/app/_components/Countdown";
+import Beams from "@/app/_components/_background/Beams";
+import GradientGrid from "@/app/_components/_background/GradientGrid";
+import StackedNotification from "@/app/_components/StackedNotification";
 
-import { trueOrFalseQuestions, multipleChoiceQuestions, shortAnswerQuestions } from "../../../_data/exams/exam-one"; // BUG
+import { QuestionType, ShortAnswerQuestionType, ScoreType, ExamQuestionsType } from "@/types/types";
 
-// TODO move types
-interface Option {
-  text: string;
-  correct: boolean;
-}
-
-interface Question {
-  question: string;
-  options: Option[];
-}
-
-interface ShortAnswerQuestion {
-  question: string;
-  answer: string;
-}
-
-interface Score {
-  correctAnswers: number;
-  totalQuestions: number;
-}
-
-interface ExamQuestionsProps {
-  isSubmitted: boolean;
-  setIsSubmitted: (submitted: boolean) => void;
-  router: ReturnType<typeof useRouter>;
-  score: Score | null;
-  setScore: (score: Score) => void;
-  calculateScoreRef: React.MutableRefObject<(() => Score) | null>;
-}
+import { trueOrFalseQuestions, multipleChoiceQuestions, shortAnswerQuestions } from "@/app/_data/exams/exam-one";
 
 export default function Questions() {
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [score, setScore] = useState<Score | null>(null);
-  const calculateScoreRef = useRef<(() => Score) | null>(null);
+  const [score, setScore] = useState<ScoreType | null>(null);
+  const [isNotifOpen, setIsNotifOpen] = useState(false);
+  const [message, setMessage] = useState<string | null>(null);
 
   const router = useRouter();
 
+  const calculateScoreRef = useRef<(() => ScoreType) | null>(null);
+
+  const showNotification = (msg: string) => {
+    setMessage(msg);
+    setIsNotifOpen(true);
+  };
+
   const handleTimeUp = () => {
     if (!isSubmitted && calculateScoreRef.current) {
+      showNotification("Time is up! See your score below.");
       const calculatedScore = calculateScoreRef.current();
       setScore(calculatedScore);
       setIsSubmitted(true);
@@ -62,6 +44,7 @@ export default function Questions() {
       <ExamQuestions isSubmitted={isSubmitted} setIsSubmitted={setIsSubmitted} router={router} score={score} setScore={setScore} calculateScoreRef={calculateScoreRef} />
       <Beams />
       <GradientGrid />
+      <StackedNotification isNotifOpen={isNotifOpen} setIsNotifOpen={setIsNotifOpen} message={message} />
     </main>
   );
 }
@@ -80,17 +63,17 @@ const shuffleArray = <T,>(array: T[]): T[] => {
   return shuffled;
 };
 
-const shuffleOptions = (questions: Question[]): Question[] => {
+const shuffleOptions = (questions: QuestionType[]): QuestionType[] => {
   return questions.map((question) => ({
     ...question,
     options: shuffleArray(question.options),
   }));
 };
 
-const ExamQuestions: React.FC<ExamQuestionsProps> = ({ isSubmitted, setIsSubmitted, router, score, setScore, calculateScoreRef }) => {
-  const [selectedTrueFalse, setSelectedTrueFalse] = useState<Question[]>([]);
-  const [selectedMultipleChoice, setSelectedMultipleChoice] = useState<Question[]>([]);
-  const [selectedShortAnswer, setSelectedShortAnswer] = useState<ShortAnswerQuestion[]>([]);
+const ExamQuestions: React.FC<ExamQuestionsType> = ({ isSubmitted, setIsSubmitted, router, score, setScore, calculateScoreRef }) => {
+  const [selectedTrueFalse, setSelectedTrueFalse] = useState<QuestionType[]>([]);
+  const [selectedMultipleChoice, setSelectedMultipleChoice] = useState<QuestionType[]>([]);
+  const [selectedShortAnswer, setSelectedShortAnswer] = useState<ShortAnswerQuestionType[]>([]);
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [shortAnswers, setShortAnswers] = useState<Record<string, string>>({});
 
@@ -137,7 +120,7 @@ const ExamQuestions: React.FC<ExamQuestionsProps> = ({ isSubmitted, setIsSubmitt
   };
 
   // Calculate score (only for true/false and multiple choice)
-  const calculateScore = (): Score => {
+  const calculateScore = (): ScoreType => {
     let correctAnswers = 0;
     const totalQuestions = selectedTrueFalse.length + selectedMultipleChoice.length;
 

@@ -7,11 +7,11 @@ import { motion } from "motion/react";
 import { FiChevronDown } from "react-icons/fi";
 import useMeasure from "react-use-measure";
 
-import Navbar from "../_components/Navbar";
-import Beams from "../_components/_background/Beams";
-import GradientGrid from "../_components/_background/GradientGrid";
+import Navbar from "@/app/_components/Navbar";
+import Beams from "@/app/_components/_background/Beams";
+import GradientGrid from "@/app/_components/_background/GradientGrid";
 
-import { FAQuestionType } from "../../types/types"; // BUG
+import { FAQuestionType } from "@/types/types";
 
 export default function FAQ() {
   return (

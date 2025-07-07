@@ -16,10 +16,9 @@
 
 ## Auth
 
-1. Register
-2. Login (Needs Register)
-3. Logout (Needs Register and Logout)
-4. Logout after inactivity (Needs Logout)
+1. DONE Register
+2. DONE Login (Needs Register)
+3. DONE Logout (Needs Register and Logout)
 
 ## Profile
 

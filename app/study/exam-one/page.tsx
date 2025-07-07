@@ -5,8 +5,7 @@ import { useEffect, useRef, useState } from "react";
 
 import { motion } from "motion/react";
 
-// BUG
-import { SquareImageType } from "../../../types/types";
+import { SquareImageType } from "@/types/types";
 
 export default function ExamOne() {
   return (
