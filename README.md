@@ -1,10 +1,13 @@
+# BUGS
+
+1. public.user_profiles name column is saving the email from auth.users
+
 # Future Features
 
 ## Mock Exam
 
-1. Fix/Suggest exam questions
+1. Fix/Suggest exam questions (Needs Contact email)
 2. Leaderboard (Needs Auth)
-3. Background Music
 
 ## Flash Cards
 
@@ -19,6 +22,10 @@
 1. DONE Register
 2. DONE Login (Needs Register)
 3. DONE Logout (Needs Register and Logout)
+
+## Contact
+
+1. Contact email
 
 ## Profile
 

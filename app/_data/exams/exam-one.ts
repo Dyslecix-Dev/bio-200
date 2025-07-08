@@ -105,7 +105,7 @@ export const trueOrFalseQuestions = [
     ],
   },
   {
-    question: "Skeletal muscle tissue is the main tissue in the heart and walls of other hollow organs.",
+    question: "The composite of muscle cells and surrounding connective tissues is the main tissue in the heart and walls of other hollow organs.",
     options: [
       { text: "True", correct: true },
       { text: "False", correct: false },
@@ -133,14 +133,14 @@ export const trueOrFalseQuestions = [
     ],
   },
   {
-    question: "The frontal plane divides the anterior and posterior planes of the body.",
+    question: "The frontal plane divides the body into anterior and posterior planes.",
     options: [
       { text: "True", correct: true },
       { text: "False", correct: false },
     ],
   },
   {
-    question: "Epithelium has two forms: covering and living epithelium, and glandular epithelium.",
+    question: "Epithelium has two forms: covering and lining epithelium, and glandular epithelium.",
     options: [
       { text: "True", correct: true },
       { text: "False", correct: false },
@@ -668,7 +668,7 @@ export const multipleChoiceQuestions = [
     ],
   },
   {
-    question: "What are peaks of areolar ct jutting up into epidermis called?",
+    question: "What are peaks of areolar CT jutting up into epidermis called?",
     options: [
       {
         text: "Dermal papillae",
@@ -696,23 +696,23 @@ export const multipleChoiceQuestions = [
     question: "Which tissue makes up most of the dermis?",
     options: [
       {
-        text: "Dense irregular ct",
+        text: "Dense irregular CT",
         correct: true,
       },
       {
-        text: "Reticular ct",
+        text: "Reticular CT",
         correct: false,
       },
       {
-        text: "Areolar ct",
+        text: "Areolar CT",
         correct: false,
       },
       {
-        text: "Elastic ct",
+        text: "Elastic CT",
         correct: false,
       },
       {
-        text: "Dense regular ct",
+        text: "Dense regular CT",
         correct: false,
       },
     ],
@@ -737,7 +737,7 @@ export const multipleChoiceQuestions = [
         correct: false,
       },
       {
-        text: "Uv radiation protection",
+        text: "UV radiation protection",
         correct: false,
       },
     ],
@@ -746,23 +746,23 @@ export const multipleChoiceQuestions = [
     question: "Which type of tissue is the perichondrium composed of?",
     options: [
       {
-        text: "Dense irregular ct",
+        text: "Dense irregular CT",
         correct: true,
       },
       {
-        text: "Dense regular ct",
+        text: "Dense regular CT",
         correct: false,
       },
       {
-        text: "Elastic ct",
+        text: "Elastic CT",
         correct: false,
       },
       {
-        text: "Areolar ct",
+        text: "Areolar CT",
         correct: false,
       },
       {
-        text: "Reticular ct",
+        text: "Reticular CT",
         correct: false,
       },
     ],
@@ -1321,7 +1321,7 @@ export const multipleChoiceQuestions = [
     question: "Subcutaneous tissue consists of what?",
     options: [
       {
-        text: "Areolar and adipose tissue",
+        text: "Areolar CT and adipose tissue",
         correct: true,
       },
       {
@@ -1329,7 +1329,7 @@ export const multipleChoiceQuestions = [
         correct: false,
       },
       {
-        text: "Areolar tissue",
+        text: "Areolar CT",
         correct: false,
       },
       {
@@ -1337,7 +1337,7 @@ export const multipleChoiceQuestions = [
         correct: false,
       },
       {
-        text: "Areolar and subcutaneous tissue",
+        text: "Areolar CT and subcutaneous tissue",
         correct: false,
       },
     ],

@@ -1,5 +1,5 @@
 import { useRouter } from "next/navigation";
-import { ReactNode, MouseEventHandler, RefObject } from "react";
+import { ReactNode, MouseEventHandler, RefObject, Dispatch, SetStateAction } from "react";
 
 export interface BeamType {
   top: number;
@@ -18,6 +18,20 @@ export interface CardType {
   className: string;
 }
 
+export interface ContactFormDataType {
+  [key: string]: string;
+  user: string;
+  email: string;
+}
+
+export interface ContactFormQuestionType {
+  key: string;
+  text: string;
+  postfix: string;
+  complete: boolean;
+  value: string;
+}
+
 export interface CountdownTimeType {
   unit: "Hour" | "Minute" | "Second";
   text: string;
@@ -29,13 +43,24 @@ export interface CountdownType {
   onTimeUp?: () => void;
 }
 
+export interface CurLineType {
+  text: string;
+  focused: boolean;
+  setText: (text: string) => void;
+  setFocused: (focused: boolean) => void;
+  inputRef: RefObject<HTMLInputElement | null>;
+  command: string | null;
+  handleSubmitLine: (text: string) => void;
+  containerRef: RefObject<HTMLDivElement | null>;
+}
+
 export interface ExamQuestionsType {
   isSubmitted: boolean;
   setIsSubmitted: (submitted: boolean) => void;
   router: ReturnType<typeof useRouter>;
   score: ScoreType | null;
   setScore: (score: ScoreType) => void;
-  calculateScoreRef: React.RefObject<(() => ScoreType) | null>;
+  calculateScoreRef: RefObject<(() => ScoreType) | null>;
 }
 
 export interface FAQuestionType {
@@ -98,6 +123,13 @@ export interface StackedNotificationType {
   isNotifOpen: boolean;
   setIsNotifOpen: (isOpen: boolean) => void;
   message: string | null;
+}
+
+export interface SummaryType {
+  questions: ContactFormQuestionType[];
+  setQuestions: Dispatch<SetStateAction<ContactFormQuestionType[]>>;
+  loading: boolean;
+  user: { name: string; email: string } | null;
 }
 
 export interface TimerReturnType {

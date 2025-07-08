@@ -1,13 +1,14 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, FC } from "react";
 import { FiArrowRight, FiHome } from "react-icons/fi";
 
 import Countdown from "@/app/_components/Countdown";
 import Beams from "@/app/_components/_background/Beams";
 import GradientGrid from "@/app/_components/_background/GradientGrid";
 import StackedNotification from "@/app/_components/StackedNotification";
+import RainbowButton from "@/app/_components/_buttons/RainbowButton";
 
 import { QuestionType, ShortAnswerQuestionType, ScoreType, ExamQuestionsType } from "@/types/types";
 
@@ -70,7 +71,7 @@ const shuffleOptions = (questions: QuestionType[]): QuestionType[] => {
   }));
 };
 
-const ExamQuestions: React.FC<ExamQuestionsType> = ({ isSubmitted, setIsSubmitted, router, score, setScore, calculateScoreRef }) => {
+const ExamQuestions: FC<ExamQuestionsType> = ({ isSubmitted, setIsSubmitted, router, score, setScore, calculateScoreRef }) => {
   const [selectedTrueFalse, setSelectedTrueFalse] = useState<QuestionType[]>([]);
   const [selectedMultipleChoice, setSelectedMultipleChoice] = useState<QuestionType[]>([]);
   const [selectedShortAnswer, setSelectedShortAnswer] = useState<ShortAnswerQuestionType[]>([]);
@@ -315,25 +316,36 @@ const ExamQuestions: React.FC<ExamQuestionsType> = ({ isSubmitted, setIsSubmitte
         )}
 
         {/* Submit/Return Button */}
-        <div className="text-center">
+        <div className="flex flex-col md:flex-row items-center justify-evenly">
           {!isSubmitted ? (
             <button
               onClick={handleSubmit}
               disabled={!isTestComplete()}
-              className="font-semibold py-3 px-8 rounded-lg transition-colors duration-200 flex items-center gap-2 mx-auto bg-indigo-500 hover:bg-indigo-600 disabled:bg-gray-600 text-white cursor-pointer disabled:cursor-not-allowed"
+              className="font-semibold py-3 px-8 rounded-lg transition-colors duration-200 flex items-center gap-2 bg-indigo-500 hover:bg-indigo-600 disabled:bg-gray-600 text-white cursor-pointer disabled:cursor-not-allowed"
             >
               Submit Test
               <FiArrowRight />
             </button>
           ) : (
-            <button
-              onClick={handleReturnToDashboard}
-              className="font-semibold py-3 px-8 rounded-lg transition-colors duration-200 flex items-center gap-2 mx-auto bg-indigo-500 hover:bg-indigo-600 text-white cursor-pointer"
-            >
-              <FiHome />
-              Return to Dashboard
-            </button>
+            <div className="flex flex-col md:flex-row gap-16">
+              <button
+                onClick={handleReturnToDashboard}
+                className="font-semibold py-3 px-8 rounded-lg transition-colors duration-200 flex items-center gap-2 bg-indigo-500 hover:bg-indigo-600 text-white cursor-pointer"
+              >
+                <FiHome />
+                Return to Dashboard
+              </button>
+
+              <button
+                onClick={() => window.location.reload()}
+                className="font-semibold py-3 px-8 rounded-lg transition-colors duration-200 flex justify-center gap-2 bg-indigo-500 hover:bg-indigo-600 text-white cursor-pointer"
+              >
+                Retake Test
+              </button>
+            </div>
           )}
+
+          <RainbowButton />
         </div>
       </div>
     </section>

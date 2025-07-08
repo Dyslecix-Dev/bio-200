@@ -1,6 +1,6 @@
 "use client";
 
-// import Link from "next/link";
+import Link from "next/link";
 import { useState } from "react";
 
 import { motion } from "motion/react";
@@ -39,21 +39,25 @@ const BasicFAQ = () => {
 
         <Question title="Will you provide future features, like other subjects?">
           <p>
-            Currently, I don&apos;t have any plans to. If you have a suggestion, please email me at dyslecixdev@gmail.com
-            {/* let me know{" "}
+            Currently, I don&apos;t have any plans to. If you have a suggestion, please let me know{" "}
             <Link href="/contact" className="text-[#7C3AED] underline">
               here
-            </Link> */}
+            </Link>
             !
           </p>
         </Question>
 
         <Question title="Damn, this is a sick website! Can you make one for me?">
-          <p>You bet! I&apos;m a software developer with almost four years of experience. Send me an inquiry at dyslecixdev@gmail.com!</p>
+          <p>You bet! My name is Christian Demesa and I&apos;m a software developer with almost four years of experience. Send me an inquiry at dyslecixdev@gmail.com!</p>
         </Question>
 
         <Question title="Thank you to all these wonderful people!">
-          <p>Huge shoutout to Anderw Ngo and Nicole Lees for providing me with questions for the mock exams.</p>
+          <p>
+            Huge shoutout to Anderw Ngo and Nicole Lees for providing me with questions for the mock exams.
+            <br />
+            <br />
+            Also thank you to my beta testers: Alistaire Trinidad, Andrew Ngo, Brenda Beltran, Nicole Bachoura,and Nicole Lees.
+          </p>
         </Question>
       </div>
     </div>

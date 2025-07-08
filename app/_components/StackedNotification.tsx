@@ -27,7 +27,7 @@ export default function StackedNotification({ isNotifOpen, setIsNotifOpen, messa
   };
 
   return (
-    <div className="min-h-[200px] flex items-center justify-center">
+    <div className="flex items-center justify-center">
       <AnimatePresence>
         {notifications.map((notification) => (
           <Notification key={notification.id} id={notification.id} text={notification.text} removeNotif={removeNotif} />
