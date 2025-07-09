@@ -121,6 +121,7 @@ const SignUpForm = ({ showNotification }: { showNotification: (message: string) 
 
       if (result?.errorMessage) {
         showNotification(result.errorMessage);
+        console.log(result); // TODO remove
       }
 
       // TODO Change user_profiles.online to TRUE

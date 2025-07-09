@@ -16,13 +16,30 @@ export default function Navbar() {
   async function signOut() {
     try {
       const supabase = await createClient();
-      const { error } = await supabase.auth.signOut();
 
-      if (error) {
-        console.error("Error signing out:", error);
+      const {
+        data: { user },
+        error: userError,
+      } = await supabase.auth.getUser();
+
+      if (userError) {
+        console.error("Error getting user:", userError);
+        return;
+      }
+
+      if (user) {
+        const { error: publicError } = await supabase.from("user_profiles").update({ online: false }).eq("id", user.id);
+
+        if (publicError) {
+          console.error("Status update failed:", publicError);
+        }
+      }
+
+      const { error: authError } = await supabase.auth.signOut();
+
+      if (authError) {
+        console.error("Error signing out:", authError);
       } else {
-        // TODO Change user_profiles.online to FALSE
-
         router.push("/auth/login");
       }
     } catch (error) {

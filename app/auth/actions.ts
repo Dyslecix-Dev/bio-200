@@ -16,14 +16,19 @@ export async function login(formData: FormData) {
   if (!password) return { errorMessage: "Password is required!" };
   if (password.length < 8) return { errorMessage: "Password must be at least 8 characters!" };
 
-  const data = {
+  const authForm = {
     email: email,
     password: password,
   };
 
-  const { error } = await supabase.auth.signInWithPassword(data);
+  const { data: authData, error: authError } = await supabase.auth.signInWithPassword(authForm);
 
-  if (error) return { errorMessage: error.message };
+  if (authError) return { errorMessage: authError.message };
+  else if (!authData.user) return { errorMessage: "Login failed." };
+
+  const { error: publicError } = await supabase.from("user_profiles").update({ online: true }).eq("id", authData.user.id);
+
+  if (publicError) return { errorMessage: "Status update failed." };
 
   revalidatePath("/", "layout");
   redirect("/");
@@ -46,14 +51,26 @@ export async function signup(formData: FormData) {
   if (confirm_password.length < 8) return { errorMessage: "Confirm password must be at least 8 characters!" };
   if (password !== confirm_password) return { errorMessage: "Passwords do not match!" };
 
-  const data = {
+  const authForm = {
     email: formData.get("email") as string,
     password: formData.get("password") as string,
   };
 
-  const { error } = await supabase.auth.signUp(data);
+  const { data: authData, error: authError } = await supabase.auth.signUp(authForm);
 
-  if (error) return { errorMessage: error.message };
+  if (authError) return { errorMessage: authError.message };
+  else if (!authData.user) return { errorMessage: "Registration failed." };
+
+  const publicForm = {
+    id: authData.user.id,
+    name: name,
+    online: false,
+    study_streak: 0,
+  };
+
+  const { error: publicError } = await supabase.from("user_profiles").insert(publicForm);
+
+  if (publicError) return { errorMessage: publicError.message };
 
   revalidatePath("/", "layout");
   redirect("/");

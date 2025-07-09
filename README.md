@@ -1,13 +1,24 @@
 # BUGS
 
-1. public.user_profiles name column is saving the email from auth.users
+1. FIXED public.user_profiles name column is saving the email from auth.users
 
 # Future Features
 
+## Dashboard
+
+1. Reorganize Flash Cards and Mock Exams
+2. Report Bug Form
+
+## Profile
+
+1. DONE Online Status Changes (Needs Auth)
+2. Edit Profile (Needs Auth)
+3. Delete Profile (Needs Auth)
+4. Study Streak (Needs Auth)
+
 ## Mock Exam
 
-1. Fix/Suggest exam questions (Needs Contact email)
-2. Leaderboard (Needs Auth)
+1. Leaderboard (Needs Auth)
 
 ## Flash Cards
 
@@ -26,12 +37,6 @@
 ## Contact
 
 1. Contact email
-
-## Profile
-
-1. Edit Profile (Needs Auth)
-2. Delete Profile (Needs Auth)
-3. Study Streak (Needs Auth)
 
 ## Kanban Board
 
