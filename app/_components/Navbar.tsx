@@ -2,33 +2,53 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { ReactNode } from "react";
+import { useEffect, useState, ReactNode } from "react";
 
 import { motion } from "motion/react";
+
+// import FloodButton from "./_buttons/FloodButton";
 
 import { NavLinkType } from "@/types/types";
 
 import { createClient } from "@/utils/supabase/client";
 
 export default function Navbar() {
+  const [userID, setUserID] = useState<string>("");
+
   const router = useRouter();
+
+  useEffect(() => {
+    async function getUser() {
+      try {
+        const supabase = await createClient();
+
+        const {
+          data: { user },
+          error,
+        } = await supabase.auth.getUser();
+
+        if (error) {
+          console.error("Error getting user:", error);
+          return;
+        }
+
+        if (user) {
+          setUserID(user.id);
+        }
+      } catch (error) {
+        console.error("Error in getUser:", error);
+      }
+    }
+
+    getUser();
+  }, []);
 
   async function signOut() {
     try {
       const supabase = await createClient();
 
-      const {
-        data: { user },
-        error: userError,
-      } = await supabase.auth.getUser();
-
-      if (userError) {
-        console.error("Error getting user:", userError);
-        return;
-      }
-
-      if (user) {
-        const { error: publicError } = await supabase.from("user_profiles").update({ online: false }).eq("id", user.id);
+      if (userID) {
+        const { error: publicError } = await supabase.from("user_profiles").update({ online: false }).eq("id", userID);
 
         if (publicError) {
           console.error("Status update failed:", publicError);
@@ -49,14 +69,16 @@ export default function Navbar() {
 
   return (
     <nav className="relative z-30 left-[50%] top-8 flex w-fit -translate-x-[50%] items-center gap-6 rounded-lg border-[1px] border-neutral-700 bg-neutral-900 p-2 pr-4 text-sm text-neutral-500">
-      <Logo />
+      <div className="hidden md:block">
+        <Logo />
+      </div>
 
       <NavLink link="/">Home</NavLink>
       <NavLink link="/contact">Contact</NavLink>
       {/* <NavLink link="/leaderboard">Leaderboard</NavLink> */}
       <NavLink link="/faq">FAQ</NavLink>
 
-      {/* <ProfileButton /> */}
+      {/* <FloodButton text="Profile" link={`/profile/${userID}`} /> */}
 
       <LogoutButton onClick={signOut}>Logout</LogoutButton>
     </nav>
@@ -84,32 +106,6 @@ const NavLink = ({ link, onClick, children }: NavLinkType) => {
     </Link>
   );
 };
-
-// const ProfileButton = () => {
-//   const pathname = usePathname();
-
-//   return (
-//     <Link
-//       href="/profile"
-//       className={`
-//           relative z-0 flex items-center gap-2 overflow-hidden whitespace-nowrap rounded-lg border-[1px] border-neutral-700 px-4 py-1.5 font-medium text-neutral-300 transition-all duration-300 cursor-pointer
-
-//           before:absolute before:inset-0
-//           before:-z-10 before:translate-y-[200%]
-//           before:scale-[2.5]
-//           before:rounded-[100%]
-//           ${pathname === "/profile" ? "before:bg-blue-500" : "before:bg-neutral-50"}
-//           before:transition-transform before:duration-1000
-//           before:content-[""]
-
-//           hover:scale-105 hover:border-neutral-50 hover:text-neutral-900
-//           hover:before:translate-y-[0%]
-//           active:scale-100`}
-//     >
-//       Profile
-//     </Link>
-//   );
-// };
 
 const LogoutButton = ({ onClick, children }: { onClick: () => void; children: ReactNode }) => {
   return (

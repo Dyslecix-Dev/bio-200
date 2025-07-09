@@ -56,7 +56,7 @@ const BasicFAQ = () => {
             Huge shoutout to Anderw Ngo and Nicole Lees for providing me with questions for the mock exams.
             <br />
             <br />
-            Also thank you to my beta testers: Alistaire Trinidad, Andrew Ngo, Brenda Beltran, Nicole Bachoura,and Nicole Lees.
+            Also thank you to my beta testers: Alistaire Trinidad, Andrew Ngo, Brenda Beltran, Ivan Tafoya, Nicole Bachoura,Nicole Lees, Jasmine Aguilar, and Juliana Diaz.
           </p>
         </Question>
       </div>

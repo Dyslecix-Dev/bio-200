@@ -6,7 +6,7 @@
 
 ## Dashboard
 
-1. Reorganize Flash Cards and Mock Exams
+1. DONE Reorganize Flash Cards and Mock Exams
 2. Report Bug Form
 
 ## Profile

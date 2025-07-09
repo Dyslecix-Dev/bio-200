@@ -1,6 +1,8 @@
 import { useRouter } from "next/navigation";
 import { ReactNode, MouseEventHandler, RefObject, Dispatch, SetStateAction } from "react";
 
+import { MotionProps } from "motion/react";
+
 export interface BeamType {
   top: number;
   left: number;
@@ -9,6 +11,11 @@ export interface BeamType {
     repeatDelay?: number;
     delay?: number;
   };
+}
+
+export interface BlockType extends MotionProps {
+  children?: ReactNode;
+  className?: string;
 }
 
 export interface CardType {
@@ -141,6 +148,21 @@ export interface TissueType {
   id: number;
   image: string;
   backText: string;
+}
+
+export interface UserType {
+  id: string;
+  name: string;
+  online: boolean;
+  socials?: {
+    instagram?: string;
+    x?: string;
+    tiktok?: string;
+    youtube?: string;
+  };
+  location?: string;
+  description?: string;
+  studyStreak: number;
 }
 
 export interface WindowSizeType {

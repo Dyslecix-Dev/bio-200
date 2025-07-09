@@ -29,11 +29,11 @@ const Cards = () => {
   return (
     <section className="relative z-20 mx-auto flex h-full max-w-6xl flex-col items-center justify-center px-4 py-24 md:px-8 md:py-36">
       <div className="mx-auto grid max-w-3xl grid-cols-1 gap-6 sm:grid-cols-2">
-        <Card title="Tissues" subtitle="Flash cards for types of tissues." link="/tissues" className="bg-red-300 block lg:hidden" />
-        <SpringCard title="Tissues" subtitle="Flash cards for types of tissues." link="/tissues" className="bg-red-300 hidden lg:block" />
+        <Card title="Cards" subtitle="Coming soon." link="#" className="bg-red-300 block lg:hidden" />
+        <SpringCard title="Cards" subtitle="Coming soon." link="#" className="bg-red-300 hidden lg:block" />
 
-        <Card title="Exam 1" subtitle="First mock test on lecture." link="/exam-one" className="bg-emerald-300 block lg:hidden" />
-        <SpringCard title="Exam 1" subtitle="First mock test on lecture." link="/exam-one" className="bg-emerald-300 hidden lg:block" />
+        <Card title="Exams" subtitle="Mock exams for the lecture." link="exams" className="bg-orange-300 block lg:hidden" />
+        <SpringCard title="Exams" subtitle="Mock exams for the lecture." link="exams" className="bg-orange-300 hidden lg:block" />
       </div>
     </section>
   );
@@ -69,7 +69,7 @@ const Card = ({ title, subtitle, link, className }: CardType) => {
             <div>
               <p className="text-zinc-950 transition-[margin] duration-300 ease-in-out mb-10">{subtitle}</p>
               <Link
-                href={`/study/${link}`}
+                href={`/${link}`}
                 className="absolute bottom-2 left-2 right-2 border-2 border-black bg-white px-4 py-2 text-black opacity-100 transition-all duration-300 ease-in-out translate-y-0 cursor-pointer"
               >
                 LET&apos;S GO
@@ -152,7 +152,7 @@ const SpringCard = ({ title, subtitle, link, className }: CardType) => {
             <div>
               <p className="text-zinc-950 transition-[margin] duration-300 ease-in-out group-hover:mb-10">{subtitle}</p>
               <Link
-                href={`/study/${link}`}
+                href={`/${link}`}
                 className="absolute bottom-2 left-2 right-2 translate-y-full border-2 border-black bg-white px-4 py-2 text-black opacity-0 transition-all duration-300 ease-in-out group-hover:translate-y-0 group-hover:opacity-100 cursor-pointer"
               >
                 LET&apos;S GO
