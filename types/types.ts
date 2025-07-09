@@ -62,6 +62,9 @@ export interface CurLineType {
 }
 
 export interface ExamQuestionsType {
+  trueOrFalseQuestions: QuestionType[];
+  multipleChoiceQuestions: QuestionType[];
+  shortAnswerQuestions: ShortAnswerQuestionType[];
   isSubmitted: boolean;
   setIsSubmitted: (submitted: boolean) => void;
   router: ReturnType<typeof useRouter>;
