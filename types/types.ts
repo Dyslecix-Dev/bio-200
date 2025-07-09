@@ -80,9 +80,13 @@ export interface FAQuestionType {
 }
 
 export interface FlashCardType {
-  image: string;
+  id: string;
+  topic: string;
   frontText?: string;
-  backText: string;
+  backText?: string;
+  frontImage?: string;
+  backImage?: string;
+  grade: number;
 }
 
 export interface NavLinkType {
@@ -145,12 +149,6 @@ export interface SummaryType {
 export interface TimerReturnType {
   ref: RefObject<HTMLSpanElement>;
   time: number;
-}
-
-export interface TissueType {
-  id: number;
-  image: string;
-  backText: string;
 }
 
 export interface UserType {

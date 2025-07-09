@@ -22,7 +22,7 @@
 
 ## Flash Cards
 
-1. Flip Flash Cards
+1. DONE Flip Flash Cards
 2. Pomodoro Timer
 3. Optional Outcomes (Needs Auth)
 4. Spaced Memorization (Needs Auth)
