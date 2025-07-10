@@ -1,6 +1,7 @@
 # BUGS
 
 1. FIXED public.user_profiles name column is saving the email from auth.users
+2. In review mode, the next flash card shows its answer before it flips back to its question
 
 # Future Features
 
@@ -23,10 +24,9 @@
 ## Flash Cards
 
 1. DONE Flip Flash Cards
-2. Pomodoro Timer
-3. Optional Outcomes (Needs Auth)
-4. Spaced Memorization (Needs Auth)
-5. Reset Grades (Need Auth)
+2. DONE Spaced Memorization (Needs Auth)
+3. Reset Grades (Need Auth)
+4. Pomodoro Timer
 
 ## Auth
 

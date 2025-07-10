@@ -87,6 +87,7 @@ export interface FlashCardType {
   frontImage?: string;
   backImage?: string;
   grade: number;
+  attempts: number;
 }
 
 export interface NavLinkType {
@@ -150,6 +151,12 @@ export interface TimerReturnType {
   ref: RefObject<HTMLSpanElement>;
   time: number;
 }
+
+export type UserFlashCardProgressType = {
+  grade: number;
+  attempts: number;
+  user_id: string;
+};
 
 export interface UserType {
   id: string;
