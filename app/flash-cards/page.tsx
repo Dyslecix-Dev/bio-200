@@ -24,11 +24,11 @@ const FlashCards = () => {
         <Card title="Topic 7" subtitle="The respiratory system." link="flash-cards/topic-seven" className="bg-red-300 block lg:hidden" />
         <SpringCard title="Topic 7" subtitle="The respiratory system." link="flash-cards/topic-seven" className="bg-red-300 hidden lg:block" />
 
-        <Card title="Topic 8" subtitle="Coming soon." link="#" className="bg-orange-300 block lg:hidden" />
-        <SpringCard title="Topic 8" subtitle="Coming soon." link="#" className="bg-orange-300 hidden lg:block" />
+        <Card title="Topic 8" subtitle="The digestive system." link="flash-cards/topic-eight" className="bg-orange-300 block lg:hidden" />
+        <SpringCard title="Topic 8" subtitle="The digestive system." link="flash-cards/topic-eight" className="bg-orange-300 hidden lg:block" />
 
-        <Card title="Topic 9" subtitle="Coming soon." link="#" className="bg-yellow-300 block lg:hidden" />
-        <SpringCard title="Topic 9" subtitle="Coming soon." link="#" className="bg-yellow-300 hidden lg:block" />
+        <Card title="Topic 9" subtitle="The urinary system." link="flash-cards/topic-nine" className="bg-yellow-300 block lg:hidden" />
+        <SpringCard title="Topic 9" subtitle="The urinary system." link="flash-cards/topic-nine" className="bg-yellow-300 hidden lg:block" />
 
         <Card title="Topic 10" subtitle="Coming soon." link="#" className="bg-green-300 block lg:hidden" />
         <SpringCard title="Topic 10" subtitle="Coming soon." link="#" className="bg-green-300 hidden lg:block" />
