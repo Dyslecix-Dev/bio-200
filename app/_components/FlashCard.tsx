@@ -376,7 +376,7 @@ const ReviewInterface = ({ onStartReview, selectedCategory, fetchFlashCards }: {
 
           <button
             onClick={handleResetCardProgress}
-            className="bg-rose-600 text-white font-medium py-2 px-4 sm:px-6 ml-40 rounded-lg transition-all hover:bg-rose-700 active:scale-95 cursor-pointer w-full sm:w-auto"
+            className="bg-rose-600 text-white font-medium py-2 px-4 sm:px-6 md:ml-20 lg:ml-40 rounded-lg transition-all hover:bg-rose-700 active:scale-95 cursor-pointer w-full sm:w-auto"
           >
             Reset Grades
           </button>
