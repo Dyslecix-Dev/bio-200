@@ -64,7 +64,7 @@ export async function signup(formData: FormData) {
   const publicForm = {
     id: authData.user.id,
     name: name,
-    email: authData.user.email, // TODO Change supabase email to be not nullable
+    email: authData.user.email,
     online: false,
     study_streak: 0,
   };

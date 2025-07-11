@@ -238,6 +238,230 @@ export const trueOrFalseQuestions = [
       { text: "False", correct: false },
     ],
   },
+  {
+    question: "The gonads produce and secrete sex hormones, so they function as exocrine glands.",
+    options: [
+      { text: "True", correct: false },
+      { text: "False", correct: true },
+    ],
+  },
+  {
+    question: "The testes are capsules containing extensive tubules called seminiferous tubules.",
+    options: [
+      { text: "True", correct: true },
+      { text: "False", correct: false },
+    ],
+  },
+  {
+    question: "Premature sperm settles and matures in the epididymis.",
+    options: [
+      { text: "True", correct: true },
+      { text: "False", correct: false },
+    ],
+  },
+  {
+    question: "Tubules of the epididymis diverge into large, convoluted ducts that eventually become the ductus deferens.",
+    options: [
+      { text: "True", correct: false },
+      { text: "False", correct: true },
+    ],
+  },
+  {
+    question: "Only spermatogenesis is temperature sensitive.",
+    options: [
+      { text: "True", correct: false },
+      { text: "False", correct: true },
+    ],
+  },
+  {
+    question: "Oogenesis is the formation of oocytes.",
+    options: [
+      { text: "True", correct: true },
+      { text: "False", correct: false },
+    ],
+  },
+  {
+    question: "The monthly menstrual cycle is part of the ovarian cycle.",
+    options: [
+      { text: "True", correct: false },
+      { text: "False", correct: true },
+    ],
+  },
+  {
+    question: "Days after fertilization, the egg will begin to divide, and will detach from the uterine tube mucosa and travel to the uterus as a multicellular embryo.",
+    options: [
+      { text: "True", correct: true },
+      { text: "False", correct: false },
+    ],
+  },
+  {
+    question: "Normally one end of the cervical canal is kept narrow by muscular contraction, and the canal is filled with a thick mucus that blocks entry.",
+    options: [
+      { text: "True", correct: false },
+      { text: "False", correct: true },
+    ],
+  },
+  {
+    question: "By the 4th day after fertilization, the multicellular embryo has dislodged, traveled through the remainder of the uterine tube, and entered the uterus.",
+    options: [
+      { text: "True", correct: true },
+      { text: "False", correct: false },
+    ],
+  },
+  {
+    question: "The circulatory system is composed of blood, the heart, and blood vessels.",
+    options: [
+      { text: "True", correct: false },
+      { text: "False", correct: true },
+    ],
+  },
+  {
+    question: "Erythrocytes are red blood cells.",
+    options: [
+      { text: "True", correct: true },
+      { text: "False", correct: false },
+    ],
+  },
+  {
+    question: "Erythrocytes and platelets have organelles and DNA.",
+    options: [
+      { text: "True", correct: false },
+      { text: "False", correct: true },
+    ],
+  },
+  {
+    question: "Leukocytes can absorb eosin and methylene blue.",
+    options: [
+      { text: "True", correct: true },
+      { text: "False", correct: false },
+    ],
+  },
+  {
+    question: "Because erythrocytes lack mitochondria, they produce ATP aerobically in the cytoplasm.",
+    options: [
+      { text: "True", correct: false },
+      { text: "False", correct: true },
+    ],
+  },
+  {
+    question: "After birth, all blood cells originate in bone marrow, at a rate of 100 billion new cells per day.",
+    options: [
+      { text: "True", correct: true },
+      { text: "False", correct: false },
+    ],
+  },
+  {
+    question: "Most blood cells arise from hemopoietic stem cells.",
+    options: [
+      { text: "True", correct: false },
+      { text: "False", correct: true },
+    ],
+  },
+  {
+    question: "Arteries 'merge' as they carry blood away from the heart, and veins 'diverge' as they carry blood toward the heart.",
+    options: [
+      { text: "True", correct: false },
+      { text: "False", correct: true },
+    ],
+  },
+  {
+    question: "The tunica media is a distinguishing feature between arteries and veins.",
+    options: [
+      { text: "True", correct: true },
+      { text: "False", correct: false },
+    ],
+  },
+  {
+    question: "In pulmonary circulation, unlike systemic circulation, arteries carry oxygenated blood.",
+    options: [
+      { text: "True", correct: false },
+      { text: "False", correct: true },
+    ],
+  },
+  {
+    question: "Elastic arteries are the largest vessels near the heart, and arterioles are the smallest arteries.",
+    options: [
+      { text: "True", correct: true },
+      { text: "False", correct: false },
+    ],
+  },
+  {
+    question: "Muscular arteries are proximal to elastic arteries.",
+    options: [
+      { text: "True", correct: false },
+      { text: "False", correct: true },
+    ],
+  },
+  {
+    question: "Capillaries are so small that erythrocytes move through them in single file lines.",
+    options: [
+      { text: "True", correct: true },
+      { text: "False", correct: false },
+    ],
+  },
+  {
+    question: "Capillaries in the brain that form the blood brain barrier are continuous, but all junctions are wide and there are no intercellular clefts.",
+    options: [
+      { text: "True", correct: false },
+      { text: "False", correct: true },
+    ],
+  },
+  {
+    question: "In systemic circulation, venous vessels carry oxygen-poor blood; in pulmonary circulation, they carry oxygen-rich blood.",
+    options: [
+      { text: "True", correct: true },
+      { text: "False", correct: false },
+    ],
+  },
+  {
+    question: "Veins are smaller than venules.",
+    options: [
+      { text: "True", correct: false },
+      { text: "False", correct: true },
+    ],
+  },
+  {
+    question: "Veins are deeper than arteries.",
+    options: [
+      { text: "True", correct: false },
+      { text: "False", correct: true },
+    ],
+  },
+  {
+    question: "The systemic circuit is blood vessels carrying blood to and from the lungs.",
+    options: [
+      { text: "True", correct: false },
+      { text: "False", correct: true },
+    ],
+  },
+  {
+    question: "The heart within the thorax is 'left leaning.'",
+    options: [
+      { text: "True", correct: true },
+      { text: "False", correct: false },
+    ],
+  },
+  {
+    question: "The external surface of the heart is visibly avascularized.",
+    options: [
+      { text: "True", correct: false },
+      { text: "False", correct: true },
+    ],
+  },
+  {
+    question: "Coronary arteries carry oxygen & nutrients to the external and deep tissues of the heart walls.",
+    options: [
+      { text: "True", correct: true },
+      { text: "False", correct: false },
+    ],
+  },
+  {
+    question: "Internally, cardiac and skeletal muscle cells are similarly structured and organized, but contract differently.",
+    options: [
+      { text: "True", correct: false },
+      { text: "False", correct: true },
+    ],
+  },
 ];
 
 export const multipleChoiceQuestions = [
@@ -581,6 +805,446 @@ export const multipleChoiceQuestions = [
       { text: "Kidneys", correct: false },
     ],
   },
+  {
+    question: "Which of the following are the male gonads?",
+    options: [
+      { text: "Testes", correct: true },
+      { text: "Ovaries", correct: false },
+      { text: "Ovum", correct: false },
+      { text: "Sperm", correct: false },
+      { text: "None of the given options", correct: false },
+    ],
+  },
+  {
+    question: "Which of the following are the female gametes?",
+    options: [
+      { text: "Ovum", correct: true },
+      { text: "Sperm", correct: false },
+      { text: "Testes", correct: false },
+      { text: "Ovaries", correct: false },
+      { text: "None of the given options", correct: false },
+    ],
+  },
+  {
+    question: "Which of the following is not an accessory sex organ?",
+    options: [
+      { text: "None of the given options", correct: true },
+      { text: "Internal glands", correct: false },
+      { text: "Uterus", correct: false },
+      { text: "Vagina", correct: false },
+      { text: "External genitalia", correct: false },
+    ],
+  },
+  {
+    question: "Which of the following is not a function of sex hormones?",
+    options: [
+      { text: "Sex organ breakdown", correct: true },
+      { text: "Sex organ development", correct: false },
+      { text: "Sex organ maintenance", correct: false },
+      { text: "Sex organ function", correct: false },
+      { text: "None of the given options", correct: false },
+    ],
+  },
+  {
+    question: "Which of the following is not a duct that sperm travels through?",
+    options: [
+      { text: "Excretory canal", correct: true },
+      { text: "Tubing of the epididymis", correct: false },
+      { text: "Ductus deferens", correct: false },
+      { text: "Ejaculatory duct", correct: false },
+      { text: "Urethra", correct: false },
+    ],
+  },
+  {
+    question: "How many seminiferous tubules can a single testis house?",
+    options: [
+      { text: "300", correct: true },
+      { text: "100", correct: false },
+      { text: "200", correct: false },
+      { text: "400", correct: false },
+      { text: "500", correct: false },
+    ],
+  },
+  {
+    question: "Which of the following does not produce a component of semen?",
+    options: [
+      { text: "Serial vesicles", correct: true },
+      { text: "Prostate", correct: false },
+      { text: "Seminal glands", correct: false },
+      { text: "Bulbo-urethral glands", correct: false },
+      { text: "None of the given options", correct: false },
+    ],
+  },
+  {
+    question: "Which of the following is not a function of the organs in the female reproductive system?",
+    options: [
+      { text: "Fetal immune response", correct: true },
+      { text: "Producing ovaries", correct: false },
+      { text: "Supporting a developing embryo", correct: false },
+      { text: "Delivering a baby", correct: false },
+      { text: "None of the given options", correct: false },
+    ],
+  },
+  {
+    question: "Which of the following is not an accessory organ/duct of the female reproductive system?",
+    options: [
+      { text: "Ovarian valve", correct: true },
+      { text: "Uterine tubes", correct: false },
+      { text: "Uterus", correct: false },
+      { text: "Vagina", correct: false },
+      { text: "None of the given options", correct: false },
+    ],
+  },
+  {
+    question: "Which sex hormone signals the uterus to prepare for possible implantation of a fertilized ovum and pregnancy?",
+    options: [
+      { text: "Progesterone", correct: true },
+      { text: "Estrogen", correct: false },
+      { text: "Testosterone", correct: false },
+      { text: "Oxytocin", correct: false },
+      { text: "All of the given options", correct: false },
+    ],
+  },
+  {
+    question: "Ovulation occurs how many days into the ovarian cycle?",
+    options: [
+      { text: "14", correct: true },
+      { text: "28", correct: false },
+      { text: "30", correct: false },
+      { text: "7", correct: false },
+      { text: "21", correct: false },
+    ],
+  },
+  {
+    question: "Which of the following are found at the terminal ends of uterine tubes and cup the ovaries?",
+    options: [
+      { text: "Fimbriae", correct: true },
+      { text: "Cilia", correct: false },
+      { text: "Microvilli", correct: false },
+      { text: "Pseudopodia", correct: false },
+      { text: "Flagella", correct: false },
+    ],
+  },
+  {
+    question: "Which of the following is not a function the uterus does to multicellular embryos?",
+    options: [
+      { text: "Discharge", correct: true },
+      { text: "Receive", correct: false },
+      { text: "Retain", correct: false },
+      { text: "Nourish", correct: false },
+      { text: "None of the given options", correct: false },
+    ],
+  },
+  {
+    question: "Which of the following is not a stage of labor and childbirth?",
+    options: [
+      { text: "Embryonic", correct: true },
+      { text: "Early dilation", correct: false },
+      { text: "Late dilation", correct: false },
+      { text: "Expulsion", correct: false },
+      { text: "Placental", correct: false },
+    ],
+  },
+  {
+    question: "Which of the following does blood not transport?",
+    options: [
+      { text: "None of the given options", correct: true },
+      { text: "Nutrients", correct: false },
+      { text: "Signaling molecules", correct: false },
+      { text: "Respiratory gases", correct: false },
+      { text: "Waste products", correct: false },
+    ],
+  },
+  {
+    question: "When spun in a centrifuge, which of the following does not separate from blood?",
+    options: [
+      { text: "Mast cells", correct: true },
+      { text: "Erythrocytes", correct: false },
+      { text: "Leukocytes", correct: false },
+      { text: "Platelets", correct: false },
+      { text: "Plasma", correct: false },
+    ],
+  },
+  {
+    question: "Which of the following is 45% of our blood?",
+    options: [
+      { text: "Erythrocytes", correct: true },
+      { text: "Plasma", correct: false },
+      { text: "Mast cells", correct: false },
+      { text: "Leukocytes", correct: false },
+      { text: "Platelets", correct: false },
+    ],
+  },
+  {
+    question: "Which of the following is blood plasma not composed of?",
+    options: [
+      { text: "Polysaccharides", correct: true },
+      { text: "Chloride", correct: false },
+      { text: "Simple sugars", correct: false },
+      { text: "Ammonia", correct: false },
+      { text: "Fibrinogen", correct: false },
+    ],
+  },
+  {
+    question: "Which of the following is not a type of leukocyte?",
+    options: [
+      { text: "Polycytes", correct: true },
+      { text: "Eosinophils", correct: false },
+      { text: "Basophils", correct: false },
+      { text: "Neutrophils", correct: false },
+      { text: "Monocytes", correct: false },
+    ],
+  },
+  {
+    question: "What is the most abundant type of leukocyte?",
+    options: [
+      { text: "Neutrophils", correct: true },
+      { text: "Polycytes", correct: false },
+      { text: "Eosinophils", correct: false },
+      { text: "Basophils", correct: false },
+      { text: "Monocytes", correct: false },
+    ],
+  },
+  {
+    question: "Which of the following release bacteria-destroying enzymes into the extracellular matrix?",
+    options: [
+      { text: "Neutrophils", correct: true },
+      { text: "Eosinophils", correct: false },
+      { text: "Basophils", correct: false },
+      { text: "Monocytes", correct: false },
+      { text: "Lymphocytes", correct: false },
+    ],
+  },
+  {
+    question: "Which of the following release parasite-destroying enzymes in the digestive tract?",
+    options: [
+      { text: "Eosinophils", correct: true },
+      { text: "Neutrophils", correct: false },
+      { text: "Basophils", correct: false },
+      { text: "Monocytes", correct: false },
+      { text: "Lymphocytes", correct: false },
+    ],
+  },
+  {
+    question: "Which of the following release histamine to stimulate inflammation at infection sites?",
+    options: [
+      { text: "Basophils", correct: true },
+      { text: "Neutrophils", correct: false },
+      { text: "Eosinophils", correct: false },
+      { text: "Monocytes", correct: false },
+      { text: "Lymphocytes", correct: false },
+    ],
+  },
+  {
+    question: "Which of the following is the largest type of leukocyte?",
+    options: [
+      { text: "Monocytes", correct: true },
+      { text: "Neutrophils", correct: false },
+      { text: "Eosinophils", correct: false },
+      { text: "Basophils", correct: false },
+      { text: "Lymphocytes", correct: false },
+    ],
+  },
+  {
+    question: "Which of the following transform into large macrophages at infection sites?",
+    options: [
+      { text: "Monocytes", correct: true },
+      { text: "Neutrophils", correct: false },
+      { text: "Eosinophils", correct: false },
+      { text: "Basophils", correct: false },
+      { text: "Lymphocytes", correct: false },
+    ],
+  },
+  {
+    question: "Which of the following is not a formed element myeloid stem cells can differentiate into?",
+    options: [
+      { text: "Lymphocytes", correct: true },
+      { text: "Erythrocytes", correct: false },
+      { text: "Granulocytes", correct: false },
+      { text: "Monocytes", correct: false },
+      { text: "Platelets", correct: false },
+    ],
+  },
+  {
+    question: "Which of the following is not a layer that composes blood vessels?",
+    options: [
+      { text: "Tunica intima", correct: true },
+      { text: "Tunica interna", correct: false },
+      { text: "Tunica media", correct: false },
+      { text: "Tunica externa", correct: false },
+      { text: "None of the given options", correct: false },
+    ],
+  },
+  {
+    question: "Which epithelium is endothelium made of?",
+    options: [
+      { text: "Simple squamous", correct: true },
+      { text: "Stratified cuboidal", correct: false },
+      { text: "Stratified columnar", correct: false },
+      { text: "Pseudostratified", correct: false },
+      { text: "Transitional", correct: false },
+    ],
+  },
+  {
+    question: "Which type of tissue is tunica media made of?",
+    options: [
+      { text: "Smooth muscle", correct: true },
+      { text: "Skeletal muscle", correct: false },
+      { text: "Stratified squamous", correct: false },
+      { text: "Stratified cuboidal", correct: false },
+      { text: "Stratified columnar", correct: false },
+    ],
+  },
+  {
+    question: "Which of the following is not a type of artery?",
+    options: [
+      { text: "Porous arteries", correct: true },
+      { text: "Elastic arteries", correct: false },
+      { text: "Muscular arteries", correct: false },
+      { text: "Arterioles", correct: false },
+      { text: "None of the given options", correct: false },
+    ],
+  },
+  {
+    question: "Which of the following is not a structural type of capillaries?",
+    options: [
+      { text: "Venous capillaries", correct: true },
+      { text: "Continuous capillaries", correct: false },
+      { text: "Fenestrated capillaries", correct: false },
+      { text: "Sinusoid capillaries", correct: false },
+      { text: "None of the given options", correct: false },
+    ],
+  },
+  {
+    question: "Which organ can fenestrated capillaries be found in?",
+    options: [
+      { text: "Small intestine", correct: true },
+      { text: "Heart", correct: false },
+      { text: "Liver", correct: false },
+      { text: "Lungs", correct: false },
+      { text: "Spleen", correct: false },
+    ],
+  },
+  {
+    question: "Which organ can sinusoid capillaries be found in?",
+    options: [
+      { text: "Spleen", correct: true },
+      { text: "Small intestine", correct: false },
+      { text: "Heart", correct: false },
+      { text: "Liver", correct: false },
+      { text: "Lungs", correct: false },
+    ],
+  },
+  {
+    question: "Which of the following is not a symptom caused by prolonged stress causing the blood brain barrier to fail?",
+    options: [
+      { text: "Blurry vision", correct: true },
+      { text: "Chronic fatigue", correct: false },
+      { text: "Dizziness", correct: false },
+      { text: "Memory loss", correct: false },
+      { text: "Depression", correct: false },
+    ],
+  },
+  {
+    question: "Veins in the limbs, and some in the head and neck, have internal valves formed by extensions from which layer?",
+    options: [
+      { text: "Tunica intima", correct: true },
+      { text: "Tunica interna", correct: false },
+      { text: "Tunica media", correct: false },
+      { text: "Tunica externa", correct: false },
+      { text: "None of the given options", correct: false },
+    ],
+  },
+  {
+    question: "Which internal chamber of the heart receives blood from the pulmonary circuit?",
+    options: [
+      { text: "Left atrium", correct: true },
+      { text: "Right atrium", correct: false },
+      { text: "Right ventricle", correct: false },
+      { text: "Left ventricle", correct: false },
+      { text: "None of the given options", correct: false },
+    ],
+  },
+  {
+    question: "Which internal chamber of the heart pumps blood out to the pulmonary circuit?",
+    options: [
+      { text: "Right ventricle", correct: true },
+      { text: "Left atrium", correct: false },
+      { text: "Right atrium", correct: false },
+      { text: "Left ventricle", correct: false },
+      { text: "None of the given options", correct: false },
+    ],
+  },
+  {
+    question: "Which of the following is not a tissue layer in the outer heart wall?",
+    options: [
+      { text: "Pericardium", correct: true },
+      { text: "Epicardium", correct: false },
+      { text: "Myocardium", correct: false },
+      { text: "Endocardium", correct: false },
+      { text: "None of the given options", correct: false },
+    ],
+  },
+  {
+    question: "Which of the following is not an artery or vein running into and from the heart?",
+    options: [
+      { text: "Pulmonary thorax", correct: true },
+      { text: "Superior vena cava", correct: false },
+      { text: "Inferior vena cava", correct: false },
+      { text: "Pulmonary trunk", correct: false },
+      { text: "Aorta", correct: false },
+    ],
+  },
+  {
+    question: "Which internal chamber of the heart pumps deoxygenated blood through the right atrioventricular valve?",
+    options: [
+      { text: "Right atrium", correct: true },
+      { text: "Left atrium", correct: false },
+      { text: "Right ventricle", correct: false },
+      { text: "Left ventricle", correct: false },
+      { text: "None of the given options", correct: false },
+    ],
+  },
+  {
+    question: "Which internal chamber of the heart pumps oxygenated blood through the left atrioventricular valve?",
+    options: [
+      { text: "Left atrium", correct: true },
+      { text: "Right atrium", correct: false },
+      { text: "Right ventricle", correct: false },
+      { text: "Left ventricle", correct: false },
+      { text: "None of the given options", correct: false },
+    ],
+  },
+  {
+    question: "Which internal chamber of the heart has the thinnest muscular walls?",
+    options: [
+      { text: "Right atrium", correct: true },
+      { text: "Left atrium", correct: false },
+      { text: "Right ventricle", correct: false },
+      { text: "Left ventricle", correct: false },
+      { text: "None of the given options", correct: false },
+    ],
+  },
+  {
+    question: "Which arteries or veins do semilunar valves allow blood to be pumped toward?",
+    options: [
+      { text: "Pulmonary trunk and aorta", correct: true },
+      { text: "Superior and inferior vena cava", correct: false },
+      { text: "Pulmonary trunk and thorax", correct: false },
+      { text: "Aorta and superior vena cava", correct: false },
+      { text: "Aorta and inferior vena cava", correct: false },
+    ],
+  },
+  {
+    question: "Which of the following allow ions to flow between cardiac muscle cells?",
+    options: [
+      { text: "Gap junctions", correct: true },
+      { text: "Sarcolemma", correct: false },
+      { text: "Intercalated discs", correct: false },
+      { text: "Fasciae adherens", correct: false },
+      { text: "None of the given options", correct: false },
+    ],
+  },
 ];
 
 export const shortAnswerQuestions = [
@@ -652,5 +1316,91 @@ export const shortAnswerQuestions = [
   {
     question: "Why do the ureters actively transport urine?",
     answer: "It prevents urine from flowing back to the kidneys when the body is horizontal or upside-down, or when the urinary bladder is full.",
+  },
+  {
+    question: "What are the 2 types of sex hormones?",
+    answer: "Testosterone and estrogen.",
+  },
+  {
+    question: "What are the 3 accessory glands of the male reproductive system?",
+    answer: "The seminal glands, prostate, and Bulbo-urethral glands.",
+  },
+  {
+    question: "Which 2 things does the menstrual cycle do to make pregnancy possible?",
+    answer: "Changes in hormone production, and in the structure of the ovaries and the uterus.",
+  },
+  {
+    question: "Which 2 things occur in the vagina?",
+    answer: "It is the site of reproductive intercourse, and acts as a birth canal.",
+  },
+  {
+    question: "Which 2 things occur in the ovaries during the ovarian cycle?",
+    answer: "They release an oocyte for potential fertilization, and produce estrogen and progesterone via the corpus luteum.",
+  },
+  {
+    question: "What is an ovum?",
+    answer: "When a sperm reaches an oocyte and fertilizes it within the uterine tube.",
+  },
+  {
+    question: "Which 2 types of tissue contribute to the formation of the placenta?",
+    answer: "Embryonic and maternal tissues.",
+  },
+  {
+    question: "Which 2 systems is the circulatory subdivided into?",
+    answer: "The cardiovascular and lymphatic systems.",
+  },
+  {
+    question: "What non-transport function does blood have?",
+    answer: "It helps regulate body temperature by being diverted to or away from the skin to control amount of heat loss across body surface.",
+  },
+  {
+    question: "What are the 3 main types of proteins in blood plasma?",
+    answer: "Albumin, globulins, and fibrinogen.",
+  },
+  {
+    question: "Why do red blood cells have a biconcave disc shape?",
+    answer: "It gives them a 30% increase in their surface area, which allows for more gas diffusion.",
+  },
+  {
+    question: "What are the 2 groups of leukocytes?",
+    answer: "Granulocytes and agranulocytes.",
+  },
+  {
+    question: "List 2 functions of platelets.",
+    answer:
+      "Plug small tears in walls of blood vessels to limit bleeding, secrete molecular products that signal more platelets to arrive, signal blood vessels to constrict, slowing bleeding, and participate in forming blood clots via fibrin strands.",
+  },
+  {
+    question: "What is the function of red bone marrow produce, and where is it located?",
+    answer: "It actively and continuously produces new blood cells in spongy bone.",
+  },
+  {
+    question: "Stem cells differentiate into which 2 types of progenitor cells?",
+    answer: "Myeloid and lymphoid stem cells.",
+  },
+  {
+    question: "What are the 3 major types of blood vessels?",
+    answer: "Arteries, capillaries, and veins.",
+  },
+  {
+    question: "What is the function of pulmonary circulation?",
+    answer: "It cycles blood between the heart and the lungs.",
+  },
+  {
+    question: "What is the difference between systemic arteries and veins?",
+    answer: "Systemic arteries carry oxygen-rich blood to all other regions of the body, and systemic veins return oxygen-poor blood from the body back to the heart.",
+  },
+  {
+    question: "Describe the positions of the 4 internal chambers of the heart using the following terms: superior, inferior, left, and right.",
+    answer:
+      "The right atrium is the superior right chamber, right ventricle is the inferior right chamber, the left atrium is the superior left chamber, and the left ventricle is the inferior left chamber.",
+  },
+  {
+    question: "What is the function of the atrioventricular valve?",
+    answer: "They are 'trap doors' that allow blood to flow from the atriums to ventricles, but not vice versa.",
+  },
+  {
+    question: "What is the function of the coronary sinus?",
+    answer: "It leads to a small opening in the posterior wall of the right atrium, returning blood to the heart for continued circulation.",
   },
 ];

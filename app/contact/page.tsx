@@ -29,7 +29,7 @@ export default function Contact() {
 
         if (!error && data?.user) {
           setUser({
-            name: "Beta Tester", // BUG public.user_profiles is saving email to name
+            name: "data.user.name",
             email: data.user.email!,
           });
         } else if (error) {
@@ -189,7 +189,7 @@ const Summary = ({ questions, setQuestions, loading, user }: SummaryType) => {
 
   const handleSend = () => {
     if (user === null) {
-      // TODO show error
+      console.error("User not logged in");
       return;
     }
 
@@ -203,7 +203,7 @@ const Summary = ({ questions, setQuestions, loading, user }: SummaryType) => {
     formData.user = user.name;
     formData.email = user.email;
 
-    // TODO send this to server
+    // TODO send this as an email to dyslecixdev@gmail.com via sendgrid.
     console.log(formData);
 
     setComplete(true);
