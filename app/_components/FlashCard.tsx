@@ -202,27 +202,26 @@ const CardGrid = ({
   const [error, setError] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
-  // Fetch flash cards from Supabase on component mount
-  useEffect(() => {
-    const fetchFlashCards = async () => {
-      try {
-        const supabase = createClient();
+  // Fetch flash cards from Supabase
+  const fetchFlashCards = async () => {
+    try {
+      const supabase = createClient();
 
-        // Get current user
-        const {
-          data: { user },
-        } = await supabase.auth.getUser();
+      // Get current user
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
 
-        if (!user) {
-          setError("User not authenticated");
-          return;
-        }
+      if (!user) {
+        setError("User not authenticated");
+        return;
+      }
 
-        // Fetch flash cards with user progress
-        const { data, error } = await supabase
-          .from("flash_cards")
-          .select(
-            `
+      // Fetch flash cards with user progress
+      const { data, error } = await supabase
+        .from("flash_cards")
+        .select(
+          `
             *,
             user_flash_card_progress!left (
               grade,
@@ -230,40 +229,41 @@ const CardGrid = ({
               user_id
             )
           `
-          )
-          .eq(tableKey, tableValue);
+        )
+        .eq(tableKey, tableValue);
 
-        if (error) {
-          setError(error.message);
-          console.error("Error fetching flash cards:", error);
-        } else if (data) {
-          const transformedData = data.map(({ front_text, back_text, front_image, back_image, id, topic, user_flash_card_progress, ...rest }) => {
-            // Find the progress entry for the current user
-            const userProgress = user_flash_card_progress?.find((progress: UserFlashCardProgressType) => progress.user_id === user.id);
+      if (error) {
+        setError(error.message);
+        console.error("Error fetching flash cards:", error);
+      } else if (data) {
+        const transformedData = data.map(({ front_text, back_text, front_image, back_image, id, topic, user_flash_card_progress, ...rest }) => {
+          // Find the progress entry for the current user
+          const userProgress = user_flash_card_progress?.find((progress: UserFlashCardProgressType) => progress.user_id === user.id);
 
-            return {
-              id,
-              topic,
-              grade: userProgress?.grade ?? 0,
-              attempts: userProgress?.attempts ?? 0,
-              frontText: front_text,
-              backText: back_text,
-              frontImage: front_image,
-              backImage: back_image,
-              ...rest,
-            };
-          });
+          return {
+            id,
+            topic,
+            grade: userProgress?.grade ?? 0,
+            attempts: userProgress?.attempts ?? 0,
+            frontText: front_text,
+            backText: back_text,
+            frontImage: front_image,
+            backImage: back_image,
+            ...rest,
+          };
+        });
 
-          setFlashCards(shuffleArray(transformedData));
-        }
-      } catch (err) {
-        setError("Failed to fetch flash cards");
-        console.error("Error:", err);
-      } finally {
-        setLoading(false);
+        setFlashCards(shuffleArray(transformedData));
       }
-    };
+    } catch (err) {
+      setError("Failed to fetch flash cards");
+      console.error("Error:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchFlashCards();
   }, [tableKey, tableValue, setFlashCards]);
 
@@ -304,7 +304,7 @@ const CardGrid = ({
       <BarGraph categorizedCards={categorizedCards} selectedCategory={selectedCategory} onCategorySelect={setSelectedCategory} />
 
       {/* Review Interface */}
-      <ReviewInterface onStartReview={startReview} selectedCategory={selectedCategory} />
+      <ReviewInterface onStartReview={startReview} selectedCategory={selectedCategory} fetchFlashCards={fetchFlashCards} />
 
       {/* Cards Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-8">
@@ -316,12 +316,37 @@ const CardGrid = ({
   );
 };
 
-const ReviewInterface = ({ onStartReview, selectedCategory }: { onStartReview: (numCards: number) => void; selectedCategory: string | null }) => {
+const ReviewInterface = ({ onStartReview, selectedCategory, fetchFlashCards }: { onStartReview: (numCards: number) => void; selectedCategory: string | null; fetchFlashCards: () => void }) => {
   const [numCards, setNumCards] = useState<number>(5);
 
   const handleReview = () => {
     if (numCards > 0) {
       onStartReview(numCards);
+    }
+  };
+
+  const handleResetCardProgress = async () => {
+    try {
+      const supabase = createClient();
+
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (!user) {
+        console.error("User not authenticated");
+        return;
+      }
+
+      const { error } = await supabase.from("user_flash_card_progress").update({ grade: 0, attempts: 0 }).eq("user_id", user.id);
+
+      if (error) {
+        console.error("Error resetting card progress:", error);
+      }
+
+      fetchFlashCards();
+    } catch (err) {
+      console.error("Error resetting card progress:", err);
     }
   };
 
@@ -339,12 +364,21 @@ const ReviewInterface = ({ onStartReview, selectedCategory }: { onStartReview: (
               className="w-16 sm:w-20 px-2 sm:px-3 py-2 bg-zinc-800 border border-zinc-600 rounded-lg text-white text-center focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
+
           <div className="text-white text-sm sm:text-base font-medium text-center">cards from {selectedCategory || "all categories"}</div>
+
           <button
             onClick={handleReview}
             className="bg-indigo-500 text-white font-medium py-2 px-4 sm:px-6 rounded-lg transition-all hover:bg-indigo-600 active:scale-95 cursor-pointer w-full sm:w-auto"
           >
             Start Review
+          </button>
+
+          <button
+            onClick={handleResetCardProgress}
+            className="bg-rose-600 text-white font-medium py-2 px-4 sm:px-6 ml-40 rounded-lg transition-all hover:bg-rose-700 active:scale-95 cursor-pointer w-full sm:w-auto"
+          >
+            Reset Grades
           </button>
         </div>
       </div>
@@ -360,7 +394,11 @@ const ReviewMode = ({ card, onDifficultySelect, currentIndex, totalCards }: { ca
     setIsFlipped(false);
   }, [currentIndex]);
 
-  const handleDifficultySelect = (difficulty: string) => {
+  const handleDifficultySelect = async (difficulty: string) => {
+    setIsFlipped(false);
+
+    await new Promise((resolve) => setTimeout(resolve, 200));
+
     onDifficultySelect(difficulty);
   };
 
