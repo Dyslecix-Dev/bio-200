@@ -37,9 +37,8 @@
 
 ## Contact
 
-1. Contact email
+1. DONE Contact email
 
 ## Kanban Board
 
 1. CRUD functionality (Needs Auth)
-

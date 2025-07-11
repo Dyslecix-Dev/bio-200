@@ -8,7 +8,6 @@ import Countdown from "@/app/_components/Countdown";
 import Beams from "@/app/_components/_background/Beams";
 import GradientGrid from "@/app/_components/_background/GradientGrid";
 import StackedNotification from "@/app/_components/StackedNotification";
-import RainbowButton from "@/app/_components/_buttons/RainbowButton";
 
 import { QuestionType, ShortAnswerQuestionType, ScoreType, ExamQuestionsType } from "@/types/types";
 
@@ -357,11 +356,10 @@ const Questions: FC<ExamQuestionsType> = ({ trueOrFalseQuestions, multipleChoice
                 className="font-semibold py-3 px-8 rounded-lg transition-colors duration-200 flex justify-center gap-2 bg-indigo-500 hover:bg-indigo-600 text-white cursor-pointer"
               >
                 Retake Test
+                <FiArrowRight />
               </button>
             </div>
           )}
-
-          <RainbowButton />
         </div>
       </div>
     </section>

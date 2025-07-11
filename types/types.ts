@@ -144,6 +144,7 @@ export interface SummaryType {
   questions: ContactFormQuestionType[];
   setQuestions: Dispatch<SetStateAction<ContactFormQuestionType[]>>;
   loading: boolean;
+  setLoading: (loading: boolean) => void;
   user: { name: string; email: string } | null;
 }
 
@@ -177,4 +178,3 @@ export interface WindowSizeType {
   width: number | undefined;
   height: number | undefined;
 }
-

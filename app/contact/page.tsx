@@ -25,15 +25,19 @@ export default function Contact() {
       try {
         setLoading(true);
         const supabase = await createClient();
-        const { data, error } = await supabase.auth.getUser();
 
-        if (!error && data?.user) {
+        const { data: authProfile, error: authError } = await supabase.auth.getUser();
+        const { data: userProfile, error: userError } = await supabase.from("user_profiles").select("*").eq("id", authProfile?.user?.id).single();
+
+        if (!authError && !userError) {
           setUser({
-            name: "data.user.name",
-            email: data.user.email!,
+            name: userProfile.name!,
+            email: userProfile.email!,
           });
-        } else if (error) {
-          console.error("Error fetching user:", error);
+        } else if (authError) {
+          console.error("Error fetching user:", authError);
+        } else if (userError) {
+          console.error("Error fetching user:", userError);
         }
       } catch (error) {
         console.error("Error fetching user:", error);
@@ -59,7 +63,7 @@ export default function Contact() {
         className="relative z-20 mx-auto flex h-full max-w-6xl flex-col items-center justify-center px-4 py-24 md:px-8 md:py-36 shadow-xl cursor-text font-mono"
       >
         <TerminalHeader />
-        <TerminalBody inputRef={inputRef} containerRef={containerRef} loading={loading} user={user} />
+        <TerminalBody inputRef={inputRef} containerRef={containerRef} loading={loading} setLoading={setLoading} user={user} />
       </div>
       <Beams />
       <GradientGrid />
@@ -82,11 +86,13 @@ const TerminalBody = ({
   containerRef,
   inputRef,
   loading,
+  setLoading,
   user,
 }: {
   containerRef: RefObject<HTMLDivElement | null>;
   inputRef: RefObject<HTMLInputElement | null>;
   loading: boolean;
+  setLoading: (loading: boolean) => void;
   user: { name: string; email: string } | null;
 }) => {
   const [focused, setFocused] = useState(false);
@@ -130,7 +136,7 @@ const TerminalBody = ({
           containerRef={containerRef}
         />
       ) : (
-        <Summary questions={questions} setQuestions={setQuestions} loading={loading} user={user} />
+        <Summary questions={questions} setQuestions={setQuestions} loading={loading} setLoading={setLoading} user={user} />
       )}
     </div>
   );
@@ -180,33 +186,54 @@ const CurrentQuestion = ({ curQuestion }: { curQuestion: ContactFormQuestionType
   );
 };
 
-const Summary = ({ questions, setQuestions, loading, user }: SummaryType) => {
+const Summary = ({ questions, setQuestions, loading, setLoading, user }: SummaryType) => {
   const [complete, setComplete] = useState(false);
 
   const handleReset = () => {
     setQuestions((pv) => pv.map((q) => ({ ...q, value: "", complete: false })));
   };
 
-  const handleSend = () => {
+  const handleSend = async () => {
     if (user === null) {
       console.error("User not logged in");
       return;
     }
 
-    const formData = questions.reduce<ContactFormDataType>(
-      (acc, val) => {
-        return { ...acc, [val.key]: val.value };
-      },
-      { user: "", email: "" } as ContactFormDataType
-    );
+    setLoading(true);
 
-    formData.user = user.name;
-    formData.email = user.email;
+    try {
+      const formData = questions.reduce<ContactFormDataType>(
+        (acc, val) => {
+          return { ...acc, [val.key]: val.value };
+        },
+        { user: "", email: "" } as ContactFormDataType
+      );
 
-    // TODO send this as an email to dyslecixdev@gmail.com via sendgrid.
-    console.log(formData);
+      formData.user = user.name;
+      formData.email = user.email;
 
-    setComplete(true);
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setComplete(true);
+        console.log("Email sent successfully");
+      } else {
+        console.error("Failed to send email:", result.error);
+      }
+    } catch (error) {
+      console.error("Error sending email:", error);
+      // TODO toast error
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -222,7 +249,7 @@ const Summary = ({ questions, setQuestions, loading, user }: SummaryType) => {
         return (
           <p key={q.key}>
             <span className="text-blue-300">{q.key}:</span>
-            <span className="break-words whitespace-normal overflow-wrap-anywhere">{q.value}</span>
+            <span className="break-words whitespace-normal overflow-wrap-anywhere"> {q.value}</span>
           </p>
         );
       })}
