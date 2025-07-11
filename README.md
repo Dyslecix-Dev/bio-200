@@ -14,7 +14,7 @@
 ## Profile
 
 1. DONE Online Status Changes (Needs Auth)
-2. Edit Profile (Needs Auth)
+2. DONE Edit Profile (Needs Auth)
 3. Delete Profile (Needs Auth)
 4. Study Streak (Needs Auth)
 
@@ -42,3 +42,4 @@
 ## Kanban Board
 
 1. CRUD functionality (Needs Auth)
+

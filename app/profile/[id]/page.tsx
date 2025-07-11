@@ -1,5 +1,3 @@
-// TODO add link to edit profile
-
 "use client";
 
 // import Image from "next/image";
@@ -88,7 +86,10 @@ export default function Profile() {
           <LocationBlock location={user?.location} />
           <AboutBlock user={user} />
         </div>
-        <FloodButton text="Edit Profile" link={"/#"} className={`col-span-12 flex justify-center text-2xl`} />
+
+        <Block className="col-span-12 bg-transparent border-none">
+          <FloodButton text="Edit Profile" link={`/profile/${userID}/edit`} className={`flex justify-center text-2xl`} />
+        </Block>
       </motion.div>
 
       <Beams />
@@ -149,7 +150,7 @@ const HeaderBlock = ({ user }: { user: UserType | null }) => (
   </Block>
 );
 
-const SocialsBlock = ({ loading, socials }: { loading: boolean; socials?: { instagram?: string; tiktok?: string; twitter?: string; youtube?: string } }) => {
+const SocialsBlock = ({ loading, socials }: { loading: boolean; socials?: { instagram?: string; tiktok?: string; x?: string; youtube?: string } }) => {
   const isDisabled = (socialLink?: string) => loading || !socialLink || socialLink.trim() === "";
 
   return (
@@ -178,21 +179,21 @@ const SocialsBlock = ({ loading, socials }: { loading: boolean; socials?: { inst
 
       <Block
         whileHover={
-          !isDisabled(socials?.twitter)
+          !isDisabled(socials?.x)
             ? {
                 rotate: "2.5deg",
                 scale: 1.1,
               }
             : {}
         }
-        className={`col-span-6 bg-black md:col-span-3 ${isDisabled(socials?.twitter) ? "opacity-50 cursor-not-allowed" : ""}`}
+        className={`col-span-6 bg-black md:col-span-3 ${isDisabled(socials?.x) ? "opacity-50 cursor-not-allowed" : ""}`}
       >
-        {isDisabled(socials?.twitter) ? (
+        {isDisabled(socials?.x) ? (
           <div className="grid h-full place-content-center text-3xl text-white">
             <FaXTwitter />
           </div>
         ) : (
-          <Link href={socials?.twitter || "#"} target="_blank" rel="nofollow noopener noreferrer" className="grid h-full place-content-center text-3xl text-white">
+          <Link href={socials?.x || "#"} target="_blank" rel="nofollow noopener noreferrer" className="grid h-full place-content-center text-3xl text-white">
             <FaXTwitter />
           </Link>
         )}

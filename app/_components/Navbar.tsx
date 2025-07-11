@@ -6,7 +6,7 @@ import { useEffect, useState, ReactNode } from "react";
 
 import { motion } from "motion/react";
 
-// import FloodButton from "./_buttons/FloodButton";
+import FloodButton from "./_buttons/FloodButton";
 
 import { NavLinkType } from "@/types/types";
 
@@ -78,7 +78,7 @@ export default function Navbar() {
       {/* <NavLink link="/leaderboard">Leaderboard</NavLink> */}
       <NavLink link="/faq">FAQ</NavLink>
 
-      {/* <FloodButton text="Profile" link={`/profile/${userID}`} /> */}
+      <FloodButton text="Profile" link={`/profile/${userID}`} />
 
       <LogoutButton onClick={signOut}>Logout</LogoutButton>
     </nav>

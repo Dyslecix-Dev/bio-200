@@ -125,6 +125,7 @@ export interface ShortAnswerQuestionType {
 export interface SplashButtonType {
   className: string;
   type: "button" | "submit" | "reset";
+  onClick?: MouseEventHandler<HTMLButtonElement>;
   disabled: boolean;
   children: ReactNode;
 }
@@ -178,3 +179,4 @@ export interface WindowSizeType {
   width: number | undefined;
   height: number | undefined;
 }
+
