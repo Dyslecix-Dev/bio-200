@@ -24,6 +24,9 @@ const FlashCards = () => {
         <Card title="Lab 4" subtitle="Muscles set 1 and the integumentary system." link="flash-cards/lab-four" className="bg-red-300 block xl:hidden" />
         <SpringCard title="Lab 4" subtitle="Muscles set 1 and the integumentary system." link="flash-cards/lab-four" className="bg-red-300 hidden xl:block" />
 
+        <Card title="Lab 5" subtitle="Muscles set 2 and the respiratory system." link="flash-cards/lab-five" className="bg-orange-300 block xl:hidden" />
+        <SpringCard title="Lab 5" subtitle="Muscles set 2 and the respiratory system." link="flash-cards/lab-five" className="bg-orange-300 hidden xl:block" />
+
         <Card title="Topic 7" subtitle="The respiratory system." link="flash-cards/topic-seven" className="bg-red-300 block xl:hidden" />
         <SpringCard title="Topic 7" subtitle="The respiratory system." link="flash-cards/topic-seven" className="bg-red-300 hidden xl:block" />
 

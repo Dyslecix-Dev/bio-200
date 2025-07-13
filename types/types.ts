@@ -1,11 +1,11 @@
 import { useRouter } from "next/navigation";
-import { ReactNode, MouseEventHandler, RefObject, Dispatch, SetStateAction } from "react";
+import { ReactNode, MouseEventHandler, RefObject, Dispatch, SetStateAction, DragEvent } from "react";
 
 import { MotionProps } from "motion/react";
 
 export interface AddKanbanCardPropsType {
   column: KanbanColumnType;
-  setCards: React.Dispatch<React.SetStateAction<KanbanCardType[]>>;
+  addCard: (card: Omit<KanbanCardType, "id">) => void;
 }
 
 export interface BeamType {
@@ -24,7 +24,7 @@ export interface BlockType extends MotionProps {
 }
 
 export interface BurnBarrelType {
-  setCards: React.Dispatch<React.SetStateAction<KanbanCardType[]>>;
+  setCards: Dispatch<SetStateAction<KanbanCardType[]>>;
 }
 
 export interface CardType {
@@ -106,26 +106,26 @@ export interface FlashCardType {
 
 export interface KanbanCardPropsType {
   id: string;
-  title: string;
+  text: string;
   column: KanbanColumnType;
-  handleDragStart: (e: React.DragEvent<HTMLDivElement> | MouseEvent | TouchEvent | PointerEvent, card: KanbanCardType) => void;
+  handleDragStart: (e: DragEvent<HTMLDivElement>, card: KanbanCardType) => void;
 }
 
 export interface KanbanCardType {
   id: string;
-  title: string;
+  text: string;
   column: KanbanColumnType;
 }
 
 export interface KanbanColumnPropsType {
-  title: string;
+  text: string;
   column: KanbanColumnType;
   headingColor: string;
   cards: KanbanCardType[];
-  setCards: React.Dispatch<React.SetStateAction<KanbanCardType[]>>;
+  setCards: Dispatch<SetStateAction<KanbanCardType[]>>;
 }
 
-type KanbanColumnType = "backlog" | "todo" | "doing" | "done";
+type KanbanColumnType = "To-Do" | "In Progress" | "Complete";
 
 export interface NavLinkType {
   link?: string;

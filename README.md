@@ -1,6 +1,7 @@
 # BUGS
 
 1. BUG Sendgrid is not working
+2. BUG Kanban is not mobile friendly
 
 # Future Features
 
@@ -38,5 +39,5 @@
 
 ## Kanban Board
 
-1. CRUD functionality (Needs Auth)
+1. DONE CRUD functionality (Needs Auth)
 

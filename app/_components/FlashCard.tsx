@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useState, useEffect, useCallback } from "react";
 import { motion } from "motion/react";
+
 import { createClient } from "@/utils/supabase/client";
 
 import Navbar from "@/app/_components/Navbar";
@@ -645,3 +646,4 @@ const FlashCard = ({ frontText, backText, frontImage, backImage }: FlashCardType
     </div>
   );
 };
+
