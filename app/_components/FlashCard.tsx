@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState, useEffect, useCallback } from "react";
 import { motion } from "motion/react";
 import { createClient } from "@/utils/supabase/client";
@@ -110,11 +111,9 @@ export default function FlashCardComponent({
 
     const newGrade = currentCard.grade + gradeIncrement;
 
-    // Update in database
     try {
       const supabase = createClient();
 
-      // Get current user
       const {
         data: { user },
       } = await supabase.auth.getUser();
@@ -124,7 +123,6 @@ export default function FlashCardComponent({
         return;
       }
 
-      // Upsert user progress
       const { error } = await supabase.from("user_flash_card_progress").upsert(
         {
           user_id: user.id,
@@ -143,18 +141,15 @@ export default function FlashCardComponent({
         return;
       }
 
-      // Update card progress in both states
       updateCardProgress(currentCard.id, newGrade, newAttempts);
     } catch (error) {
       console.error("Error updating card:", error);
       return;
     }
 
-    // Move to next card or end review
     if (currentCardIndex < reviewCards.length - 1) {
       setCurrentCardIndex(currentCardIndex + 1);
     } else {
-      // End review mode
       setIsReviewMode(false);
       setReviewCards([]);
       setCurrentCardIndex(0);
@@ -202,12 +197,10 @@ const CardGrid = ({
   const [error, setError] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
-  // Fetch flash cards from Supabase
   const fetchFlashCards = async () => {
     try {
       const supabase = createClient();
 
-      // Get current user
       const {
         data: { user },
       } = await supabase.auth.getUser();
@@ -217,7 +210,6 @@ const CardGrid = ({
         return;
       }
 
-      // Fetch flash cards with user progress
       const { data, error } = await supabase
         .from("flash_cards")
         .select(
@@ -237,7 +229,6 @@ const CardGrid = ({
         console.error("Error fetching flash cards:", error);
       } else if (data) {
         const transformedData = data.map(({ front_text, back_text, front_image, back_image, id, topic, user_flash_card_progress, ...rest }) => {
-          // Find the progress entry for the current user
           const userProgress = user_flash_card_progress?.find((progress: UserFlashCardProgressType) => progress.user_id === user.id);
 
           return {
@@ -389,16 +380,13 @@ const ReviewInterface = ({ onStartReview, selectedCategory, fetchFlashCards }: {
 const ReviewMode = ({ card, onDifficultySelect, currentIndex, totalCards }: { card: FlashCardType; onDifficultySelect: (difficulty: string) => void; currentIndex: number; totalCards: number }) => {
   const [isFlipped, setIsFlipped] = useState(false);
 
-  // Reset flip state when card changes
   useEffect(() => {
     setIsFlipped(false);
   }, [currentIndex]);
 
   const handleDifficultySelect = async (difficulty: string) => {
     setIsFlipped(false);
-
     await new Promise((resolve) => setTimeout(resolve, 200));
-
     onDifficultySelect(difficulty);
   };
 
@@ -428,50 +416,53 @@ const ReviewMode = ({ card, onDifficultySelect, currentIndex, totalCards }: { ca
       <div className="w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-2xl aspect-square cursor-pointer mb-6 sm:mb-8" onClick={() => setIsFlipped(!isFlipped)}>
         <motion.div className="relative w-full h-full" style={{ transformStyle: "preserve-3d" }} animate={{ rotateY: isFlipped ? 180 : 0 }} transition={{ duration: 0.6, ease: "easeInOut" }}>
           {/* Front of card */}
-          <div
-            className="absolute inset-0 w-full h-full rounded-2xl bg-neutral-100 shadow-xl"
-            style={{
-              backfaceVisibility: "hidden",
-              backgroundImage: card.frontImage ? `url(${card.frontImage})` : "none",
-              backgroundPosition: "center",
-              backgroundSize: "cover",
-            }}
-          >
-            {card.frontImage && <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/70 via-black/30 to-transparent" />}
-
-            <div
-              className={`
-                absolute inset-0 p-6 sm:p-8 md:p-12 overflow-auto
-                ${card.frontImage ? "flex items-end justify-center" : "flex items-center justify-center"}
-              `}
-            >
-              {card.frontText && (
-                <h3
-                  className={`
-                    text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-center leading-tight drop-shadow-lg
-                    ${card.frontImage ? "text-white" : "text-black"}
-                  `}
-                >
-                  {card.frontText}
-                </h3>
-              )}
-            </div>
+          <div className="absolute inset-0 w-full h-full rounded-2xl bg-neutral-100 shadow-xl overflow-hidden" style={{ backfaceVisibility: "hidden" }}>
+            {card.frontImage ? (
+              // When frontImage exists, show image with text below
+              <div className="flex flex-col h-full">
+                <div className="flex-1 relative">
+                  <Image src={card.frontImage} alt="Front of card" fill={true} className="object-contain" />
+                </div>
+                {card.frontText && (
+                  <div className="p-4 sm:p-6 bg-neutral-100 border-t border-neutral-200">
+                    <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-black text-center leading-tight">{card.frontText}</h3>
+                  </div>
+                )}
+              </div>
+            ) : (
+              // When no frontImage, center the text
+              <div className="absolute inset-0 p-6 sm:p-8 md:p-12 overflow-auto flex items-center justify-center">
+                {card.frontText && <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-black text-center leading-tight">{card.frontText}</h3>}
+              </div>
+            )}
           </div>
 
           {/* Back of card */}
           <div
-            className="absolute inset-0 w-full h-full rounded-2xl bg-neutral-700 shadow-xl p-6 sm:p-8 md:p-12 overflow-auto"
+            className="absolute inset-0 w-full h-full rounded-2xl bg-neutral-700 shadow-xl overflow-hidden"
             style={{
               backfaceVisibility: "hidden",
               transform: "rotateY(180deg)",
-              backgroundImage: card.backImage ? `url(${card.backImage})` : "none",
-              backgroundPosition: "center",
-              backgroundSize: "cover",
             }}
           >
-            <div className="flex items-center justify-center min-h-full">
-              {card.backText && <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-white text-center leading-tight">{card.backText}</h3>}
-            </div>
+            {card.backImage ? (
+              // When backImage exists, show image with text below
+              <div className="flex flex-col h-full">
+                <div className="flex-1 relative">
+                  <Image src={card.backImage} alt="Back of card" fill={true} className="object-contain" />
+                </div>
+                {card.backText && (
+                  <div className="p-4 sm:p-6 bg-neutral-700 border-t border-neutral-600">
+                    <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white text-center leading-tight">{card.backText}</h3>
+                  </div>
+                )}
+              </div>
+            ) : (
+              // When no backImage, center the text
+              <div className="absolute inset-0 p-6 sm:p-8 md:p-12 overflow-auto flex items-center justify-center">
+                {card.backText && <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-white text-center leading-tight">{card.backText}</h3>}
+              </div>
+            )}
           </div>
         </motion.div>
       </div>
@@ -602,53 +593,55 @@ const FlashCard = ({ frontText, backText, frontImage, backImage }: FlashCardType
     <div className="relative cursor-pointer aspect-square w-full max-w-sm mx-auto" onClick={handleClick}>
       <motion.div className="relative w-full h-full" style={{ transformStyle: "preserve-3d" }} animate={{ rotateY: isFlipped ? 180 : 0 }} transition={{ duration: 0.6, ease: "easeInOut" }}>
         {/* Front of card */}
-        <div
-          className="absolute inset-0 w-full h-full rounded-2xl bg-neutral-100 shadow-md"
-          style={{
-            backfaceVisibility: "hidden",
-            backgroundImage: frontImage ? `url(${frontImage})` : "none",
-            backgroundPosition: "center",
-            backgroundSize: "cover",
-          }}
-        >
-          {frontImage && <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/70 via-black/30 to-transparent" />}
-
-          <div
-            className={`
-              absolute inset-0 p-4 sm:p-6 overflow-auto
-              ${frontImage ? "flex items-end justify-center" : "flex items-center justify-center"}
-            `}
-          >
-            {frontText && (
-              <h3
-                className={`
-                  text-base sm:text-lg md:text-xl font-bold text-center leading-tight drop-shadow-lg
-                  ${frontImage ? "text-white" : "text-black"}
-                `}
-              >
-                {frontText}
-              </h3>
-            )}
-          </div>
+        <div className="absolute inset-0 w-full h-full rounded-2xl bg-neutral-100 shadow-md overflow-hidden" style={{ backfaceVisibility: "hidden" }}>
+          {frontImage ? (
+            // When frontImage exists, show image with text below
+            <div className="flex flex-col h-full">
+              <div className="flex-1 relative">
+                <Image src={frontImage} alt="Front of card" fill={true} className="object-contain" />
+              </div>
+              {frontText && (
+                <div className="p-3 sm:p-4 bg-neutral-100 border-t border-neutral-200">
+                  <h3 className="text-sm sm:text-base md:text-lg font-bold text-black text-center leading-tight">{frontText}</h3>
+                </div>
+              )}
+            </div>
+          ) : (
+            // When no frontImage, center the text
+            <div className="absolute inset-0 p-4 sm:p-6 overflow-auto flex items-center justify-center">
+              {frontText && <h3 className="text-base sm:text-lg md:text-xl font-bold text-black text-center leading-tight">{frontText}</h3>}
+            </div>
+          )}
         </div>
 
         {/* Back of card */}
         <div
-          className="absolute inset-0 w-full h-full rounded-2xl bg-neutral-700 shadow-md p-4 sm:p-6 overflow-auto"
+          className="absolute inset-0 w-full h-full rounded-2xl bg-neutral-700 shadow-md overflow-hidden"
           style={{
             backfaceVisibility: "hidden",
             transform: "rotateY(180deg)",
-            backgroundImage: backImage ? `url(${backImage})` : "none",
-            backgroundPosition: "center",
-            backgroundSize: "cover",
           }}
         >
-          <div className="flex items-center justify-center min-h-full">
-            {backText && <h3 className="text-base sm:text-lg md:text-xl font-bold text-white text-center leading-tight">{backText}</h3>}
-          </div>
+          {backImage ? (
+            // When backImage exists, show image with text below
+            <div className="flex flex-col h-full">
+              <div className="flex-1 relative">
+                <Image src={backImage} alt="Back of card" fill={true} className="object-contain" />
+              </div>
+              {backText && (
+                <div className="p-3 sm:p-4 bg-neutral-700 border-t border-neutral-600">
+                  <h3 className="text-sm sm:text-base md:text-lg font-bold text-white text-center leading-tight">{backText}</h3>
+                </div>
+              )}
+            </div>
+          ) : (
+            // When no backImage, center the text
+            <div className="absolute inset-0 p-4 sm:p-6 overflow-auto flex items-center justify-center">
+              {backText && <h3 className="text-base sm:text-lg md:text-xl font-bold text-white text-center leading-tight">{backText}</h3>}
+            </div>
+          )}
         </div>
       </motion.div>
     </div>
   );
 };
-

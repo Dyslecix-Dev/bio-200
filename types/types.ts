@@ -3,6 +3,11 @@ import { ReactNode, MouseEventHandler, RefObject, Dispatch, SetStateAction } fro
 
 import { MotionProps } from "motion/react";
 
+export interface AddKanbanCardPropsType {
+  column: KanbanColumnType;
+  setCards: React.Dispatch<React.SetStateAction<KanbanCardType[]>>;
+}
+
 export interface BeamType {
   top: number;
   left: number;
@@ -16,6 +21,10 @@ export interface BeamType {
 export interface BlockType extends MotionProps {
   children?: ReactNode;
   className?: string;
+}
+
+export interface BurnBarrelType {
+  setCards: React.Dispatch<React.SetStateAction<KanbanCardType[]>>;
 }
 
 export interface CardType {
@@ -61,6 +70,11 @@ export interface CurLineType {
   containerRef: RefObject<HTMLDivElement | null>;
 }
 
+export interface DropIndicatorType {
+  beforeId: string | null;
+  column: KanbanColumnType;
+}
+
 export interface ExamQuestionsType {
   trueOrFalseQuestions: QuestionType[];
   multipleChoiceQuestions: QuestionType[];
@@ -89,6 +103,29 @@ export interface FlashCardType {
   grade: number;
   attempts: number;
 }
+
+export interface KanbanCardPropsType {
+  id: string;
+  title: string;
+  column: KanbanColumnType;
+  handleDragStart: (e: React.DragEvent<HTMLDivElement> | MouseEvent | TouchEvent | PointerEvent, card: KanbanCardType) => void;
+}
+
+export interface KanbanCardType {
+  id: string;
+  title: string;
+  column: KanbanColumnType;
+}
+
+export interface KanbanColumnPropsType {
+  title: string;
+  column: KanbanColumnType;
+  headingColor: string;
+  cards: KanbanCardType[];
+  setCards: React.Dispatch<React.SetStateAction<KanbanCardType[]>>;
+}
+
+type KanbanColumnType = "backlog" | "todo" | "doing" | "done";
 
 export interface NavLinkType {
   link?: string;

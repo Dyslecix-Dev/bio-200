@@ -164,7 +164,7 @@ const SocialsBlock = ({ loading, socials }: { loading: boolean; socials?: { inst
               }
             : {}
         }
-        className={`col-span-6 bg-[#D62976] md:col-span-3 ${isDisabled(socials?.instagram) ? "opacity-50 cursor-not-allowed" : ""}`}
+        className={`col-span-6  md:col-span-3 ${isDisabled(socials?.instagram) ? "opacity-50 cursor-not-allowed bg-zinc-400" : "bg-[#D62976]"}`}
       >
         {isDisabled(socials?.instagram) ? (
           <div className="grid h-full place-content-center text-3xl text-white">
@@ -186,7 +186,7 @@ const SocialsBlock = ({ loading, socials }: { loading: boolean; socials?: { inst
               }
             : {}
         }
-        className={`col-span-6 bg-black md:col-span-3 ${isDisabled(socials?.x) ? "opacity-50 cursor-not-allowed" : ""}`}
+        className={`col-span-6  md:col-span-3 ${isDisabled(socials?.x) ? "opacity-50 cursor-not-allowed bg-zinc-400" : "bg-black"}`}
       >
         {isDisabled(socials?.x) ? (
           <div className="grid h-full place-content-center text-3xl text-white">
@@ -208,7 +208,7 @@ const SocialsBlock = ({ loading, socials }: { loading: boolean; socials?: { inst
               }
             : {}
         }
-        className={`col-span-6 bg-zinc-50 md:col-span-3 ${isDisabled(socials?.tiktok) ? "opacity-50 cursor-not-allowed" : ""}`}
+        className={`col-span-6  md:col-span-3 ${isDisabled(socials?.tiktok) ? "opacity-50 cursor-not-allowed bg-zinc-400" : "bg-zinc-50"}`}
       >
         {isDisabled(socials?.tiktok) ? (
           <div className="grid h-full place-content-center text-3xl text-black">
@@ -230,7 +230,7 @@ const SocialsBlock = ({ loading, socials }: { loading: boolean; socials?: { inst
               }
             : {}
         }
-        className={`col-span-6 bg-red-500 md:col-span-3 ${isDisabled(socials?.youtube) ? "opacity-50 cursor-not-allowed" : ""}`}
+        className={`col-span-6  md:col-span-3 ${isDisabled(socials?.youtube) ? "opacity-50 cursor-not-allowed bg-zinc-400" : "bg-red-500"}`}
       >
         {isDisabled(socials?.youtube) ? (
           <div className="grid h-full place-content-center text-3xl text-white">

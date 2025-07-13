@@ -1,8 +1,6 @@
 # BUGS
 
-1. FIXED public.user_profiles name column is saving the email from auth.users
-2. FIXED In review mode, the next flash card shows its answer before it flips back to its question
-3. FIXED Card and SpringCard components accessible on horizontal tablets
+1. BUG Sendgrid is not working
 
 # Future Features
 
@@ -27,7 +25,6 @@
 1. DONE Flip Flash Cards
 2. DONE Spaced Memorization (Needs Auth)
 3. DONE Reset Grades (Need Auth)
-4. Pomodoro Timer
 
 ## Auth
 
