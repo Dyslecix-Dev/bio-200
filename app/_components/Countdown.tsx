@@ -8,13 +8,8 @@ const SECOND: number = 1000;
 const MINUTE: number = SECOND * 60;
 const HOUR: number = MINUTE * 60;
 
-export default function Countdown({ onTimeUp }: CountdownType) {
+export default function Countdown({ onTimeUp, hours, minutes, seconds }: CountdownType) {
   const [startTime] = useState<number>(Date.now());
-
-  //! Modify these values to change the countdown duration
-  const hours = 0;
-  const minutes = 15;
-  const seconds = 0;
 
   const totalDuration = hours * HOUR + minutes * MINUTE + seconds * SECOND;
 

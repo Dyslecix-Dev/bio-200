@@ -1,6 +1,8 @@
 import { useRouter } from "next/navigation";
 import { ReactNode, MouseEventHandler, RefObject, Dispatch, SetStateAction, DragEvent } from "react";
 
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+
 import { MotionProps } from "motion/react";
 
 export interface AddKanbanCardPropsType {
@@ -57,6 +59,9 @@ export interface CountdownTimeType {
 
 export interface CountdownType {
   onTimeUp?: () => void;
+  hours: number;
+  minutes: number;
+  seconds: number;
 }
 
 export interface CurLineType {
@@ -126,6 +131,22 @@ export interface KanbanColumnPropsType {
 }
 
 type KanbanColumnType = "To-Do" | "In Progress" | "Complete";
+
+export type LabQuestionType = {
+  image: string;
+  [key: number]: string | undefined;
+};
+
+export type LabQuestionsType = {
+  questions: LabQuestionType[]; // This should be an array of LabQuestion
+  isSubmitted: boolean;
+  setIsSubmitted: (value: boolean) => void;
+  router: AppRouterInstance;
+  score: ScoreType | null;
+  setScore: (value: ScoreType | null) => void;
+  calculateScoreRef: React.MutableRefObject<(() => ScoreType) | null>;
+  showNotification: (msg: string) => void;
+};
 
 export interface NavLinkType {
   link?: string;

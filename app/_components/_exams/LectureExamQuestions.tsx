@@ -11,7 +11,7 @@ import StackedNotification from "@/app/_components/StackedNotification";
 
 import { QuestionType, ShortAnswerQuestionType, ScoreType, ExamQuestionsType } from "@/types/types";
 
-export default function ExamQuestions({
+export default function LectureExamQuestions({
   trueOrFalseQuestions,
   multipleChoiceQuestions,
   shortAnswerQuestions,
@@ -46,7 +46,7 @@ export default function ExamQuestions({
 
   return (
     <main className="min-h-screen overflow-hidden bg-zinc-950">
-      <Countdown onTimeUp={handleTimeUp} />
+      <Countdown onTimeUp={handleTimeUp} hours={0} minutes={15} seconds={0} />
       <Questions
         trueOrFalseQuestions={trueOrFalseQuestions}
         multipleChoiceQuestions={multipleChoiceQuestions}

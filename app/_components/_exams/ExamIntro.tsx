@@ -7,17 +7,21 @@ import { motion } from "motion/react";
 
 import { SquareImageType } from "@/types/types";
 
-export default function ExamIntro({ examNumber, examLink }: { examNumber: number; examLink: string }) {
+export default function ExamIntro({ examNumber, examLink, examType = "lecture" }: { examNumber: number; examLink: string; examType?: string }) {
   return (
     <main className="min-h-screen w-full px-8 py-12 grid grid-cols-1 md:grid-cols-2 items-center gap-8 mx-auto bg-zinc-950 text-zinc-100">
       <div>
         <span className="block mb-4 text-xs md:text-sm text-indigo-500 font-medium">Did you study?</span>
-        <h3 className="text-4xl md:text-6xl font-semibold">BIO 200 Exam {examNumber}</h3>
+        <h3 className="text-4xl md:text-6xl font-semibold">
+          BIO 200 {examType === "lab" ? "Lab" : "Lecture"} Exam {examNumber}
+        </h3>
         <p className="text-base md:text-lg text-zinc-600 my-4 md:my-6">
-          This is a timed test with 22 randomly generated questions (6 true/false, 14 multiple choice, and 2 short answer). You have 15 minutes to complete it. Once you start the test, you cannot stop
-          until you submit it.
+          {examType === "lab"
+            ? "This is a timed fill-in-the-blank test. You have 1 hour to complete it."
+            : "This is a timed test with 22 randomly generated questions (6 true/false, 14 multiple choice, and 2 short answer). You have 15 minutes to complete it."}{" "}
+          Once you start the test, you cannot stop until you submit it.
         </p>
-        <Link href={`/exams/exam-${examLink}/questions`} className="bg-indigo-500 text-white font-medium py-2 px-4 rounded transition-all hover:bg-indigo-600 active:scale-95 cursor-pointer">
+        <Link href={`/exams/${examType}-${examLink}/questions`} className="bg-indigo-500 text-white font-medium py-2 px-4 rounded transition-all hover:bg-indigo-600 active:scale-95 cursor-pointer">
           Start Test
         </Link>
       </div>

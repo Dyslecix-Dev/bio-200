@@ -19,7 +19,8 @@
 
 ## Mock Exam
 
-1. Leaderboard (Needs Auth)
+1. Lab Test
+2. Leaderboard (Needs Auth)
 
 ## Flash Cards
 
