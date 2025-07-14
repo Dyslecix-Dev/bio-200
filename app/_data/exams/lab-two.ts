@@ -259,5 +259,14 @@ export const questions = [
     34: "Soleus",
     35: "Biceps femoris",
   },
-  // TODO lab_6_andrew_slide_7
+  {
+    image: "https://boej6iprvajfuxis.public.blob.vercel-storage.com/lab_6/lab_6_andrew_slide_7.png",
+    40: "Major duodenal papilla",
+    41: "Hepatopancreatic ampulla and sphincter",
+    42: "Caudate lobe",
+    43: "Left lobe",
+    44: "Porta hepatis",
+    45: "Right lobe",
+    46: "Quadrate lobe",
+  },
 ];

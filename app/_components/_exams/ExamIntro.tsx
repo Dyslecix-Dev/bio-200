@@ -17,7 +17,7 @@ export default function ExamIntro({ examNumber, examLink, examType = "lecture" }
         </h3>
         <p className="text-base md:text-lg text-zinc-600 my-4 md:my-6">
           {examType === "lab"
-            ? "This is a timed fill-in-the-blank test. You have 1 hour to complete it."
+            ? "This is a timed fill-in-the-blank test. You have 2 hours to complete it."
             : "This is a timed test with 22 randomly generated questions (6 true/false, 14 multiple choice, and 2 short answer). You have 15 minutes to complete it."}{" "}
           Once you start the test, you cannot stop until you submit it.
         </p>

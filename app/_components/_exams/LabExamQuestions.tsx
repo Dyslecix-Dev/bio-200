@@ -38,7 +38,7 @@ export default function LabExamQuestions({ questions }: { questions: LabQuestion
 
   return (
     <main className="min-h-screen overflow-hidden bg-zinc-950">
-      <Countdown onTimeUp={handleTimeUp} hours={1} minutes={0} seconds={0} />
+      <Countdown onTimeUp={handleTimeUp} hours={2} minutes={0} seconds={0} />
       <Questions
         questions={questions}
         isSubmitted={isSubmitted}

@@ -19,7 +19,7 @@
 
 ## Mock Exam
 
-1. Lab Test
+1. DONE Lab Test
 2. Leaderboard (Needs Auth)
 
 ## Flash Cards
