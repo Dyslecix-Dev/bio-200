@@ -9,6 +9,9 @@ import Beams from "@/app/_components/_background/Beams";
 import GradientGrid from "@/app/_components/_background/GradientGrid";
 import StackedNotification from "@/app/_components/StackedNotification";
 
+import { createClient } from "@/utils/supabase/client";
+import { updateStudyStreak } from "@/app/utils/studyStreak/updateStudyStreak";
+
 import { QuestionType, ShortAnswerQuestionType, ScoreType, ExamQuestionsType } from "@/types/types";
 
 export default function LectureExamQuestions({
@@ -34,13 +37,33 @@ export default function LectureExamQuestions({
     setIsNotifOpen(true);
   };
 
-  const handleTimeUp = () => {
+  const handleTimeUp = async () => {
     if (!isSubmitted && calculateScoreRef.current) {
       showNotification("Time is up! See your score below.");
       const calculatedScore = calculateScoreRef.current();
       setScore(calculatedScore);
       setIsSubmitted(true);
-      // TODO save answers to database
+
+      try {
+        const supabase = await createClient();
+
+        const {
+          data: { user },
+        } = await supabase.auth.getUser();
+
+        if (!user) {
+          console.error("User not authenticated");
+          return;
+        }
+
+        // Update study streak using the utility function
+        await updateStudyStreak(supabase, user.id);
+
+        // TODO: Save test answers to database here
+        // You can save the answers and score to your database
+      } catch (error) {
+        console.error("Error updating study tracking:", error);
+      }
     }
   };
 
@@ -166,11 +189,32 @@ const Questions: FC<ExamQuestionsType> = ({ trueOrFalseQuestions, multipleChoice
     calculateScoreRef.current = calculateScore;
   }, [answers, selectedTrueFalse, selectedMultipleChoice]);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!isSubmitted && isTestComplete()) {
       const calculatedScore = calculateScore();
       setScore(calculatedScore);
       setIsSubmitted(true);
+
+      try {
+        const supabase = await createClient();
+
+        const {
+          data: { user },
+        } = await supabase.auth.getUser();
+
+        if (!user) {
+          console.error("User not authenticated");
+          return;
+        }
+
+        // Update study streak using the utility function
+        await updateStudyStreak(supabase, user.id);
+
+        // TODO: Save test answers to database here
+        // You can save the answers, shortAnswers, and score to your database
+      } catch (error) {
+        console.error("Error updating study tracking:", error);
+      }
     }
   };
 

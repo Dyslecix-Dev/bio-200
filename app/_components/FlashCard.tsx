@@ -10,6 +10,8 @@ import Navbar from "@/app/_components/Navbar";
 import Beams from "@/app/_components/_background/Beams";
 import GradientGrid from "@/app/_components/_background/GradientGrid";
 
+import { updateStudyStreak } from "@/app/utils/studyStreak/updateStudyStreak";
+
 import { FlashCardType, UserFlashCardProgressType } from "@/types/types";
 
 // Fisher-Yates shuffle algorithm
@@ -124,7 +126,8 @@ export default function FlashCardComponent({
         return;
       }
 
-      const { error } = await supabase.from("user_flash_card_progress").upsert(
+      // Update flash card progress
+      const { error: progressError } = await supabase.from("user_flash_card_progress").upsert(
         {
           user_id: user.id,
           card_id: currentCard.id,
@@ -137,11 +140,15 @@ export default function FlashCardComponent({
         }
       );
 
-      if (error) {
-        console.error("Error updating progress:", error);
+      if (progressError) {
+        console.error("Error updating progress:", progressError);
         return;
       }
 
+      // Update study streak using the utility function
+      await updateStudyStreak(supabase, user.id);
+
+      // Update local state
       updateCardProgress(currentCard.id, newGrade, newAttempts);
     } catch (error) {
       console.error("Error updating card:", error);

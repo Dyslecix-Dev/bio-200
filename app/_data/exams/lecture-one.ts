@@ -1171,15 +1171,15 @@ export const multipleChoiceQuestions = [
     question: "Which of the following is a characteristic that skeletal muscle fibers are not categorized by?",
     options: [
       {
-        text: "Atp made through oxidative phosphorylation",
+        text: "ATP made through oxidative phosphorylation",
         correct: true,
       },
       {
-        text: "Atp made aerobically",
+        text: "ATP made aerobically",
         correct: false,
       },
       {
-        text: "Atp made through glycolysis",
+        text: "ATP made through glycolysis",
         correct: false,
       },
       {

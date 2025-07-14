@@ -15,7 +15,7 @@
 1. DONE Online Status Changes (Needs Auth)
 2. DONE Edit Profile (Needs Auth)
 3. Delete Profile (Needs Auth)
-4. Study Streak (Needs Auth)
+4. DONE Study Streak (Needs Auth)
 
 ## Mock Exam
 

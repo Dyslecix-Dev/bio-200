@@ -224,7 +224,6 @@ const Summary = ({ questions, setQuestions, loading, setLoading, user }: Summary
 
       if (result.success) {
         setComplete(true);
-        console.log("Email sent successfully");
       } else {
         console.error("Failed to send email:", result.error);
       }

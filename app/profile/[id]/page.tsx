@@ -15,15 +15,19 @@ import { RxAvatar } from "react-icons/rx";
 import Navbar from "@/app/_components/Navbar";
 import Beams from "@/app/_components/_background/Beams";
 import GradientGrid from "@/app/_components/_background/GradientGrid";
+import StackedNotification from "@/app/_components/StackedNotification";
 import FloodButton from "@/app/_components/_buttons/FloodButton";
 
 import { BlockType, UserType } from "@/types/types";
 
 import { createClient } from "@/utils/supabase/client";
+import { checkAndResetStudyStreak } from "@/app/utils/studyStreak/checkAndResetStudyStreak";
 
 export default function Profile() {
   const [user, setUser] = useState<UserType | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const [isNotifOpen, setIsNotifOpen] = useState<boolean>(false);
+  const [message, setMessage] = useState<string | null>(null);
 
   const params = useParams();
   const userID = params.id;
@@ -36,25 +40,52 @@ export default function Profile() {
 
         const { data: userProfile, error } = await supabase.from("user_profiles").select("*").eq("id", userID).single();
 
-        if (!error && userProfile) {
-          const { name, online, instagram, x, tiktok, youtube, location, description, study_streak } = userProfile;
-
-          setUser({
-            id: userID as string,
-            name: name,
-            online: online,
-            socials: {
-              instagram: instagram || "",
-              x: x || "",
-              tiktok: tiktok || "",
-              youtube: youtube || "",
-            },
-            location: location || "Earth",
-            description: description || "Describe myself? I would rather remain anonymous.",
-            studyStreak: study_streak,
-          });
-        } else if (error) {
+        if (error) {
           console.error("Error fetching user profile:", error);
+          return;
+        }
+
+        if (!userProfile) {
+          console.error("No user profile found");
+          return;
+        }
+
+        const { name, online, instagram, x, tiktok, youtube, location, description, last_study_date } = userProfile;
+
+        // Check and potentially reset study streak if 2+ days have passed
+        const updatedStreak = await checkAndResetStudyStreak(supabase, userID as string);
+
+        setUser({
+          id: userID as string,
+          name,
+          online,
+          socials: {
+            instagram: instagram || "",
+            x: x || "",
+            tiktok: tiktok || "",
+            youtube: youtube || "",
+          },
+          location: location || "Earth",
+          description: description || "Describe myself? I would rather remain anonymous.",
+          lastStudyDate: last_study_date,
+          studyStreak: updatedStreak,
+        });
+
+        // Show notification based on study streak and last study date
+        const today = new Date().toISOString().split("T")[0]; // Get today's date in YYYY-MM-DD format
+        const yesterday = new Date();
+        yesterday.setDate(yesterday.getDate() - 1);
+        const yesterdayFormatted = yesterday.toISOString().split("T")[0];
+
+        const lastStudyDateFormatted = last_study_date ? new Date(last_study_date).toISOString().split("T")[0] : null;
+
+        if (lastStudyDateFormatted === today) {
+          showNotification(`Way to go! Your current streak is ${updatedStreak} ${updatedStreak === 1 ? "day" : "days"}.`);
+        } else if (updatedStreak === 0) {
+          const formattedLastStudyDate = last_study_date ? new Date(last_study_date).toLocaleDateString() : "never";
+          showNotification(`You lost your streak! The last time you studied was on ${formattedLastStudyDate}.`);
+        } else if (updatedStreak > 0 && lastStudyDateFormatted === yesterdayFormatted) {
+          showNotification(`Time to study! Maintain your streak of ${updatedStreak} ${updatedStreak === 1 ? "day" : "days"}.`);
         }
       } catch (error) {
         console.error("Error fetching user profile:", error);
@@ -67,6 +98,11 @@ export default function Profile() {
       fetchUser();
     }
   }, [userID]);
+
+  const showNotification = (msg: string) => {
+    setMessage(msg);
+    setIsNotifOpen(true);
+  };
 
   return (
     <main className="min-h-screen overflow-hidden bg-zinc-950">
@@ -94,6 +130,7 @@ export default function Profile() {
 
       <Beams />
       <GradientGrid />
+      <StackedNotification isNotifOpen={isNotifOpen} setIsNotifOpen={setIsNotifOpen} message={message} />
     </main>
   );
 }
@@ -139,13 +176,13 @@ const HeaderBlock = ({ user }: { user: UserType | null }) => (
         {user?.online ? "Online" : "Offline"}
       </span>
 
-      {/* <h2
+      <h2
         className={`px-2 py-1 text-xl font-medium leading-tight rounded-full ${
           user?.studyStreak === 0 ? "bg-red-200 text-red-800" : (user?.studyStreak || 0) > 0 ? "bg-yellow-200 text-yellow-800" : ""
         } ${(user?.studyStreak || 0) > 7 ? "bg-green-200 text-green-800" : ""}`}
       >
-        Study Streak: {user?.studyStreak || 0} days
-      </h2> */}
+        Study Streak: {user?.studyStreak || 0} {user?.studyStreak === 1 ? "day" : "days"}
+      </h2>
     </div>
   </Block>
 );

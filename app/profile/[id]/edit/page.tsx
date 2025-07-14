@@ -34,7 +34,7 @@ export default function EditProfile() {
         const { data: userProfile, error } = await supabase.from("user_profiles").select("*").eq("id", userID).single();
 
         if (!error && userProfile) {
-          const { name, online, instagram, x, tiktok, youtube, location, description, study_streak } = userProfile;
+          const { name, online, instagram, x, tiktok, youtube, location, description, last_study_date, study_streak } = userProfile;
 
           setUser({
             id: userID as string,
@@ -48,6 +48,7 @@ export default function EditProfile() {
             },
             location: location || "",
             description: description || "",
+            lastStudyDate: last_study_date,
             studyStreak: study_streak,
           });
         } else if (error) {

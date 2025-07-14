@@ -10,6 +10,9 @@ import Beams from "@/app/_components/_background/Beams";
 import GradientGrid from "@/app/_components/_background/GradientGrid";
 import StackedNotification from "@/app/_components/StackedNotification";
 
+import { createClient } from "@/utils/supabase/client";
+import { updateStudyStreak } from "@/app/utils/studyStreak/updateStudyStreak";
+
 import { ScoreType, LabQuestionType, LabQuestionsType } from "@/types/types";
 
 export default function LabExamQuestions({ questions }: { questions: LabQuestionType[] }) {
@@ -26,29 +29,40 @@ export default function LabExamQuestions({ questions }: { questions: LabQuestion
     setIsNotifOpen(true);
   };
 
-  const handleTimeUp = () => {
+  const handleTimeUp = async () => {
     if (!isSubmitted && calculateScoreRef.current) {
       showNotification("Time is up! See your score below.");
       const calculatedScore = calculateScoreRef.current();
       setScore(calculatedScore);
       setIsSubmitted(true);
-      // TODO save answers to database
+
+      try {
+        const supabase = await createClient();
+
+        const {
+          data: { user },
+        } = await supabase.auth.getUser();
+
+        if (!user) {
+          console.error("User not authenticated");
+          return;
+        }
+
+        // Update study streak using the utility function
+        await updateStudyStreak(supabase, user.id);
+
+        // TODO: Save test answers to database here
+        // You can save the answers and score to your database
+      } catch (error) {
+        console.error("Error updating study tracking:", error);
+      }
     }
   };
 
   return (
     <main className="min-h-screen overflow-hidden bg-zinc-950">
-      <Countdown onTimeUp={handleTimeUp} hours={2} minutes={0} seconds={0} />
-      <Questions
-        questions={questions}
-        isSubmitted={isSubmitted}
-        setIsSubmitted={setIsSubmitted}
-        router={router}
-        score={score}
-        setScore={setScore}
-        calculateScoreRef={calculateScoreRef}
-        showNotification={showNotification}
-      />
+      <Countdown onTimeUp={handleTimeUp} hours={0} minutes={0} seconds={5} />
+      <Questions questions={questions} isSubmitted={isSubmitted} setIsSubmitted={setIsSubmitted} router={router} score={score} setScore={setScore} calculateScoreRef={calculateScoreRef} />
       <Beams />
       <GradientGrid />
       <StackedNotification isNotifOpen={isNotifOpen} setIsNotifOpen={setIsNotifOpen} message={message} />
@@ -56,7 +70,7 @@ export default function LabExamQuestions({ questions }: { questions: LabQuestion
   );
 }
 
-const Questions: FC<LabQuestionsType> = ({ questions, isSubmitted, setIsSubmitted, router, score, setScore, calculateScoreRef, showNotification }) => {
+const Questions: FC<LabQuestionsType> = ({ questions, isSubmitted, setIsSubmitted, router, score, setScore, calculateScoreRef }) => {
   const [answers, setAnswers] = useState<Record<string, string>>({});
 
   const handleAnswerChange = (questionIndex: number, location: string, value: string) => {
@@ -105,13 +119,32 @@ const Questions: FC<LabQuestionsType> = ({ questions, isSubmitted, setIsSubmitte
     calculateScoreRef.current = calculateScore;
   }, [answers]);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!isSubmitted && isTestComplete()) {
       const calculatedScore = calculateScore();
       setScore(calculatedScore);
       setIsSubmitted(true);
-      showNotification("Test submitted successfully!");
-      // TODO save answers to database
+
+      try {
+        const supabase = await createClient();
+
+        const {
+          data: { user },
+        } = await supabase.auth.getUser();
+
+        if (!user) {
+          console.error("User not authenticated");
+          return;
+        }
+
+        // Update study streak using the utility function
+        await updateStudyStreak(supabase, user.id);
+
+        // TODO: Save test answers to database here
+        // You can save the answers and score to your database
+      } catch (error) {
+        console.error("Error updating study tracking:", error);
+      }
     }
   };
 

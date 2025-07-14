@@ -145,7 +145,6 @@ export type LabQuestionsType = {
   score: ScoreType | null;
   setScore: (value: ScoreType | null) => void;
   calculateScoreRef: React.MutableRefObject<(() => ScoreType) | null>;
-  showNotification: (msg: string) => void;
 };
 
 export interface NavLinkType {
@@ -218,6 +217,11 @@ export type UserFlashCardProgressType = {
   user_id: string;
 };
 
+export interface UserStudyType {
+  last_study_date: string | null;
+  study_streak: number | null;
+}
+
 export interface UserType {
   id: string;
   name: string;
@@ -230,6 +234,7 @@ export interface UserType {
   };
   location?: string;
   description?: string;
+  lastStudyDate: string;
   studyStreak: number;
 }
 
