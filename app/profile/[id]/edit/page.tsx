@@ -21,9 +21,41 @@ export default function EditProfile() {
   const [message, setMessage] = useState<string | null>(null);
   const [user, setUser] = useState<UserType | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const [currentUserId, setCurrentUserId] = useState<string | null>(null);
 
   const params = useParams();
+  const router = useRouter();
   const userID = params.id;
+
+  useEffect(() => {
+    async function fetchCurrentUser() {
+      try {
+        const supabase = await createClient();
+        const {
+          data: { user: authUser },
+        } = await supabase.auth.getUser();
+
+        if (!authUser) {
+          // If no authenticated user, redirect to login
+          router.push("/auth/login");
+          return;
+        }
+
+        setCurrentUserId(authUser.id);
+
+        // If the authenticated user's ID doesn't match the profile ID, redirect to dashboard
+        if (authUser.id !== userID) {
+          router.push("/");
+          return;
+        }
+      } catch (error) {
+        console.error("Error fetching current user:", error);
+        router.push("/auth/login");
+      }
+    }
+
+    fetchCurrentUser();
+  }, [userID, router]);
 
   useEffect(() => {
     async function fetchUser() {
@@ -61,15 +93,25 @@ export default function EditProfile() {
       }
     }
 
-    if (userID) {
+    // Only fetch user data if we have confirmed the current user matches the profile ID
+    if (userID && currentUserId && currentUserId === userID) {
       fetchUser();
     }
-  }, [userID]);
+  }, [userID, currentUserId]);
 
   const showNotification = (msg: string) => {
     setMessage(msg);
     setIsNotifOpen(true);
   };
+
+  // Show loading state while checking authentication
+  if (currentUserId === null) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-zinc-950 text-zinc-200">
+        <div className="text-zinc-400">Checking authentication...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-zinc-950 py-20 text-zinc-200 selection:bg-zinc-600">

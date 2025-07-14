@@ -27,10 +27,27 @@ export default function Profile() {
   const [loading, setLoading] = useState<boolean>(false);
   const [isNotifOpen, setIsNotifOpen] = useState<boolean>(false);
   const [message, setMessage] = useState<string | null>(null);
+  const [currentUserId, setCurrentUserId] = useState<string | null>(null);
 
   const router = useRouter();
   const params = useParams();
   const userID = params.id;
+
+  useEffect(() => {
+    async function fetchCurrentUser() {
+      try {
+        const supabase = await createClient();
+        const {
+          data: { user: authUser },
+        } = await supabase.auth.getUser();
+        setCurrentUserId(authUser?.id || null);
+      } catch (error) {
+        console.error("Error fetching current user:", error);
+      }
+    }
+
+    fetchCurrentUser();
+  }, []);
 
   useEffect(() => {
     async function fetchUser() {
@@ -71,21 +88,24 @@ export default function Profile() {
           studyStreak: updatedStreak,
         });
 
-        // Show notification based on study streak and last study date
-        const today = new Date().toISOString().split("T")[0]; // Get today's date in YYYY-MM-DD format
-        const yesterday = new Date();
-        yesterday.setDate(yesterday.getDate() - 1);
-        const yesterdayFormatted = yesterday.toISOString().split("T")[0];
+        // Only show notification if the current user is viewing their own profile
+        if (currentUserId && currentUserId === userID) {
+          // Show notification based on study streak and last study date
+          const today = new Date().toISOString().split("T")[0]; // Get today's date in YYYY-MM-DD format
+          const yesterday = new Date();
+          yesterday.setDate(yesterday.getDate() - 1);
+          const yesterdayFormatted = yesterday.toISOString().split("T")[0];
 
-        const lastStudyDateFormatted = last_study_date ? new Date(last_study_date).toISOString().split("T")[0] : null;
+          const lastStudyDateFormatted = last_study_date ? new Date(last_study_date).toISOString().split("T")[0] : null;
 
-        if (lastStudyDateFormatted === today) {
-          showNotification(`Way to go! Your current streak is ${updatedStreak} ${updatedStreak === 1 ? "day" : "days"}.`);
-        } else if (updatedStreak === 0) {
-          const formattedLastStudyDate = last_study_date ? new Date(last_study_date).toLocaleDateString() : "never";
-          showNotification(`You lost your streak! The last time you studied was on ${formattedLastStudyDate}.`);
-        } else if (updatedStreak > 0 && lastStudyDateFormatted === yesterdayFormatted) {
-          showNotification(`Time to study! Maintain your streak of ${updatedStreak} ${updatedStreak === 1 ? "day" : "days"}.`);
+          if (lastStudyDateFormatted === today) {
+            showNotification(`Way to go! Your current streak is ${updatedStreak} ${updatedStreak === 1 ? "day" : "days"}.`);
+          } else if (updatedStreak === 0) {
+            const formattedLastStudyDate = last_study_date ? new Date(last_study_date).toLocaleDateString() : "never";
+            showNotification(`You lost your streak! The last time you studied was on ${formattedLastStudyDate}.`);
+          } else if (updatedStreak > 0 && lastStudyDateFormatted === yesterdayFormatted) {
+            showNotification(`Time to study! Maintain your streak of ${updatedStreak} ${updatedStreak === 1 ? "day" : "days"}.`);
+          }
         }
       } catch (error) {
         console.error("Error fetching user profile:", error);
@@ -94,10 +114,10 @@ export default function Profile() {
       }
     }
 
-    if (userID) {
+    if (userID && currentUserId !== null) {
       fetchUser();
     }
-  }, [userID]);
+  }, [userID, currentUserId]);
 
   const showNotification = (msg: string) => {
     setMessage(msg);
@@ -140,16 +160,18 @@ export default function Profile() {
         }}
         className="relative z-20 mx-auto grid max-w-4xl grid-flow-dense grid-cols-12 gap-4 h-full px-4 py-24 md:px-8 md:py-36 text-white"
       >
-        <HeaderBlock user={user} signOut={signOut} />
+        <HeaderBlock user={user} signOut={signOut} isOwnProfile={currentUserId === userID} />
         <SocialsBlock loading={loading} socials={user?.socials} />
         <div className="col-span-12 grid grid-cols-12 gap-4">
           <LocationBlock location={user?.location} />
           <AboutBlock user={user} />
         </div>
 
-        <Block className="col-span-12 bg-transparent border-none">
-          <FloodButton text="Edit Profile" link={`/profile/${userID}/edit`} className={`flex justify-center text-2xl`} />
-        </Block>
+        {currentUserId === userID && (
+          <Block className="col-span-12 bg-transparent border-none">
+            <FloodButton text="Edit Profile" link={`/profile/${userID}/edit`} className={`flex justify-center text-2xl`} />
+          </Block>
+        )}
       </motion.div>
 
       <Beams />
@@ -186,14 +208,16 @@ const Block = ({ className, ...rest }: BlockType) => {
   );
 };
 
-const HeaderBlock = ({ user, signOut }: { user: UserType | null; signOut: () => Promise<void> }) => (
+const HeaderBlock = ({ user, signOut, isOwnProfile }: { user: UserType | null; signOut: () => Promise<void>; isOwnProfile: boolean }) => (
   <Block className="flex flex-col gap-4 col-span-12 row-span-2 md:col-span-6">
     <div className="w-full flex justify-between">
       <RxAvatar className="w-10 h-10 rounded-full bg-slate-300 object-cover object-top shrink-0" />
 
-      <button onClick={signOut} className="text-neutral-200 hover:text-indigo-400 transition-colors duration-700 cursor-pointer">
-        Logout
-      </button>
+      {isOwnProfile && (
+        <button onClick={signOut} className="text-neutral-200 hover:text-indigo-400 transition-colors duration-700 cursor-pointer">
+          Logout
+        </button>
+      )}
     </div>
 
     <h1 className="text-4xl font-medium leading-tight">{user?.name}</h1>
