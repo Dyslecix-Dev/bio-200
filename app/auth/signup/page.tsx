@@ -13,7 +13,7 @@ import StackedNotification from "@/app/_components/StackedNotification";
 import { signup } from "@/app/auth/actions";
 
 export default function SignUp() {
-  const [isNotifOpen, setIsNotifOpen] = useState(false);
+  const [isNotifOpen, setIsNotifOpen] = useState<boolean>(false);
   const [message, setMessage] = useState<string | null>(null);
 
   const showNotification = (msg: string) => {
@@ -66,7 +66,7 @@ const Heading = () => (
 );
 
 const SignUpForm = ({ showNotification }: { showNotification: (message: string) => void }) => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const validateForm = (event: FormEvent<HTMLFormElement>): boolean => {
     event.preventDefault();

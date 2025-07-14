@@ -12,8 +12,8 @@ import SplashButton from "@/app/_components/_buttons/SplashButton";
 import { createClient } from "@/utils/supabase/client";
 
 export default function ForgotPassword() {
-  const [email, setEmail] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
   const handleResetPassword = async (e: FormEvent) => {

@@ -38,7 +38,7 @@ export default function Kanban() {
 
 const Board = () => {
   const [cards, setCards] = useState<KanbanCardType[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -201,7 +201,7 @@ const Board = () => {
 };
 
 const Column = ({ text, headingColor, cards, column, setCards, updateCard }: KanbanColumnPropsType & { updateCard: (cardId: string, updates: Partial<KanbanCardType>) => void }) => {
-  const [active, setActive] = useState(false);
+  const [active, setActive] = useState<boolean>(false);
 
   const handleDragStart = (e: React.DragEvent<HTMLDivElement>, card: KanbanCardType) => {
     e.dataTransfer.setData("cardId", card.id);
@@ -346,7 +346,7 @@ const DropIndicator = ({ beforeId, column }: DropIndicatorType) => {
 };
 
 const BurnBarrel = ({ setCards, deleteCard }: BurnBarrelType & { deleteCard: (cardId: string) => void }) => {
-  const [active, setActive] = useState(false);
+  const [active, setActive] = useState<boolean>(false);
 
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
@@ -382,8 +382,8 @@ const BurnBarrel = ({ setCards, deleteCard }: BurnBarrelType & { deleteCard: (ca
 };
 
 const AddCard = ({ column, addCard }: AddKanbanCardPropsType) => {
-  const [text, setText] = useState("");
-  const [adding, setAdding] = useState(false);
+  const [text, setText] = useState<string>("");
+  const [adding, setAdding] = useState<boolean>(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

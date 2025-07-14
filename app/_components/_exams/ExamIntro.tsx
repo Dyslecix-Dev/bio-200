@@ -128,7 +128,7 @@ const generateSquares = () => {
 
 const ShuffleGrid = () => {
   const timeoutRef = useRef<NodeJS.Timeout | undefined>(undefined);
-  const [squares, setSquares] = useState(generateSquares());
+  const [squares, setSquares] = useState(generateSquares()); // TODO TS
 
   useEffect(() => {
     shuffleSquares();

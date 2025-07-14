@@ -95,10 +95,10 @@ const TerminalBody = ({
   setLoading: (loading: boolean) => void;
   user: { name: string; email: string } | null;
 }) => {
-  const [focused, setFocused] = useState(false);
-  const [text, setText] = useState("");
+  const [focused, setFocused] = useState<boolean>(false);
+  const [text, setText] = useState<string>("");
 
-  const [questions, setQuestions] = useState(QUESTIONS);
+  const [questions, setQuestions] = useState(QUESTIONS); // TODO TS
 
   const curQuestion = questions.find((q) => !q.complete);
 
@@ -187,7 +187,7 @@ const CurrentQuestion = ({ curQuestion }: { curQuestion: ContactFormQuestionType
 };
 
 const Summary = ({ questions, setQuestions, loading, setLoading, user }: SummaryType) => {
-  const [complete, setComplete] = useState(false);
+  const [complete, setComplete] = useState<boolean>(false);
 
   const handleReset = () => {
     setQuestions((pv) => pv.map((q) => ({ ...q, value: "", complete: false })));

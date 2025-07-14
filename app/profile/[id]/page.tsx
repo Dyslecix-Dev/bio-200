@@ -1,8 +1,7 @@
 "use client";
 
-// import Image from "next/image";
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { motion } from "motion/react";
@@ -29,6 +28,7 @@ export default function Profile() {
   const [isNotifOpen, setIsNotifOpen] = useState<boolean>(false);
   const [message, setMessage] = useState<string | null>(null);
 
+  const router = useRouter();
   const params = useParams();
   const userID = params.id;
 
@@ -104,6 +104,30 @@ export default function Profile() {
     setIsNotifOpen(true);
   };
 
+  async function signOut() {
+    try {
+      const supabase = await createClient();
+
+      if (userID) {
+        const { error: publicError } = await supabase.from("user_profiles").update({ online: false }).eq("id", userID);
+
+        if (publicError) {
+          console.error("Status update failed:", publicError);
+        }
+      }
+
+      const { error: authError } = await supabase.auth.signOut();
+
+      if (authError) {
+        console.error("Error signing out:", authError);
+      } else {
+        router.push("/auth/login");
+      }
+    } catch (error) {
+      console.error("Error signing out:", error);
+    }
+  }
+
   return (
     <main className="min-h-screen overflow-hidden bg-zinc-950">
       <Navbar />
@@ -116,7 +140,7 @@ export default function Profile() {
         }}
         className="relative z-20 mx-auto grid max-w-4xl grid-flow-dense grid-cols-12 gap-4 h-full px-4 py-24 md:px-8 md:py-36 text-white"
       >
-        <HeaderBlock user={user} />
+        <HeaderBlock user={user} signOut={signOut} />
         <SocialsBlock loading={loading} socials={user?.socials} />
         <div className="col-span-12 grid grid-cols-12 gap-4">
           <LocationBlock location={user?.location} />
@@ -162,13 +186,16 @@ const Block = ({ className, ...rest }: BlockType) => {
   );
 };
 
-const HeaderBlock = ({ user }: { user: UserType | null }) => (
+const HeaderBlock = ({ user, signOut }: { user: UserType | null; signOut: () => Promise<void> }) => (
   <Block className="flex flex-col gap-4 col-span-12 row-span-2 md:col-span-6">
-    {/* {user?.photoURL ? (
-      <Image src={user.photoURL} alt={`${user.name}'s image`} width={0} height={40} className="w-16 h-16 rounded-full bg-slate-300 object-cover object-top shrink-0" />
-    ) : ( */}
-    <RxAvatar className="w-10 h-10 rounded-full bg-slate-300 object-cover object-top shrink-0" />
-    {/* )} */}
+    <div className="w-full flex justify-between">
+      <RxAvatar className="w-10 h-10 rounded-full bg-slate-300 object-cover object-top shrink-0" />
+
+      <button onClick={signOut} className="text-neutral-200 hover:text-indigo-400 transition-colors duration-700 cursor-pointer">
+        Logout
+      </button>
+    </div>
+
     <h1 className="text-4xl font-medium leading-tight">{user?.name}</h1>
 
     <div className="flex items-center justify-between">

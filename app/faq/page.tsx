@@ -33,9 +33,9 @@ const BasicFAQ = () => {
           <p>To help my fellow Citrus college students in BIO 200.</p>
         </Question>
 
-        {/* <Question title="Why is there a leaderboard?">
+        <Question title="Why is there a leaderboard?">
           <p>It&apos;s a fun and easy way to see who is doing well in the class. That way students know who they can ask for help.</p>
-        </Question> */}
+        </Question>
 
         <Question title="Will you provide future features, like other subjects?">
           <p>
@@ -69,7 +69,7 @@ const BasicFAQ = () => {
 
 const Question = ({ title, children, defaultOpen = false }: FAQuestionType) => {
   const [ref, { height }] = useMeasure();
-  const [open, setOpen] = useState(defaultOpen);
+  const [open, setOpen] = useState<boolean>(defaultOpen);
 
   return (
     <motion.div animate={open ? "open" : "closed"} className="border-b-[1px] border-b-slate-300">

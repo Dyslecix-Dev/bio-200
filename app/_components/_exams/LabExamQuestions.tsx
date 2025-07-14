@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState, useEffect, useRef, FC } from "react";
-import { FiArrowRight, FiHome } from "react-icons/fi";
+import { FiArrowRight, FiHome, FiClock } from "react-icons/fi";
 
 import Countdown from "@/app/_components/Countdown";
 import Beams from "@/app/_components/_background/Beams";
@@ -13,13 +13,96 @@ import StackedNotification from "@/app/_components/StackedNotification";
 import { createClient } from "@/utils/supabase/client";
 import { updateStudyStreak } from "@/app/utils/studyStreak/updateStudyStreak";
 
-import { ScoreType, LabQuestionType, LabQuestionsType } from "@/types/types";
+import { ScoreType, LabQuestionsType, ExamScoreUpdateDataType, SupabaseClientType, LabExamQuestionsType } from "@/types/types";
 
-export default function LabExamQuestions({ questions }: { questions: LabQuestionType[] }) {
+// Helper function to format elapsed time
+const formatElapsedTime = (milliseconds: number): string => {
+  return Math.floor(milliseconds / 1000).toString();
+};
+
+// Helper function to save/update exam score
+const saveExamScore = async (supabase: SupabaseClientType, userId: string, examNumber: number, calculatedScore: ScoreType, timeElapsed: number): Promise<void> => {
+  const isPerfect = calculatedScore.correctAnswers / calculatedScore.totalQuestions === 1;
+  const newScore = calculatedScore.correctAnswers;
+  const newTimeElapsed = formatElapsedTime(timeElapsed);
+
+  // Check for existing record
+  const { data: existingRecord } = await supabase
+    .from("exam_scores")
+    .select("score, time_elapsed, number_of_tries_to_reach_perfect_score")
+    .eq("user_id", userId)
+    .eq("exam_type", "lab")
+    .eq("exam_number", examNumber)
+    .single();
+
+  if (existingRecord) {
+    // Record exists - update only if conditions are met
+    const existingScore = existingRecord.score;
+    const existingTimeElapsed = existingRecord.time_elapsed;
+    const existingTries = existingRecord.number_of_tries_to_reach_perfect_score;
+    const existingIsPerfect = existingScore === calculatedScore.totalQuestions;
+
+    // Prepare update object
+    const updateData: ExamScoreUpdateDataType = {};
+
+    // Update score only if new score is higher
+    if (newScore > existingScore) {
+      updateData.score = newScore;
+    }
+
+    // Update time_elapsed based on new logic:
+    // 1. If current time is better (less) and score is equal or higher, update time
+    // 2. If current time is worse (greater) but score is higher, still update time
+    const currentTimeElapsed = parseInt(newTimeElapsed);
+    const shouldUpdateTime = (currentTimeElapsed < existingTimeElapsed && newScore >= existingScore) || (currentTimeElapsed > existingTimeElapsed && newScore > existingScore);
+
+    if (shouldUpdateTime) {
+      updateData.time_elapsed = currentTimeElapsed;
+    }
+
+    // Update number_of_tries only if neither current nor existing score is perfect
+    if (!isPerfect && !existingIsPerfect) {
+      updateData.number_of_tries_to_reach_perfect_score = existingTries + 1;
+    }
+
+    // Only update if there are changes
+    if (Object.keys(updateData).length > 0) {
+      const { error } = await supabase.from("exam_scores").update(updateData).eq("user_id", userId).eq("exam_type", "lab").eq("exam_number", examNumber);
+
+      if (error) {
+        console.error("Error updating exam score:", error);
+      } else {
+        console.log("Exam score updated successfully");
+      }
+    } else {
+      console.log("No updates needed - existing record is better or equal");
+    }
+  } else {
+    // No existing record - insert new one
+    const { error } = await supabase.from("exam_scores").insert({
+      user_id: userId,
+      exam_type: "lab",
+      score: newScore,
+      time_elapsed: parseInt(newTimeElapsed),
+      exam_number: examNumber,
+      number_of_tries_to_reach_perfect_score: 1,
+    });
+
+    if (error) {
+      console.error("Error saving exam score:", error);
+    } else {
+      console.log("Exam score saved successfully");
+    }
+  }
+};
+
+export default function LabExamQuestions({ questions, examNumber }: LabExamQuestionsType) {
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
   const [score, setScore] = useState<ScoreType | null>(null);
   const [isNotifOpen, setIsNotifOpen] = useState<boolean>(false);
   const [message, setMessage] = useState<string | null>(null);
+  const [elapsedTime, setElapsedTime] = useState<number>(0);
+  const [completionTime, setCompletionTime] = useState<number | null>(null);
 
   const router = useRouter();
   const calculateScoreRef = useRef<(() => ScoreType) | null>(null);
@@ -29,12 +112,13 @@ export default function LabExamQuestions({ questions }: { questions: LabQuestion
     setIsNotifOpen(true);
   };
 
-  const handleTimeUp = async () => {
+  const handleTimeUp = async (timeElapsed: number) => {
     if (!isSubmitted && calculateScoreRef.current) {
       showNotification("Time is up! See your score below.");
       const calculatedScore = calculateScoreRef.current();
       setScore(calculatedScore);
       setIsSubmitted(true);
+      setCompletionTime(timeElapsed);
 
       try {
         const supabase = await createClient();
@@ -51,18 +135,38 @@ export default function LabExamQuestions({ questions }: { questions: LabQuestion
         // Update study streak using the utility function
         await updateStudyStreak(supabase, user.id);
 
-        // TODO: Save test answers to database here
-        // You can save the answers and score to your database
+        // Save exam score using the helper function
+        await saveExamScore(supabase, user.id, examNumber, calculatedScore, timeElapsed);
       } catch (error) {
         console.error("Error updating study tracking:", error);
       }
     }
   };
 
+  const handleElapsedTimeChange = (elapsed: number) => {
+    setElapsedTime(elapsed);
+  };
+
+  const handleManualSubmit = (timeElapsed: number) => {
+    setCompletionTime(timeElapsed);
+  };
+
   return (
     <main className="min-h-screen overflow-hidden bg-zinc-950">
-      <Countdown onTimeUp={handleTimeUp} hours={0} minutes={0} seconds={5} />
-      <Questions questions={questions} isSubmitted={isSubmitted} setIsSubmitted={setIsSubmitted} router={router} score={score} setScore={setScore} calculateScoreRef={calculateScoreRef} />
+      <Countdown onTimeUp={handleTimeUp} hours={2} minutes={0} seconds={0} isSubmitted={isSubmitted} onElapsedTimeChange={handleElapsedTimeChange} />
+      <Questions
+        questions={questions}
+        isSubmitted={isSubmitted}
+        setIsSubmitted={setIsSubmitted}
+        router={router}
+        score={score}
+        setScore={setScore}
+        calculateScoreRef={calculateScoreRef}
+        elapsedTime={elapsedTime}
+        completionTime={completionTime}
+        onManualSubmit={handleManualSubmit}
+        examNumber={examNumber}
+      />
       <Beams />
       <GradientGrid />
       <StackedNotification isNotifOpen={isNotifOpen} setIsNotifOpen={setIsNotifOpen} message={message} />
@@ -70,7 +174,14 @@ export default function LabExamQuestions({ questions }: { questions: LabQuestion
   );
 }
 
-const Questions: FC<LabQuestionsType> = ({ questions, isSubmitted, setIsSubmitted, router, score, setScore, calculateScoreRef }) => {
+const Questions: FC<
+  LabQuestionsType & {
+    elapsedTime: number;
+    completionTime: number | null;
+    onManualSubmit: (timeElapsed: number) => void;
+    examNumber: number;
+  }
+> = ({ questions, isSubmitted, setIsSubmitted, router, score, setScore, calculateScoreRef, elapsedTime, completionTime, onManualSubmit, examNumber }) => {
   const [answers, setAnswers] = useState<Record<string, string>>({});
 
   const handleAnswerChange = (questionIndex: number, location: string, value: string) => {
@@ -124,6 +235,7 @@ const Questions: FC<LabQuestionsType> = ({ questions, isSubmitted, setIsSubmitte
       const calculatedScore = calculateScore();
       setScore(calculatedScore);
       setIsSubmitted(true);
+      onManualSubmit(elapsedTime);
 
       try {
         const supabase = await createClient();
@@ -140,8 +252,8 @@ const Questions: FC<LabQuestionsType> = ({ questions, isSubmitted, setIsSubmitte
         // Update study streak using the utility function
         await updateStudyStreak(supabase, user.id);
 
-        // TODO: Save test answers to database here
-        // You can save the answers and score to your database
+        // Save exam score using the helper function
+        await saveExamScore(supabase, user.id, examNumber, calculatedScore, elapsedTime);
       } catch (error) {
         console.error("Error updating study tracking:", error);
       }
@@ -219,7 +331,16 @@ const Questions: FC<LabQuestionsType> = ({ questions, isSubmitted, setIsSubmitte
             <div className="text-6xl font-bold text-white mb-2">
               {score.correctAnswers}/{score.totalQuestions}
             </div>
-            <p className="text-xl text-blue-200">You scored {Math.round((score.correctAnswers / score.totalQuestions) * 100)}%</p>
+            <p className="text-xl text-blue-200 mb-4">You scored {Math.round((score.correctAnswers / score.totalQuestions) * 100)}%</p>
+
+            {/* Completion Time Display */}
+            {completionTime && (
+              <div className="flex items-center justify-center gap-2 text-lg text-indigo-200 mb-4">
+                <FiClock />
+                <span>Completed in: {formatElapsedTime(completionTime)}</span>
+              </div>
+            )}
+
             <div className="mt-4">
               <div className="w-full bg-gray-700 rounded-full h-4">
                 <div

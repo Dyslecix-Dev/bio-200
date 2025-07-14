@@ -115,7 +115,7 @@ export default function FlashCardComponent({
     const newGrade = currentCard.grade + gradeIncrement;
 
     try {
-      const supabase = createClient();
+      const supabase = await createClient();
 
       const {
         data: { user },
@@ -207,7 +207,7 @@ const CardGrid = ({
 
   const fetchFlashCards = async () => {
     try {
-      const supabase = createClient();
+      const supabase = await createClient();
 
       const {
         data: { user },
@@ -326,7 +326,7 @@ const ReviewInterface = ({ onStartReview, selectedCategory, fetchFlashCards }: {
 
   const handleResetCardProgress = async () => {
     try {
-      const supabase = createClient();
+      const supabase = await createClient();
 
       const {
         data: { user },
@@ -386,7 +386,7 @@ const ReviewInterface = ({ onStartReview, selectedCategory, fetchFlashCards }: {
 };
 
 const ReviewMode = ({ card, onDifficultySelect, currentIndex, totalCards }: { card: FlashCardType; onDifficultySelect: (difficulty: string) => void; currentIndex: number; totalCards: number }) => {
-  const [isFlipped, setIsFlipped] = useState(false);
+  const [isFlipped, setIsFlipped] = useState<boolean>(false);
 
   useEffect(() => {
     setIsFlipped(false);
@@ -591,7 +591,7 @@ const BarGraph = ({
 };
 
 const FlashCard = ({ frontText, backText, frontImage, backImage }: FlashCardType) => {
-  const [isFlipped, setIsFlipped] = useState(false);
+  const [isFlipped, setIsFlipped] = useState<boolean>(false);
 
   const handleClick = () => {
     setIsFlipped(!isFlipped);

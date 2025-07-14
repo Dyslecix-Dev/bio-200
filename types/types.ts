@@ -5,6 +5,8 @@ import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.share
 
 import { MotionProps } from "motion/react";
 
+import { createClient } from "@/utils/supabase/client";
+
 export interface AddKanbanCardPropsType {
   column: KanbanColumnType;
   addCard: (card: Omit<KanbanCardType, "id">) => void;
@@ -58,7 +60,7 @@ export interface CountdownTimeType {
 }
 
 export interface CountdownType {
-  onTimeUp?: () => void;
+  onTimeUp?: (timeElapsed: number) => Promise<void>;
   hours: number;
   minutes: number;
   seconds: number;
@@ -90,6 +92,12 @@ export interface ExamQuestionsType {
   score: ScoreType | null;
   setScore: (score: ScoreType) => void;
   calculateScoreRef: RefObject<(() => ScoreType) | null>;
+}
+
+export interface ExamScoreUpdateDataType {
+  score?: number;
+  time_elapsed?: number;
+  number_of_tries_to_reach_perfect_score?: number;
 }
 
 export interface FAQuestionType {
@@ -132,6 +140,11 @@ export interface KanbanColumnPropsType {
 
 type KanbanColumnType = "To-Do" | "In Progress" | "Complete";
 
+export interface LabExamQuestionsType {
+  questions: LabQuestionType[];
+  examNumber: number;
+}
+
 export type LabQuestionType = {
   image: string;
   [key: number]: string | undefined;
@@ -147,10 +160,25 @@ export type LabQuestionsType = {
   calculateScoreRef: React.MutableRefObject<(() => ScoreType) | null>;
 };
 
+export interface LectureExamQuestionsType {
+  trueOrFalseQuestions: QuestionType[];
+  multipleChoiceQuestions: QuestionType[];
+  shortAnswerQuestions: ShortAnswerQuestionType[];
+  examNumber: number;
+}
+
+export interface LectureQuestionsType extends ExamQuestionsType {
+  elapsedTime: number;
+  completionTime: number | null;
+  onManualSubmit: (timeElapsed: number) => void;
+  examNumber: number;
+}
+
 export interface NavLinkType {
   link?: string;
   onClick?: MouseEventHandler<HTMLAnchorElement>;
   children: ReactNode;
+  className?: string;
 }
 
 export interface NotificationType {
@@ -180,10 +208,10 @@ export interface ShortAnswerQuestionType {
 }
 
 export interface SplashButtonType {
-  className: string;
+  className?: string;
   type: "button" | "submit" | "reset";
   onClick?: MouseEventHandler<HTMLButtonElement>;
-  disabled: boolean;
+  disabled?: boolean;
   children: ReactNode;
 }
 
@@ -205,6 +233,8 @@ export interface SummaryType {
   setLoading: (loading: boolean) => void;
   user: { name: string; email: string } | null;
 }
+
+export type SupabaseClientType = Awaited<ReturnType<typeof createClient>>;
 
 export interface TimerReturnType {
   ref: RefObject<HTMLSpanElement>;

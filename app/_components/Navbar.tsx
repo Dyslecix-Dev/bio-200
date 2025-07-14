@@ -74,13 +74,17 @@ export default function Navbar() {
       </div>
 
       <NavLink link="/">Home</NavLink>
-      <NavLink link="/contact">Contact</NavLink>
-      {/* <NavLink link="/leaderboard">Leaderboard</NavLink> */}
+      <NavLink link="/contact" className="hidden sm:block">
+        Contact
+      </NavLink>
+      <NavLink link="/leaderboard">Leaderboard</NavLink>
       <NavLink link="/faq">FAQ</NavLink>
 
       <FloodButton text="Profile" link={`/profile/${userID}`} />
 
-      <LogoutButton onClick={signOut}>Logout</LogoutButton>
+      <LogoutButton onClick={signOut} className="hidden sm:block">
+        Logout
+      </LogoutButton>
     </nav>
   );
 }
@@ -94,11 +98,11 @@ const Logo = () => {
   );
 };
 
-const NavLink = ({ link, onClick, children }: NavLinkType) => {
+const NavLink = ({ link, onClick, children, className }: NavLinkType) => {
   const pathname = usePathname();
 
   return (
-    <Link href={`${link}`} rel="nofollow" onClick={onClick} className="block overflow-hidden">
+    <Link href={`${link}`} rel="nofollow" onClick={onClick} className={`block overflow-hidden ${className}`}>
       <motion.div whileHover={{ y: -20 }} transition={{ ease: "backInOut", duration: 0.5 }} className="h-[20px]">
         <span className={`flex h-[20px] items-center ${pathname !== link ? "text-neutral-50" : "text-blue-500"}`}>{children}</span>
         <span className={`flex h-[20px] items-center ${pathname !== link ? "text-neutral-50" : "text-blue-500"}`}>{children}</span>
@@ -107,9 +111,9 @@ const NavLink = ({ link, onClick, children }: NavLinkType) => {
   );
 };
 
-const LogoutButton = ({ onClick, children }: { onClick: () => void; children: ReactNode }) => {
+const LogoutButton = ({ onClick, children, className }: { onClick: () => void; children: ReactNode; className?: string }) => {
   return (
-    <button onClick={onClick} className="block overflow-hidden cursor-pointer">
+    <button onClick={onClick} className={`block overflow-hidden cursor-pointer ${className}`}>
       <motion.div whileHover={{ y: -20 }} transition={{ ease: "backInOut", duration: 0.5 }} className="h-[20px]">
         <span className="flex h-[20px] items-center text-neutral-50">{children}</span>
         <span className="flex h-[20px] items-center text-neutral-50">{children}</span>

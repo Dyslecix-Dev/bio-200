@@ -17,7 +17,7 @@ import { createClient } from "@/utils/supabase/client";
 import { updateUser } from "@/app/profile/[id]/edit/actions";
 
 export default function EditProfile() {
-  const [isNotifOpen, setIsNotifOpen] = useState(false);
+  const [isNotifOpen, setIsNotifOpen] = useState<boolean>(false);
   const [message, setMessage] = useState<string | null>(null);
   const [user, setUser] = useState<UserType | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -108,7 +108,7 @@ const Heading = () => (
 );
 
 const EditProfileForm = ({ showNotification, user, loading }: { showNotification: (message: string) => void; user: UserType | null; loading: boolean }) => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const router = useRouter();
 
