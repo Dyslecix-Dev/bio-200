@@ -285,7 +285,7 @@ const MobileCard = ({ user, index, isLoading }: TableRowsProps) => {
             {user.isDummy ? (
               <span className="block font-medium text-slate-500 italic text-sm">{user.name}</span>
             ) : (
-              <Link href={`/profile/${user.id}`} className="block font-medium hover:text-violet-600 transition-colors text-sm">
+              <Link href={`/profile/${user.id}`} className="block font-medium text-slate-500 hover:text-violet-600 transition-colors text-sm">
                 {user.name}
               </Link>
             )}
