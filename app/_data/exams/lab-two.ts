@@ -184,7 +184,7 @@ export const questions = [
   {
     image: "https://boej6iprvajfuxis.public.blob.vercel-storage.com/lab_6/lab_6_andrew_slide_1.png",
     1: "Piriformis",
-    2: "Superior gemelius",
+    2: "Superior gemellus",
     3: "Obturator internus",
     4: "Inferior gemellus",
     5: "Quadratus femoris",
@@ -200,6 +200,10 @@ export const questions = [
   },
   {
     image: "https://boej6iprvajfuxis.public.blob.vercel-storage.com/lab_6/lab_6_andrew_slide_2.png",
+    6: "Gracilis",
+    7: "Adductor magnus",
+    8: "Biceps femoris, long head",
+    9: "Gluteus maximus",
     11: "Gluteus medius",
     12: "Tensor fasciae latae",
     13: "Adductor longus",
