@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useEffect } from "react";
 
 import { motion } from "motion/react";
 
@@ -11,6 +11,7 @@ import SplashButton from "@/app/_components/_buttons/SplashButton";
 import StackedNotification from "@/app/_components/StackedNotification";
 
 import { login } from "@/app/auth/actions";
+import { createClient } from "@/utils/supabase/client";
 
 export default function Login() {
   const [isNotifOpen, setIsNotifOpen] = useState<boolean>(false);
@@ -20,6 +21,56 @@ export default function Login() {
     setMessage(msg);
     setIsNotifOpen(true);
   };
+
+  useEffect(() => {
+    const supabase = createClient();
+
+    // Function to set user offline
+    const setUserOffline = async (userId: string) => {
+      try {
+        const { error } = await supabase
+          .from("user_profiles")
+          .update({
+            online_status: "offline",
+            last_seen: new Date().toISOString(),
+          })
+          .eq("id", userId);
+
+        if (error) {
+          console.error("Error setting user offline:", error);
+        }
+      } catch (error) {
+        console.error("Error in setUserOffline:", error);
+      }
+    };
+
+    // Check for existing session
+    const checkSession = async () => {
+      try {
+        const {
+          data: { session },
+          error,
+        } = await supabase.auth.getSession();
+
+        if (error) {
+          console.error("Error getting session:", error);
+          return;
+        }
+
+        // If session doesn't exist, we need to handle offline status
+        if (!session) {
+          const storedUserId = localStorage.getItem("lastUserId");
+          if (storedUserId) {
+            await setUserOffline(storedUserId);
+          }
+        }
+      } catch (error) {
+        console.error("Error in checkSession:", error);
+      }
+    };
+
+    checkSession();
+  }, []);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-zinc-950 py-20 text-zinc-200 selection:bg-zinc-600">
