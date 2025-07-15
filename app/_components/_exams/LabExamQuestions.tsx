@@ -15,6 +15,28 @@ import { updateStudyStreak } from "@/app/utils/studyStreak/updateStudyStreak";
 
 import { ScoreType, LabQuestionsType, ExamScoreUpdateDataType, SupabaseClientType, LabExamQuestionsType } from "@/types/types";
 
+// Helper function to normalize answers for comparison
+const normalizeAnswer = (answer: string) => {
+  return (
+    answer
+      .toLowerCase()
+      .trim()
+      // Remove content in parentheses (including the parentheses)
+      .replace(/\s*\([^)]*\)\s*/g, " ")
+      // Replace multiple spaces with single space
+      .replace(/\s+/g, " ")
+      .trim()
+  );
+};
+
+// Helper function to check if answers match
+const answersMatch = (userAnswer: string, correctAnswer: string) => {
+  const normalizedUser = normalizeAnswer(userAnswer);
+  const normalizedCorrect = normalizeAnswer(correctAnswer);
+
+  return normalizedUser === normalizedCorrect;
+};
+
 // Helper function to format elapsed time
 const formatElapsedTime = (milliseconds: number): string => {
   return Math.floor(milliseconds / 1000).toString();
@@ -216,7 +238,7 @@ const Questions: FC<
         const userAnswer = answers[`q${questionIndex}-loc${key}`]?.trim() || "";
         const correctAnswer = question[key as keyof typeof question] as string;
 
-        if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
+        if (answersMatch(userAnswer, correctAnswer)) {
           correctAnswers++;
         }
       });
@@ -281,7 +303,7 @@ const Questions: FC<
                 {questionKeys.map((key) => {
                   const userAnswer = answers[`q${questionIndex}-loc${key}`] || "";
                   const correctAnswer = question[key as keyof typeof question] as string;
-                  const isCorrect = userAnswer.toLowerCase() === correctAnswer.toLowerCase();
+                  const isCorrect = answersMatch(userAnswer, correctAnswer);
                   const isAnswered = userAnswer.trim() !== "";
 
                   let inputClass = "w-full p-2 bg-zinc-700 border-2 border-zinc-600 rounded text-white placeholder-zinc-400 focus:border-indigo-500 focus:outline-none transition-colors";

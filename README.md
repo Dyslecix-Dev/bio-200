@@ -1,7 +1,8 @@
 # BUGS
 
-1. BUG Sendgrid is not working
+1. BUG Remove sendgrid and send message to a message table
 2. BUG Kanban is not mobile friendly
+3. BUG Tie online status to auth.getUser session
 
 # Future Features
 
@@ -41,4 +42,3 @@
 ## Kanban Board
 
 1. DONE CRUD functionality (Needs Auth)
-
