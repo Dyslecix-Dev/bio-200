@@ -37,7 +37,7 @@ const categorizeCard = (grade: number, attempts: number): string => {
   const percentage = calculateGradePercentage(grade, attempts);
 
   if (percentage <= 50) return "Now";
-  if (percentage <= 80) return "Tomorrow";
+  if (percentage <= 90) return "Tomorrow";
   return "Next Week";
 };
 
@@ -653,4 +653,3 @@ const FlashCard = ({ frontText, backText, frontImage, backImage }: FlashCardType
     </div>
   );
 };
-
