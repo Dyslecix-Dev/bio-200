@@ -32,7 +32,6 @@ export default function Login() {
           .from("user_profiles")
           .update({
             online_status: "offline",
-            last_seen: new Date().toISOString(),
           })
           .eq("id", userId);
 

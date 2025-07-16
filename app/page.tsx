@@ -22,7 +22,6 @@ export default function Home() {
           .from("user_profiles")
           .update({
             online_status: "online",
-            last_seen: new Date().toISOString(),
           })
           .eq("id", userId);
 
