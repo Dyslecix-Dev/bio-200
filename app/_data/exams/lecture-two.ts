@@ -351,7 +351,7 @@ export const trueOrFalseQuestions = [
     ],
   },
   {
-    question: "Most blood cells arise from hemopoietic stem cells.",
+    question: "Most blood cells arise from hematopoietic stem cells.",
     options: [
       { text: "True", correct: false },
       { text: "False", correct: true },
