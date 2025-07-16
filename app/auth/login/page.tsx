@@ -31,7 +31,7 @@ export default function Login() {
         const { error } = await supabase
           .from("user_profiles")
           .update({
-            online_status: "offline",
+            online: true,
           })
           .eq("id", userId);
 

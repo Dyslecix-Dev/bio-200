@@ -1,7 +1,6 @@
 # BUGS
 
-1. BUG Remove sendgrid and send message to a message table
-2. BUG Kanban is not mobile friendly
+1. BUG Remove sendgrid and send message to a message tableS
 
 # Future Features
 
