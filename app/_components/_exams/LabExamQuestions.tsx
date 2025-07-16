@@ -13,7 +13,7 @@ import StackedNotification from "@/app/_components/StackedNotification";
 import { createClient } from "@/utils/supabase/client";
 import { updateStudyStreak } from "@/app/utils/studyStreak/updateStudyStreak";
 
-import { ScoreType, LabQuestionsType, ExamScoreUpdateDataType, SupabaseClientType, LabExamQuestionsType } from "@/types/types";
+import { ScoreType, LabQuestionsType, SupabaseClientType, LabExamQuestionsType } from "@/types/types";
 
 // Helper function to normalize answers for comparison
 const normalizeAnswer = (answer: string) => {
@@ -42,54 +42,61 @@ const formatElapsedTime = (milliseconds: number): string => {
   return Math.floor(milliseconds / 1000).toString();
 };
 
-// Helper function to save/update exam score
+// Helper function to save/update exam score using upsert (requires unique constraint)
 const saveExamScore = async (supabase: SupabaseClientType, userId: string, examNumber: number, calculatedScore: ScoreType, timeElapsed: number): Promise<void> => {
   const isPerfect = calculatedScore.correctAnswers / calculatedScore.totalQuestions === 1;
   const newScore = calculatedScore.correctAnswers;
-  const newTimeElapsed = formatElapsedTime(timeElapsed);
+  const newTimeElapsed = parseInt(formatElapsedTime(timeElapsed));
 
-  // Check for existing record
-  const { data: existingRecord } = await supabase
-    .from("exam_scores")
-    .select("score, time_elapsed, number_of_tries_to_reach_perfect_score")
-    .eq("user_id", userId)
-    .eq("exam_type", "lab")
-    .eq("exam_number", examNumber)
-    .single();
+  try {
+    // First, try to get existing record to check current values
+    const { data: existingRecord } = await supabase
+      .from("exam_scores")
+      .select("score, time_elapsed, number_of_tries_to_reach_perfect_score")
+      .eq("user_id", userId)
+      .eq("exam_type", "lab")
+      .eq("exam_number", examNumber)
+      .maybeSingle();
 
-  if (existingRecord) {
-    // Record exists - update only if conditions are met
-    const existingScore = existingRecord.score;
-    const existingTimeElapsed = existingRecord.time_elapsed;
-    const existingTries = existingRecord.number_of_tries_to_reach_perfect_score;
-    const existingIsPerfect = existingScore === calculatedScore.totalQuestions;
+    if (existingRecord) {
+      // Record exists - prepare update data based on your existing logic
+      const existingScore = existingRecord.score;
+      const existingTimeElapsed = existingRecord.time_elapsed;
+      const existingTries = existingRecord.number_of_tries_to_reach_perfect_score || 0;
+      const existingIsPerfect = existingScore === calculatedScore.totalQuestions;
 
-    // Prepare update object
-    const updateData: ExamScoreUpdateDataType = {};
+      // Prepare update object
+      const updateData = {
+        user_id: userId,
+        exam_type: "lab",
+        exam_number: examNumber,
+        score: existingScore, // Default to existing score
+        time_elapsed: existingTimeElapsed, // Default to existing time
+        number_of_tries_to_reach_perfect_score: existingTries, // Default to existing tries
+        updated_at: new Date().toISOString(),
+      };
 
-    // Update score only if new score is higher
-    if (newScore > existingScore) {
-      updateData.score = newScore;
-    }
+      // Update score only if new score is higher
+      if (newScore > existingScore) {
+        updateData.score = newScore;
+      }
 
-    // Update time_elapsed based on new logic:
-    // 1. If current time is better (less) and score is equal or higher, update time
-    // 2. If current time is worse (greater) but score is higher, still update time
-    const currentTimeElapsed = parseInt(newTimeElapsed);
-    const shouldUpdateTime = (currentTimeElapsed < existingTimeElapsed && newScore >= existingScore) || (currentTimeElapsed > existingTimeElapsed && newScore > existingScore);
+      // Update time_elapsed based on your logic
+      const shouldUpdateTime = (newTimeElapsed < existingTimeElapsed && newScore >= existingScore) || (newTimeElapsed > existingTimeElapsed && newScore > existingScore);
 
-    if (shouldUpdateTime) {
-      updateData.time_elapsed = currentTimeElapsed;
-    }
+      if (shouldUpdateTime) {
+        updateData.time_elapsed = newTimeElapsed;
+      }
 
-    // Update number_of_tries only if neither current nor existing score is perfect
-    if (!isPerfect && !existingIsPerfect) {
-      updateData.number_of_tries_to_reach_perfect_score = existingTries + 1;
-    }
+      // Update number_of_tries only if neither current nor existing score is perfect
+      if (!isPerfect && !existingIsPerfect) {
+        updateData.number_of_tries_to_reach_perfect_score = existingTries + 1;
+      }
 
-    // Only update if there are changes
-    if (Object.keys(updateData).length > 0) {
-      const { error } = await supabase.from("exam_scores").update(updateData).eq("user_id", userId).eq("exam_type", "lab").eq("exam_number", examNumber);
+      // Use upsert to update the record
+      const { error } = await supabase.from("exam_scores").upsert(updateData, {
+        onConflict: "user_id,exam_type,exam_number",
+      });
 
       if (error) {
         console.error("Error updating exam score:", error);
@@ -97,24 +104,31 @@ const saveExamScore = async (supabase: SupabaseClientType, userId: string, examN
         console.log("Exam score updated successfully");
       }
     } else {
-      console.log("No updates needed - existing record is better or equal");
-    }
-  } else {
-    // No existing record - insert new one
-    const { error } = await supabase.from("exam_scores").insert({
-      user_id: userId,
-      exam_type: "lab",
-      score: newScore,
-      time_elapsed: parseInt(newTimeElapsed),
-      exam_number: examNumber,
-      number_of_tries_to_reach_perfect_score: 1,
-    });
+      // No existing record - use upsert to insert new one
+      const { error } = await supabase.from("exam_scores").upsert(
+        {
+          user_id: userId,
+          exam_type: "lab",
+          score: newScore,
+          time_elapsed: newTimeElapsed,
+          exam_number: examNumber,
+          number_of_tries_to_reach_perfect_score: 1,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+        },
+        {
+          onConflict: "user_id,exam_type,exam_number",
+        }
+      );
 
-    if (error) {
-      console.error("Error saving exam score:", error);
-    } else {
-      console.log("Exam score saved successfully");
+      if (error) {
+        console.error("Error saving exam score:", error);
+      } else {
+        console.log("Exam score saved successfully");
+      }
     }
+  } catch (error) {
+    console.error("Error in saveExamScore:", error);
   }
 };
 

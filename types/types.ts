@@ -94,12 +94,6 @@ export interface ExamQuestionsType {
   calculateScoreRef: RefObject<(() => ScoreType) | null>;
 }
 
-export interface ExamScoreUpdateDataType {
-  score?: number;
-  time_elapsed?: number;
-  number_of_tries_to_reach_perfect_score?: number;
-}
-
 export interface FAQuestionType {
   title: string;
   children: ReactNode;
@@ -272,4 +266,3 @@ export interface WindowSizeType {
   width: number | undefined;
   height: number | undefined;
 }
-
