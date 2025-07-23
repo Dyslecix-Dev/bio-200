@@ -338,6 +338,12 @@ const Questions: FC<LectureQuestionsType> = ({
     router.push("/");
   };
 
+  // Helper function to get the correct answer explanation for true/false questions
+  const getCorrectAnswerExplanation = (question: QuestionType): string | null => {
+    const correctOption = question.options.find((option) => option.correct);
+    return correctOption?.correctAnswer || null;
+  };
+
   return (
     <section className="relative z-20 mx-auto flex h-full max-w-6xl flex-col items-center justify-center px-4 py-24 md:px-8 md:py-36">
       <div className="w-full max-w-4xl">
@@ -350,6 +356,15 @@ const Questions: FC<LectureQuestionsType> = ({
                 <h3 className="text-xl font-semibold text-white mb-4">
                   {questionIndex + 1}. {question.question}
                 </h3>
+
+                {/* Show explanation after submission if available */}
+                {isSubmitted && getCorrectAnswerExplanation(question) && (
+                  <div className="mb-4 p-4 bg-blue-800 rounded-lg border-2 border-blue-600">
+                    <p className="text-blue-200 font-medium mb-2">Explanation:</p>
+                    <p className="text-white">{getCorrectAnswerExplanation(question)}</p>
+                  </div>
+                )}
+
                 <div className="space-y-3">
                   {question.options.map((option, optionIndex) => {
                     const isCorrect = option.correct;

@@ -184,6 +184,7 @@ export interface NotificationType {
 export interface OptionType {
   text: string;
   correct: boolean;
+  correctAnswer?: string;
 }
 
 export interface QuestionType {
@@ -266,3 +267,4 @@ export interface WindowSizeType {
   width: number | undefined;
   height: number | undefined;
 }
+

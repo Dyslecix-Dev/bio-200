@@ -4,6 +4,8 @@
 
 # Future Features
 
+1. Loading icons
+
 ## Dashboard
 
 1. DONE Reorganize Flash Cards and Mock Exams
@@ -15,6 +17,8 @@
 2. DONE Edit Profile (Needs Auth)
 3. Delete Profile (Needs Auth)
 4. DONE Study Streak (Needs Auth)
+5. Pomodoro Timer
+6. Study Music
 
 ## Mock Exam
 
@@ -40,3 +44,13 @@
 ## Kanban Board
 
 1. DONE CRUD functionality (Needs Auth)
+
+## Lecture Game
+
+1. Text-based game with randomized questions.
+2. Randomized choices.
+3. Timer.
+4. ASCII art.
+5. Losing lives.
+6. Power ups.
+

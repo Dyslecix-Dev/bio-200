@@ -41,6 +41,21 @@ const FlashCards = () => {
 
         <Card title="Topic 13" subtitle="The heart and its blood flow." link="lecture/thirteen" className="bg-red-300 block xl:hidden" />
         <SpringCard title="Topic 13" subtitle="The heart and its blood flow." link="lecture/thirteen" className="bg-red-300 hidden xl:block" />
+
+        <Card title="Topic 14" subtitle="The lymphatic and immune systems." link="lecture/fourteen" className="bg-orange-300 block xl:hidden" />
+        <SpringCard title="Topic 14" subtitle="The lymphatic and immune systems." link="lecture/fourteen" className="bg-orange-300 hidden xl:block" />
+
+        <Card title="Topic 15" subtitle="Fundamentals of the nervous system." link="lecture/fifteen" className="bg-yellow-300 block xl:hidden" />
+        <SpringCard title="Topic 15" subtitle="Fundamentals of the nervous system." link="lecture/fifteen" className="bg-yellow-300 hidden xl:block" />
+
+        <Card title="Topic 16" subtitle="Central, peripheral, and autonomic nervous systems." link="lecture/sixteen" className="bg-green-300 block xl:hidden" />
+        <SpringCard title="Topic 16" subtitle="Central, peripheral, and autonomic nervous systems." link="lecture/sixteen" className="bg-green-300 hidden xl:block" />
+
+        <Card title="Topic 17" subtitle="The special senses." link="lecture/seventeen" className="bg-blue-300 block xl:hidden" />
+        <SpringCard title="Topic 17" subtitle="The special senses." link="lecture/seventeen" className="bg-blue-300 hidden xl:block" />
+
+        <Card title="Topic 18" subtitle="The endocrine system." link="lecture/eighteen" className="bg-purple-300 block xl:hidden" />
+        <SpringCard title="Topic 18" subtitle="The endocrine system." link="lecture/eighteen" className="bg-purple-300 hidden xl:block" />
       </div>
     </section>
   );
