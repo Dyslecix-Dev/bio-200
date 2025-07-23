@@ -47,10 +47,17 @@
 
 ## Lecture Game
 
-1. Text-based game with randomized questions.
-2. Randomized choices.
-3. Timer.
-4. ASCII art.
-5. Losing lives.
-6. Power ups.
+1. BUGGED Text-based game with randomized questions and options.
+   1. Options are not randomized.
+   2. Remove "tunnel" door type
+2. DONE Randomized choices.
+3. DONE Timer.
+4. BUGGED ASCII art.
+   1. ASCII buttons.
+   2. ASCII hearts.
+   3. Not mobile friendly.
+5. BUGGED Losing lives.
+   1. Animation of gaining/losing hearts.
+6. BUGGED Power ups.
+   1. Change wisdom to scroll to manual use.
 
