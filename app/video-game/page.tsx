@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { useState, useEffect, useCallback } from "react";
 
-import { trueOrFalseQuestions, multipleChoiceQuestions } from "../_data/exams/lecture-three";
+import { trueOrFalseQuestions, multipleChoiceQuestions } from "@/app/_data/exams/lecture-three";
+import { doorArt, wizardArt, heartArt, skullArt, treasureArt, swordArt } from "../_data/video-game/ascii-art";
 
 // Type definitions
 type GameState = "menu" | "playing" | "gameOver" | "victory";
@@ -16,7 +17,6 @@ type PowerUps = {
 
 type Door = {
   id: number;
-  type: "door" | "tunnel";
   content: "powerup" | "question";
 };
 
@@ -50,6 +50,7 @@ export default function ASCIIAdventureGame() {
   });
   const [showDoors, setShowDoors] = useState<boolean>(true);
   const [gameMessage, setGameMessage] = useState<string>("");
+  const [heartAnimation, setHeartAnimation] = useState<"none" | "gain" | "lose">("none");
 
   // Combined questions pool - convert to consistent format
   const questions: Question[] = [
@@ -67,43 +68,28 @@ export default function ASCIIAdventureGame() {
     })),
   ];
 
-  // ASCII Art
-  const doorArt = `⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⣿⡿⠋⣉⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⣿⣇⠘⠿⠃⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⣿⣿⣷⣶⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⣴⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣦⠀⠀⠀⠀
-⠀⠀⠀⠀⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠀⠀⠀⠀
-  `;
+  // Function to randomize question options
+  const randomizeQuestion = (question: Question): Question => {
+    const correctAnswer = question.options[question.correct];
+    const shuffledOptions = [...question.options].sort(() => Math.random() - 0.5);
+    const newCorrectIndex = shuffledOptions.indexOf(correctAnswer);
 
-  const wizardArt = `
-                /\\
-                /  \\
-                |   |
-               --:'''':--
-                :'_' :
-                  _:"":\\___
-      ' '      ____.' :::     '._
-     . *=====<<=)           \\    :
-     .  '      '-'-'\\_      /'._.'
-                   \\====:_ ""
-                  .'     \\\\
-                 :       :
-                /   :    \\
-                 :   .      '.
-                 :  : :      :
-                 :__:-:__.;--'
-             '-'   '-'
-`;
+    return {
+      ...question,
+      options: shuffledOptions,
+      correct: newCorrectIndex,
+    };
+  };
+
+  // Heart animation effect
+  useEffect(() => {
+    if (heartAnimation !== "none") {
+      const timer = setTimeout(() => {
+        setHeartAnimation("none");
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [heartAnimation]);
 
   // Timer effect
   useEffect(() => {
@@ -134,14 +120,12 @@ export default function ASCIIAdventureGame() {
     return `${mins}:${secs.toString().padStart(2, "0")}`;
   };
 
-  // Generate random doors/tunnels
+  // Generate random doors
   const generateDoors = useCallback(() => {
-    const doorTypes: ("door" | "tunnel")[] = ["door", "door"];
     const newDoors: Door[] = [];
     for (let i = 0; i < 3; i++) {
       newDoors.push({
         id: i,
-        type: doorTypes[Math.floor(Math.random() * doorTypes.length)],
         content: Math.random() < 0.1 ? "powerup" : "question", // 10% chance for powerup, 90% for question
       });
     }
@@ -159,6 +143,7 @@ export default function ASCIIAdventureGame() {
     setPowerUps({ extraLife: 0, timeBonus: 0, questionHelper: 0 });
     setCurrentQuestion(null);
     setGameMessage("");
+    setHeartAnimation("none");
     generateDoors();
   };
 
@@ -181,13 +166,14 @@ export default function ASCIIAdventureGame() {
 
       if (powerupType === "extraLife") {
         setLives((prev) => prev + 1);
-        setGameMessage("You found an extra life! +1 Life");
+        setHeartAnimation("gain");
+        setGameMessage("You found some extra credit! +1 Life");
       } else if (powerupType === "timeBonus") {
         setTimeLeft((prev) => prev + 30); // 30 seconds instead of 60
         setGameMessage("You found a time crystal! +30 Seconds");
       } else if (powerupType === "questionHelper") {
         setPowerUps((prev) => ({ ...prev, questionHelper: prev.questionHelper + 1 }));
-        setGameMessage("You found a wisdom scroll! Future questions will have 2 options removed");
+        setGameMessage("You found a wisdom scroll! The next question will have 3 options removed");
       }
 
       setTimeout(() => {
@@ -196,9 +182,12 @@ export default function ASCIIAdventureGame() {
     } else {
       // Generate question
       const questionIndex = Math.floor(Math.random() * questions.length);
-      const question: Question = { ...questions[questionIndex] };
+      let question: Question = { ...questions[questionIndex] };
 
-      // Apply question helper powerup
+      // First randomize all options
+      question = randomizeQuestion(question);
+
+      // Then apply question helper powerup if available
       if (powerUps.questionHelper > 0) {
         const correctAnswer = question.options[question.correct];
         const incorrectOptions = question.options.filter((_, index) => index !== question.correct);
@@ -232,14 +221,17 @@ export default function ASCIIAdventureGame() {
           }
           return newHealth;
         });
-        setGameMessage("Correct! Mahguib the Mighty takes damage!");
+        setGameMessage("Critical hit! Mahguib the Mighty took damage!");
 
         // Continue wizard battle if wizard still has health
         setTimeout(() => {
           if (wizardHealth > 1) {
             // Check if wizard will still have health after this hit
             const questionIndex = Math.floor(Math.random() * questions.length);
-            const question: Question = { ...questions[questionIndex] };
+            let question: Question = { ...questions[questionIndex] };
+
+            // First randomize all options
+            question = randomizeQuestion(question);
 
             // Apply question helper powerup for wizard battle too
             if (powerUps.questionHelper > 0) {
@@ -256,7 +248,7 @@ export default function ASCIIAdventureGame() {
             setCurrentQuestion(question);
             setGameMessage("");
           }
-        }, 1500);
+        }, 2000);
       } else {
         setTimeLeft((prev) => Math.max(0, prev - 60)); // Remove 1 minute (60 seconds)
         setLives((prev) => {
@@ -270,19 +262,23 @@ export default function ASCIIAdventureGame() {
 
           if (newLives <= 0) {
             setGameState("gameOver");
-            setGameMessage("The wizard has defeated you!");
+            setGameMessage("The wizard killed you!");
             return newLives;
           }
+          setHeartAnimation("lose");
           return newLives;
         });
-        setGameMessage("Wrong! You lose 2 lives and 1 minute!"); // Updated message
+        setGameMessage("Haha you fool! You lose 2 lives and 1 minute!"); // Updated message
 
         // Continue wizard battle if player still has lives
         setTimeout(() => {
           if (lives > 2) {
             // Check if player will still have lives after losing 2
             const questionIndex = Math.floor(Math.random() * questions.length);
-            const question: Question = { ...questions[questionIndex] };
+            let question: Question = { ...questions[questionIndex] };
+
+            // First randomize all options
+            question = randomizeQuestion(question);
 
             // Apply question helper powerup for wizard battle too
             if (powerUps.questionHelper > 0) {
@@ -299,30 +295,32 @@ export default function ASCIIAdventureGame() {
             setCurrentQuestion(question);
             setGameMessage("");
           }
-        }, 1500);
+        }, 2000);
       }
     } else {
       // Regular rounds
       if (isCorrect) {
-        setGameMessage("Correct! Well done!");
+        setGameMessage("Amazing! You avoided the trap!");
         setTimeout(() => {
           nextRound();
-        }, 1500);
+        }, 2000);
       } else {
         setLives((prev) => {
           const newLives = prev - 1;
           if (newLives <= 0) {
             setGameState("gameOver");
             setGameMessage("You have no lives left!");
+          } else {
+            setHeartAnimation("lose");
           }
           return newLives;
         });
-        setGameMessage("Wrong! You lose a life!");
+        setGameMessage("Oops! You fell in the trap!");
 
         if (lives > 1) {
           setTimeout(() => {
             nextRound();
-          }, 1500);
+          }, 2000);
         }
       }
     }
@@ -337,7 +335,10 @@ export default function ASCIIAdventureGame() {
       setGameMessage("You have reached the wizard, Mahguib the Mighty!");
       setTimeout(() => {
         const questionIndex = Math.floor(Math.random() * questions.length);
-        const question: Question = { ...questions[questionIndex] };
+        let question: Question = { ...questions[questionIndex] };
+
+        // First randomize all options
+        question = randomizeQuestion(question);
 
         // Apply question helper powerup for initial wizard question too
         if (powerUps.questionHelper > 0) {
@@ -361,6 +362,24 @@ export default function ASCIIAdventureGame() {
     }
   };
 
+  // Render hearts with animation
+  const renderHearts = () => {
+    const hearts = [];
+    for (let i = 0; i < lives; i++) {
+      hearts.push(
+        <span
+          key={i}
+          className={`inline-block ${
+            heartAnimation === "gain" ? "animate-bounce text-green-400" : heartAnimation === "lose" ? "animate-pulse text-red-400" : "text-red-400"
+          } transition-colors duration-300`}
+        >
+          {heartArt}
+        </span>
+      );
+    }
+    return hearts;
+  };
+
   // Render menu
   if (gameState === "menu") {
     return (
@@ -372,16 +391,26 @@ export default function ASCIIAdventureGame() {
 ║       ANATOMY ADVENTURE      ║
 ╚══════════════════════════════╝
 
-⚔️  WELCOME BRAVE ADVENTURER  ⚔️
+${swordArt}  WELCOME BRAVE ADVENTURER
 `}
           </pre>
           <div className="space-y-4">
-            <button onClick={startGame} className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded text-xl font-bold transition-colors cursor-pointer">
-              START ADVENTURE
+            <button
+              onClick={startGame}
+              className="bg-transparent border-2 border-green-400 hover:bg-green-400 hover:text-black text-green-400 px-4 py-2 font-mono text-lg font-bold transition-colors cursor-pointer"
+            >
+              <pre className="whitespace-pre text-sm leading-tight">{`╔═══════════╗
+║   START   ║
+╚═══════════╝`}</pre>
             </button>
             <br />
-            <Link href="/" className="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded text-xl font-bold transition-colors cursor-pointer">
-              QUIT
+            <Link
+              href="/"
+              className="bg-transparent border-2 border-red-400 hover:bg-red-400 hover:text-black text-red-400 px-4 py-2 font-mono text-lg font-bold transition-colors cursor-pointer inline-block"
+            >
+              <pre className="whitespace-pre text-sm leading-tight">{`╔═══════════╗
+║    QUIT   ║
+╚═══════════╝`}</pre>
             </Link>
           </div>
         </div>
@@ -400,18 +429,28 @@ export default function ASCIIAdventureGame() {
 ║          GAME OVER           ║
 ╚══════════════════════════════╝
 
-💀  YOU HAVE FALLEN  💀
+${skullArt} YOU HAVE FALLEN
 `}
           </pre>
           <p className="text-lg mb-4">{gameMessage}</p>
           <p className="text-md mb-8">Round Reached: {round}</p>
           <div className="space-y-4">
-            <button onClick={startGame} className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded text-xl font-bold transition-colors cursor-pointer">
-              RESTART
+            <button
+              onClick={startGame}
+              className="bg-transparent border-2 border-green-400 hover:bg-green-400 hover:text-black text-green-400 px-4 py-2 font-mono text-lg font-bold transition-colors cursor-pointer"
+            >
+              <pre className="whitespace-pre text-sm leading-tight">{`╔═══════════╗
+║  RESTART  ║
+╚═══════════╝`}</pre>
             </button>
             <br />
-            <Link href="/" className="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded text-xl font-bold transition-colors cursor-pointer">
-              QUIT
+            <Link
+              href="/"
+              className="bg-transparent border-2 border-red-400 hover:bg-red-400 hover:text-black text-red-400 px-4 py-2 font-mono text-lg font-bold transition-colors cursor-pointer inline-block"
+            >
+              <pre className="whitespace-pre text-sm leading-tight">{`╔═══════════╗
+║    QUIT   ║
+╚═══════════╝`}</pre>
             </Link>
           </div>
         </div>
@@ -430,17 +469,27 @@ export default function ASCIIAdventureGame() {
 ║           VICTORY!           ║
 ╚══════════════════════════════╝
 
-🏆  MAHGUIB THE MIGHT HAS BEEN DEFEATED!  🏆
+${treasureArt}  MAHGUIB THE MIGHT HAS BEEN DEFEATED!
 YOU HAVE COMPLETED YOUR QUEST
 `}
           </pre>
           <div className="space-y-4">
-            <button onClick={startGame} className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded text-xl font-bold transition-colors cursor-pointer">
-              PLAY AGAIN
+            <button
+              onClick={startGame}
+              className="bg-transparent border-2 border-green-400 hover:bg-green-400 hover:text-black text-green-400 px-4 py-2 font-mono text-lg font-bold transition-colors cursor-pointer"
+            >
+              <pre className="whitespace-pre text-sm leading-tight">{`╔═══════════════╗
+║  PLAY AGAIN   ║
+╚═══════════════╝`}</pre>
             </button>
             <br />
-            <Link href="/" className="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded text-xl font-bold transition-colors cursor-pointer">
-              QUIT
+            <Link
+              href="/"
+              className="bg-transparent border-2 border-red-400 hover:bg-red-400 hover:text-black text-red-400 px-4 py-2 font-mono text-lg font-bold transition-colors cursor-pointer inline-block"
+            >
+              <pre className="whitespace-pre text-sm leading-tight">{`╔═══════════════╗
+║      QUIT     ║
+╚═══════════════╝`}</pre>
             </Link>
           </div>
         </div>
@@ -454,7 +503,7 @@ YOU HAVE COMPLETED YOUR QUEST
       {/* Game Stats */}
       <div className="flex justify-between items-center mb-6 bg-gray-800 p-4 rounded">
         <div>Round: {round}/20</div>
-        <div>Lives: {"❤️".repeat(lives)}</div>
+        <div className="flex items-center gap-1">Lives: {renderHearts()}</div>
         <div>Time: {formatTime(timeLeft)}</div>
         {powerUps.questionHelper > 0 && <div>Wisdom Scrolls: {powerUps.questionHelper}</div>}
       </div>
@@ -480,8 +529,12 @@ YOU HAVE COMPLETED YOUR QUEST
             <h2 className="text-xl mb-4">{currentQuestion.question}</h2>
             <div className="grid grid-cols-1 gap-3">
               {currentQuestion.options.map((option, index) => (
-                <button key={index} onClick={() => answerQuestion(index)} className="bg-blue-600 hover:bg-blue-700 text-white p-3 rounded text-left transition-colors cursor-pointer">
-                  {String.fromCharCode(65 + index)}) {option}
+                <button
+                  key={index}
+                  onClick={() => answerQuestion(index)}
+                  className="bg-transparent border-2 border-blue-400 hover:bg-blue-400 hover:text-black text-blue-400 p-3 font-mono text-left transition-colors cursor-pointer"
+                >
+                  <span className="font-bold text-yellow-400">{String.fromCharCode(65 + index)})</span> {option}
                 </button>
               ))}
             </div>
@@ -496,11 +549,16 @@ YOU HAVE COMPLETED YOUR QUEST
           <div className="grid grid-cols-3 gap-6">
             {doors.map((door, index) => (
               <div key={door.id} className="text-center">
-                <button onClick={() => selectDoor(door)} className="bg-gray-800 hover:bg-gray-700 p-4 rounded transition-colors w-full cursor-pointer">
+                <button
+                  onClick={() => selectDoor(door)}
+                  className="bg-transparent border-2 border-gray-400 hover:bg-gray-400 hover:text-black text-gray-400 p-4 font-mono transition-colors w-full cursor-pointer"
+                >
                   <pre className="text-xs whitespace-pre">{doorArt}</pre>
-                  <p className="mt-2 capitalize">
-                    {door.type} {index + 1}
-                  </p>
+                  <div className="mt-2">
+                    <pre className="whitespace-pre text-sm leading-tight">{`╔═══════════╗
+║  Door ${index + 1}   ║
+╚═══════════╝`}</pre>
+                  </div>
                 </button>
               </div>
             ))}
