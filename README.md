@@ -1,6 +1,6 @@
 # BUGS
 
-1. BUG Remove sendgrid and send message to a message tableS
+1. BUG Give Flash Cards a dark outline
 
 # Future Features
 
@@ -9,7 +9,6 @@
 ## Dashboard
 
 1. DONE Reorganize Flash Cards and Mock Exams
-2. Report Bug Form
 
 ## Profile
 
@@ -17,13 +16,12 @@
 2. DONE Edit Profile (Needs Auth)
 3. Delete Profile (Needs Auth)
 4. DONE Study Streak (Needs Auth)
-5. Pomodoro Timer
-6. Study Music
 
 ## Mock Exam
 
 1. DONE Lab Test
 2. DONE Leaderboard (Needs Auth)
+3. Add Lecture Game (Needs Lecture Game)
 
 ## Flash Cards
 
@@ -47,12 +45,12 @@
 
 ## Lecture Game
 
-1. DONE Text-based game with randomized questions and options.
+1. BUGGED Text-based game with randomized questions and options.
+   1. Show the correct answer
 2. DONE Randomized choices.
 3. DONE Timer.
 4. BUGGED ASCII art.
    1. Not mobile friendly.
 5. DONE Losing lives.
 6. BUGGED Power ups.
-   1. Change wisdom to scroll to manual use.
-
+   1. Change wisdom scroll to manual use.

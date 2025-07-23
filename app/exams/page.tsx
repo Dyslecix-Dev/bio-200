@@ -38,6 +38,9 @@ const Exams = () => {
 
         <Card title="Lecture 3" subtitle="Third mock lecture test." link="exams/lecture-three" className="bg-sky-300 block xl:hidden" />
         <SpringCard title="Lecture 3" subtitle="Third mock lecture test." link="exams/lecture-three" className="bg-sky-300 hidden xl:block" />
+
+        <Card title="Anatomy Adventure" subtitle="Text-based video game for final lecture test." link="exams/video-game" className="bg-sky-300 block xl:hidden" />
+        <SpringCard title="Anatomy Adventure" subtitle="Text-based video game for final lecture test." link="exams/video-game" className="bg-sky-300 hidden xl:block" />
       </div>
     </section>
   );
