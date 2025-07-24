@@ -14,10 +14,11 @@ export const questions = [
     A: "Cortex",
     B: "Medulla",
     C: "Ureter",
-    D: "Cortex",
-    E: "Medulla",
+    D: "Cortex", // TODO Fix image
+    E: "Medulla", // TODO Fix image
   },
   {
+    // TODO add to lab slides after getting answers
     image: "https://boej6iprvajfuxis.public.blob.vercel-storage.com/lab_7/lab_7_slide_3.png",
     A: "Afferent arteriole",
     B: "Efferent arteriole",
@@ -85,7 +86,7 @@ export const questions = [
     J: "Corpus spongiosum",
     K: "Seminal gland",
     L: "Prostate",
-    M: "Cowper's gland (Bulbo-urethral gland)",
+    M: "Cowper's gland (bulbo-urethral gland)",
   },
   {
     image: "https://boej6iprvajfuxis.public.blob.vercel-storage.com/lab_7/lab_7_slide_8.png",
@@ -126,7 +127,7 @@ export const questions = [
   },
   {
     image: "https://boej6iprvajfuxis.public.blob.vercel-storage.com/lab_7/lab_7_slide_12.png",
-    1: "Renal corpuscles",
+    1: "Renal corpuscle",
     2: "Proximal convoluted tubule",
     3: "Distal convoluted tubule",
     4: "Collecting tubule",
@@ -138,7 +139,7 @@ export const questions = [
     1: "Afferent arteriole",
     2: "Glomerulus",
     3: "Efferent arteriole",
-    4: "Podocytes",
+    4: "Podocyte",
     5: "Bowman's capsule (glomerular capsule)",
     6: "Proximal convoluted tubule",
     7: "Distal convoluted tubule",
