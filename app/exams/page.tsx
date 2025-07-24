@@ -33,8 +33,8 @@ const Exams = () => {
         <Card title="Lecture 2" subtitle="Second mock lecture test." link="exams/lecture-two" className="bg-emerald-300 block xl:hidden" />
         <SpringCard title="Lecture 2" subtitle="Second mock lecture test." link="exams/lecture-two" className="bg-emerald-300 hidden xl:block" />
 
-        <Card title="Lab 3" subtitle="Coming soon." link="#" className="bg-sky-300 block xl:hidden" />
-        <SpringCard title="Lab 3" subtitle="Coming soon." link="#" className="bg-sky-300 hidden xl:block" />
+        <Card title="Lab 3" subtitle="Third mock lab practical." link="exams/lab-three" className="bg-sky-300 block xl:hidden" />
+        <SpringCard title="Lab 3" subtitle="Third mock lab practical." link="exams/lab-three" className="bg-sky-300 hidden xl:block" />
 
         <Card title="Lecture 3" subtitle="Third mock lecture test." link="exams/lecture-three" className="bg-sky-300 block xl:hidden" />
         <SpringCard title="Lecture 3" subtitle="Third mock lecture test." link="exams/lecture-three" className="bg-sky-300 hidden xl:block" />
