@@ -53,13 +53,13 @@ const BasicFAQ = () => {
 
         <Question title="Thank you to all these wonderful people!">
           <p>
-            Huge shoutout to Andrew Ngo and Nicole Lees for providing me with questions for the mock exams.
+            Huge shoutout to Andrew Ngo, Brenda Beltran, and Nicole Lees for providing me with questions for the mock lecture exams.
             <br />
             <br />
             Also thank you to my beta testers: Alistaire Trinidad, Andrew Ngo, Brenda Beltran, Ivan Tafoya, Nicole Bachoura, Nicole Lees, Jasmine Aguilar, and Juliana Diaz.
             <br />
             <br />
-            Last but not least, thank you again Andrew Ngo for editing the flash card images.
+            Last but not least, thank you again Andrew Ngo for providing the images for the mock lab exams.
           </p>
         </Question>
       </div>
@@ -115,4 +115,3 @@ const Question = ({ title, children, defaultOpen = false }: FAQuestionType) => {
     </motion.div>
   );
 };
-

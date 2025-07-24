@@ -89,10 +89,7 @@ const Cards = () => {
         <Card title="Exams" subtitle="Lecture and lab mock exams." link="exams" className="bg-red-300 block xl:hidden" />
         <SpringCard title="Exams" subtitle="Lecture and lab mock exams." link="exams" className="bg-red-300 hidden xl:block" />
 
-        <SpringCard title="Kanban" subtitle="Plan your studying." link="kanban" className="bg-orange-300 hidden xl:block" />
-
-        <Card title="Bugs" subtitle="Report bugs." link="contact" className="bg-green-300 block xl:hidden" />
-        <SpringCard title="Bugs" subtitle="Report bugs." link="contact" className="bg-green-300 hidden xl:block" />
+        <SpringCard title="Kanban" subtitle="Plan your studying." link="kanban" className="bg-green-300 hidden xl:block" />
       </div>
     </section>
   );

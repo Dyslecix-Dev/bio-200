@@ -29,6 +29,15 @@ const LabFlashCards = () => {
 
         <Card title="Lab 6" subtitle="Muscles set 3 and the digestive system." link="lab/six" className="bg-yellow-300 block xl:hidden" />
         <SpringCard title="Lab 6" subtitle="Muscles set 3 and the digestive system." link="lab/six" className="bg-yellow-300 hidden xl:block" />
+
+        <Card title="Lab 7" subtitle="The urinary and reproductive systems." link="lab/seven" className="bg-green-300 block xl:hidden" />
+        <SpringCard title="Lab 7" subtitle="The urinary and reproductive systems." link="lab/seven" className="bg-green-300 hidden xl:block" />
+
+        <Card title="Lab 8" subtitle="The heart and blood vessels." link="lab/eight" className="bg-blue-300 block xl:hidden" />
+        <SpringCard title="Lab 8" subtitle="The heart and blood vessels." link="lab/eight" className="bg-blue-300 hidden xl:block" />
+
+        <Card title="Lab 9" subtitle="The nervous system." link="lab/nine" className="bg-purple-300 block xl:hidden" />
+        <SpringCard title="Lab 9" subtitle="The nervous system." link="lab/nine" className="bg-purple-300 hidden xl:block" />
       </div>
     </section>
   );
