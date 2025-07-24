@@ -308,7 +308,7 @@ const Questions: FC<
           return (
             <div key={questionIndex} className="mb-12 border-2 border-zinc-700 rounded-lg p-6 bg-zinc-900/50 backdrop-blur-sm">
               <div className="text-xl font-bold text-blue-400 mb-4">
-                Question {questionIndex + 1}: Identify the {questionKeys.length} locations in this image
+                Question {questionIndex + 1}: Identify the {questionKeys.length} {questionKeys.length > 1 ? "locations" : "location"} in this image
               </div>
               <div className="text-center mb-6">
                 <Image src={question.image} alt={`Anatomy slide ${questionIndex + 1}`} width={800} height={600} className="w-full max-w-4xl h-auto mx-auto rounded-lg border-2 border-zinc-600" />
