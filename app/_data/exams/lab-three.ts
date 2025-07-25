@@ -18,18 +18,6 @@ export const questions = [
     E: "Medulla", // TODO Fix image
   },
   {
-    // TODO add to lab slides after getting answers
-    image: "https://boej6iprvajfuxis.public.blob.vercel-storage.com/lab_7/lab_7_slide_3.png",
-    A: "Afferent arteriole",
-    B: "Efferent arteriole",
-    C: "Glomerulus",
-    D: "Proximal convoluted tubule",
-    E: "ASK PROFESSOR", // TODO
-    F: "ASK PROFESSOR", // TODO
-    G: "ASK PROFESSOR", // TODO
-    H: "ASK PROFESSOR", // TODO
-  },
-  {
     image: "https://boej6iprvajfuxis.public.blob.vercel-storage.com/lab_7/lab_7_slide_4.png",
     A: "Urinary bladder",
     B: "Urethra",
@@ -298,7 +286,7 @@ export const questions = [
     279: "Posterior vein",
     280: "Superior vena cava",
     281: "Pulmonary artery",
-    284: "Left pulmonary veins",
+    284: "Left pulmonary vein",
     288: "Aortic arch",
   },
   {
@@ -306,16 +294,16 @@ export const questions = [
     275: "Coronary sinus",
     277: "Middle cardiac vein",
     282: "Pulmonary artery",
-    284: "Left pulmonary veins",
+    284: "Left pulmonary vein",
     286: "Inferior vena cava",
   },
   {
     image: "https://boej6iprvajfuxis.public.blob.vercel-storage.com/lab_8/lab_8_slide_8.png",
     263: "Right atrium",
-    271: "Anterior cardiac veins",
+    271: "Anterior cardiac vein",
     280: "Superior vena cava",
     283: "Pulmonary artery",
-    285: "Right pulmonary veins",
+    285: "Right pulmonary vein",
     286: "Inferior vena cava",
   },
   {
@@ -326,7 +314,7 @@ export const questions = [
     266: "Left ventricle",
     280: "Superior vena cava",
     281: "Pulmonary artery",
-    287: "Ascending aorta",
+    287: "Ascending aorta", // TODO start here
     288: "Aortic arch",
     291: "Aortic valve",
     293: "Tricuspid valve",
